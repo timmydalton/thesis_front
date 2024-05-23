@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import StoreLayout from  '@/components/layout/StoreLayout.vue'
 
 import Homepage from  '@/components/sections/Homepage.vue'
+import Login from  '@/components/sections/Login.vue'
+import Register from  '@/components/sections/Register.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +20,16 @@ const router = createRouter({
           name: 'home',
           component: Homepage,
           alias: '/home'
+        },
+        {
+          path: 'login',
+          name: 'login',
+          component: Login
+        },
+        {
+          path: 'register',
+          name: 'register',
+          component: Register
         }
       ]
     },
