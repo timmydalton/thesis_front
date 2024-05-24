@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
+
 export function useApiget(url, params = null, headers = {}) {
   const jwt = cookies.get('jwt')
 

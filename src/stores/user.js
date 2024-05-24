@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useApiget, useApipost } from '@/composable/fetch'
 
-const BACKEND_API_URL = import.meta.env.BACKEND_API_URL
+const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', {
       this.me = value
     },
     fetchAccount() {
-      return useApiget(`${BACKEND_API_URL}/api/@me`, null, {})
+      return useApiget(`${VITE_BACKEND_API_URL}/api/@me`, null, {})
       .then((res) => {
         this.setMe(res.data.data)
       })
@@ -23,7 +23,7 @@ export const useUserStore = defineStore('user', {
         password
       }
       
-      return useApipost(`${BACKEND_API_URL}/api/user/create_account`, params)
+      return useApipost(`${VITE_BACKEND_API_URL}/auth/signup`, params)
     }
   }
 })

@@ -2,7 +2,7 @@
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { Input, InputPassword, Button } from 'ant-design-vue'
+import { Input, InputPassword, Button, Alert } from 'ant-design-vue'
 
 import 'ant-design-vue/dist/reset.css'
 import 'vue3-carousel/dist/carousel.css'
@@ -16,6 +16,7 @@ const app = createApp(App)
 app.use(Input)
 app.use(InputPassword)
 app.use(Button)
+app.use(Alert)
 
 app.use(createPinia())
 app.use(router)
