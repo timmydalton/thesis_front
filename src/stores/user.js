@@ -24,6 +24,14 @@ export const useUserStore = defineStore('user', {
       }
       
       return useApipost(`${VITE_BACKEND_API_URL}/auth/signup`, params)
-    }
+    },
+    handleLogin(username, password) {
+      const params = {
+        username,
+        password
+      }
+      
+      return useApipost(`${VITE_BACKEND_API_URL}/auth/signin`, params)
+    },
   }
 })

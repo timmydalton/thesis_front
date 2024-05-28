@@ -22,10 +22,12 @@
           </div>
 
           <a-input-password placeholder="Nhập mật khẩu..." v-model:value="password" />
+
+          <a-alert class="mt-2" type="error" :message="alertText" v-if="showAlert"/>
         </div>
 
         <div class="flex flex-col items-center mt-4">
-          <a-button type="primary">Đăng nhập</a-button>
+          <a-button type="primary" @click="handleLogin">Đăng nhập</a-button>
         </div>
       </form>
     </div>
@@ -33,11 +35,37 @@
 </template>
 
 <script>
+import { useUserStore } from '@/stores/user'
+
 export default {
+  setup() {
+    const user = useUserStore()
+
+    return { user }
+  },
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      alertText: '',
+      showAlert: false,
+      loading: false,
+    }
+  },
+  methods: {
+    handleLogin() {
+      if (!this.username || !this.password) {
+        this.alertText = 'Bạn phải nhập đầy đủ thông tin!'
+        this.showAlert = true
+        return
+      }
+
+      this.loading = true
+
+      this.user.handleLogin(this.username, this.password)
+        .finally(() => {
+          this.loading = false
+        })
     }
   }
 }
