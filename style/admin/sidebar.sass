@@ -1,0 +1,304 @@
+.sidebar-menu-popover
+  padding: 0
+  .ant-popover-arrow
+    display: none
+  .ant-popover-inner
+    border-radius: 4px
+    background-color: var(--bg-ui-2)
+    width: 206px
+    &-content
+      padding: 8px 0
+      color: inherit
+      .sidebar-menu--sub-item-wrapper
+        padding: 0
+        max-height: 20em
+        .sidebar-menu--sub-item
+          &:hover
+            background-color: var(--a-menu-option-hover-2)
+          &-label
+            padding-left: 1rem
+          &-icon
+            display: none
+
+.db-sidebar--main
+  @apply bg-ui-2
+  border-right: 1px solid var(--divider)
+  display: flex
+  flex-direction: column
+  &.minimized
+    width: 5.25rem
+
+.sidebar-left-panel
+  color: #fff
+  align-items: center
+  width: 14rem
+  position: relative
+  z-index: 2
+  transition: all .2s ease
+  padding: 0px 0.75rem
+  flex-shrink: 0
+  height: 60px
+  .icon-wrapper
+    overflow: hidden
+    height: 54px
+    align-items: center
+    display: flex
+    margin-left: 0.75rem
+    svg
+      flex-shrink: 0
+  &.minimized
+    width: 5.25rem
+    padding-left: 0.75rem
+    .toggle-sidebar-btn
+      transform: rotate(-180deg)
+    .icon-wrapper
+      margin-left: calc( 1rem + 1px )
+  .toggle-sidebar-btn
+    height: 20px
+    width: 20px
+    border-radius: 50%
+    position: absolute
+    right: -10px
+    background-color: var(--bg-ui-2)
+    transition: transform .5s ease
+    box-shadow: 3px -1px 4px rgba(0, 0, 0, var(--topbar-shadow-opacity))
+  
+.db-sidebar, .sidebar-menu-popover
+  user-select: none
+  background-color: var(--bg-ui-2)
+  color: var(--a-menu-title)
+  font-family: 'Roboto'
+  font-style: normal
+  font-weight: 500
+  font-size: 14px
+  line-height: 22px
+  max-height: calc( 100vh - 56px )
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, var(--topbar-shadow-opacity))
+  z-index: 1002
+  &--wrapper
+    background-color: var(--bg-ui-2)
+    z-index: 1
+    width: 14rem
+    transition: all .2s ease
+    a
+      color: inherit
+    &.minimized
+      width: 5.25rem
+      .sidebar-menu--item
+        &-label
+          //justify-content: center
+        &-icon
+          margin: 0
+          margin-left: 8px
+        &-title, &-arrow
+          display: none
+      .sidebar-user
+        .db--sidebar-user
+          padding: 0 14px
+          .username-container, .close-icon
+            display: none
+        &--menu-item
+          &-icon
+            margin: 0
+          &-label
+            display: none
+  &--profile
+    .wrapper
+      display: flex
+      flex-direction: column
+      align-items: center
+      margin-bottom: 0.5rem
+      .avatar
+        width: 72px
+        height: 72px
+        overflow: hidden
+        border-radius: 50%
+        margin: 1rem 0
+        background-color: rgb(225, 225, 225)
+        filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.06)) drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.04)) drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.04))
+        border: 2px solid #FAFAFA
+        img
+          width: 100%
+          height: 100%
+      .email
+        overflow: hidden
+        vertical-align: middle
+        text-overflow: ellipsis
+        max-width: 200px
+        font-weight: 400
+        white-space: nowrap
+        text-align: center
+        display: inline-block
+        font-size: 13px
+  &--content
+    &--wrapper
+      overflow-y: auto
+      overflow-x: hidden
+      scrollbar-gutter: auto
+      &::-webkit-scrollbar
+        background: none
+  svg
+    width: 20px
+  .sidebar-menu--sub-item-selected, .sidebar-menu--item-selected
+    color: #fff
+    .sidebar-menu--item-label
+      background-color: var(--primary-v2) !important
+      border-radius: 6px
+    .sidebar-menu--item-icon
+      path
+        fill: #fff
+    .sidebar-menu--item-title
+      font-weight: 500
+  .sidebar-menu--sub-item, .sidebar-menu--item
+    position: relative
+    &:hover
+      background-color: var(--theme-color-hover)
+  .sidebar-menu
+    &-expand
+      &-open
+        .sidebar-menu--item-arrow
+          transform: rotate(90deg)
+    &--divider
+      border-bottom: 1px solid var(--divider)
+      margin: 4px auto
+      width: calc( 100% - 48px )
+    &--item
+      position: relative
+      padding: 4px 12px
+      cursor: pointer
+      &:not(.sidebar-menu-expand)
+        margin-bottom: 6px
+      &-label
+        display: flex
+        align-items: center
+        height: 38px
+        padding: 8px 12px
+      &-icon
+        margin-right: 1rem
+        height: 1.25rem
+        width: 1.25rem
+        display: flex
+        align-items: center
+        justify-content: center
+        path
+          fill: var(--a-menu-title)
+      &-title
+        font-weight: 400
+        flex-shrink: 0
+      &-arrow
+        position: absolute
+        top: 1.375rem
+        right: 2rem
+        text-decoration: none
+        transition: transform .2s ease
+        transform: rotate(0deg)
+        &::before, &::after
+          border-right: 2px solid
+          content: ''
+          display: block
+          height: 8px
+          margin-top: -6px
+          position: absolute
+          transform: rotate(135deg)
+          top: 50%
+          width: 0
+        &::after
+          margin-top: -1px
+          transform: rotate(45deg)
+    &--sub
+      &-item
+        padding: 0 12px
+        &-wrapper
+          cursor: pointer
+          transition: all .1s ease-in, all .5s ease-out
+          overflow: hidden
+          max-height: 0
+          &-open
+            max-height: 20em
+        &-label
+          display: flex
+          align-items: center
+          height: 38px
+          padding-left: 12px
+        &-icon
+          margin-right: 1rem
+          height: 1.25rem
+          width: 1.25rem
+          display: flex
+          align-items: center
+          justify-content: center
+        &-title
+          flex-shrink: 0
+          font-weight: 400
+  .sidebar-user
+    position: absolute
+    bottom: 0
+    width: 100%
+    border-radius: 4px
+    overflow: hidden
+    max-height: 20em
+    transition: all .2s ease-in, all .5s ease-out
+    &.expand
+      box-shadow: 1px 2px 7px 3px rgba(0, 0, 0, 0.1)
+      .db--sidebar-user
+        background-color: var(--sidebar-profile)
+        &:hover
+          background-color: var(--sidebar-profile)
+      .username-container
+        color: #fff
+      .close-icon .svg-theme
+        path
+          fill: #fff
+    &:not(.expand)
+      max-height: 56px
+    &--wrapper
+      position: relative
+      height: 56px
+      margin: 0 0.5rem 1rem 0.5rem
+      .db--sidebar-user
+        font-size: 12px
+        display: flex
+        align-items: center
+        border-radius: 4px
+        height: 56px
+        background-color: var(--bg-ui-2)
+        padding: 0px 0.5rem
+        &:hover
+          background-color: var(--theme-color-hover)
+        .account-text
+          font-weight: 700
+          size: 12px
+        span
+          line-height: 20px
+          img
+            width: 2.5rem
+            height: 2.5rem
+            border-radius: 50%
+        .username-container
+          display: flex
+          flex-direction: column
+          margin-left: 10px
+        .close-icon
+          position: absolute
+          right: 0.5rem
+          height: 1.25rem
+          width: 1.25rem
+    &--menu
+      background-color: var(--bg-ui-4)
+      &-item
+        height: 46px
+        padding: 0.75rem 1.5rem
+        cursor: pointer
+        &:hover
+          background-color: var(--theme-color-hover)
+        &-icon
+          margin-right: 1rem
+          height: 1.25rem
+          width: 1.25rem
+        &-label
+          font-weight: 400
+
+.sidebar-menu--sub-item-selected
+  .sidebar-menu--sub-item-label
+    background-color: var(--primary-v2) !important
+    border-radius: 6px

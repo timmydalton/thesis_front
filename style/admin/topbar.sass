@@ -1,0 +1,123 @@
+.store-logo
+  width: 80%
+
+.db--topbar
+  position: relative
+  height: 48px
+  box-shadow: 0 1px 5px 0 rgb(41 85 115 / 21%)
+  background: #fff
+  padding: 0 30px
+  &-username
+    .username-text
+      display: flex
+      flex-direction: column
+      #account-text
+        color: var(--username)
+      #email
+        color: var(--text-light)
+        font-size: 12px
+
+.db--mysites, .db--resource, .db--topbar-help
+  color: #2c3e50
+  padding: 13px 13px
+  cursor: pointer
+  &:hover
+    color: #00C1A2
+
+.db--topbar-notification
+  margin-right: 15px
+  cursor: pointer
+
+.db--topbar-avatar img
+  width: 40px
+  height: 40px
+  border-radius: 50%
+
+.db--topbar-locale-menu-item
+  padding: 5px 10px
+  cursor: pointer
+  font-size: 13px
+  &:hover
+    background-color: var(--theme-color-hover)
+  img
+    width: 24px
+    height: 24px
+    border-radius: 50%
+    margin-right: 16px
+
+.db--topbar-locale-avatar
+  cursor: pointer
+  img
+    width: 24px
+    height: 24px
+    border-radius: 50%
+.db--topbar-locale-avatar.customer
+  img
+    width: 30px
+    height: 30px
+    border-radius: 50%
+.db--topbar-username-quick-info
+  div
+    &:first-child
+      font-weight: 600
+    &:last-child
+      font-size: 12px
+
+.db--topbar-user
+  padding: 5px 15px 5px 15px
+  font-size: 12px
+  cursor: pointer
+  &:hover
+    background: var(--theme-color-hover)
+  img
+    width: 24px
+    height: 24px
+    margin-right: 5px
+  span
+    line-height: 20px
+
+.divider-3-0
+  margin: 3px 0
+
+.db--topbar-profile--popover
+  width: 240px
+
+.db--topbar--dropdown-avatar
+  display: flex
+  align-items: center
+  height: 60px
+  border-radius: 4px
+  padding: 0px 6px
+  .dropdown-content .dropdown-avatar .LazyLoad
+    margin-left: 8px
+  .rr-status-badge
+    width: 34px
+    height: 34px
+    img
+      background-color: rgb(225, 225, 225)
+      filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.06)) drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.04)) drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.04))
+      border: 2px solid #FAFAFA
+  .username-container
+    display: flex
+    flex-direction: column
+    margin-left: 10px
+    #account-text
+      line-height: 20px
+      font-weight: 400
+      font-size: 12px
+  #log-out-btn
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-left: auto
+    border-radius: 4px
+    width: 28px
+    height: 28px
+    margin-right: 6px
+    #log-out-icon
+      font-size: 16px
+  &:hover
+    #log-out-btn
+      background-color: var(--bg-page)
+      &:hover
+        color: rgb(255,71,87)

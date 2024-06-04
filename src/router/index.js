@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { useUserStore } from '@/stores/user'
 
 import StoreLayout from  '@/components/layout/StoreLayout.vue'
+import AdminLayout from  '@/components/layout/AdminLayout.vue'
 
 import Homepage from  '@/components/sections/Homepage.vue'
 import Login from  '@/components/sections/Login.vue'
@@ -10,6 +11,33 @@ import Register from  '@/components/sections/Register.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminLayout,
+      children: [
+        {
+          path: '',
+          name: 'analytics',
+          component: Homepage,
+        },
+        {
+          path: 'products',
+          name: 'products',
+          component: Homepage,
+        },
+        {
+          path: 'categories',
+          name: 'categories',
+          component: Homepage,
+        },
+        {
+          path: 'orders',
+          name: 'orders',
+          component: Homepage,
+        },
+      ]
+    },
     {
       path: '/',
       name: 'store',
@@ -42,6 +70,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     }
   ]
+})
+
+router.beforeEach((to, from) => {
+  const user = useUserStore()
+  user.fetchAccount()
 })
 
 export default router

@@ -1,0 +1,15 @@
+@import 'sidebar'
+@import 'topbar'
+
+.layout-view
+  max-width: 1800px
+  &--wrapper
+    //min-width: 1216px //13inch macbook = 1440 - 224 (sidebar)
+    min-width: 856px //720p resolution 1080 - 224
+    overflow-y: scroll
+    height: calc( 100vh - 3.5rem )
+
+.page-view-right
+  width: calc(100% - 224px)
+  &.minimized
+    width: calc(100% - 84px)

@@ -1,0 +1,50 @@
+@mixin popover-container()
+  min-width: 200px
+  border-radius: 5px
+  background-color: #fff
+  box-shadow: 0 0 18px 0 rgb(22 45 61 / 27%)
+  overflow: hidden
+  padding: 0
+
+.custom-popover
+  @include popover-container()
+  .ant-popover-content
+    .ant-popover-arrow
+      display: none
+    .ant-popover-inner-content
+      padding: 4px 0
+      .popover-item
+        user-select: none
+        padding: 7px 15px
+        cursor: pointer
+        font-size: 13px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        &:hover
+          background: $theme-bg2
+      .popover-item.disabled
+        pointer-events: none
+        color: #b6b6b6
+
+.ant-popover-inner
+  background-color: var(--bg-ui-2)
+  border: 1px solid var(--divider)
+  padding: 0px !important
+  .ant-popover-inner-content
+    color: var(--text-default)
+.ant-popover-arrow-content
+  background-color: var(--bg-ui-2)
+.ant-popover-title
+  color: var(--text-default)
+  border: none
+  position: relative
+  &::after
+    content: ''
+    height: 1px
+    width: 80%
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    background-color: var(--divider)

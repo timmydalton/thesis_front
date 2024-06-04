@@ -14,7 +14,8 @@ export const useUserStore = defineStore('user', {
     fetchAccount() {
       return useApiget(`${VITE_BACKEND_API_URL}/api/@me`, null, {})
       .then((res) => {
-        this.setMe(res.data.data)
+        const account = res.data.data || {}
+        this.setMe(account)
       })
     },
     createAccount(username, password) {

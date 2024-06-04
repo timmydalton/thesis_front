@@ -11,6 +11,12 @@
     <div class="sect-h1-text">
       Giới thiệu
     </div>
+
+    <div class="sect-h1-text">
+      <a href="/admin">
+        Admin
+      </a>
+    </div>
   </section>
 
   <section class="sect-h2">
@@ -69,6 +75,8 @@ export default {
   display: grid
   grid-template-columns: 40px 160px 1fr 180px 40px
   grid-template-rows: minmax(107px, max-content)
+  z-index: 1
+  background: #fff
   .logo
     align-self: center
     grid-column-end: 4
