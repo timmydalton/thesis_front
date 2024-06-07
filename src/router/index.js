@@ -8,6 +8,8 @@ import Homepage from  '@/components/sections/Homepage.vue'
 import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
+import Products from '@/components/admin-view/Products.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,22 +21,22 @@ const router = createRouter({
         {
           path: '',
           name: 'analytics',
-          component: Homepage,
+          component: Products,
         },
         {
           path: 'products',
           name: 'products',
-          component: Homepage,
+          component: Products,
         },
         {
           path: 'categories',
           name: 'categories',
-          component: Homepage,
+          component: Products,
         },
         {
           path: 'orders',
           name: 'orders',
-          component: Homepage,
+          component: Products,
         },
       ]
     },

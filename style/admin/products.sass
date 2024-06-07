@@ -1,0 +1,332 @@
+@import '../_variable/_color'
+  
+.products
+  overflow: hidden
+  padding: 1.5rem 1.5rem 0 1.5rem !important
+  &_top
+    color: var(--text-light-2)
+    &-action
+      display: flex
+      //height: 32px
+      //margin: 24px 0 16px 0
+      justify-content: space-between
+      &--left
+        flex-wrap: wrap
+      &--plus
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: 8px
+        border: 1px solid $color-primary
+        border-radius: 4px
+        color: #fff
+        background: $color-primary
+        margin-right: 8px
+        cursor: pointer
+        height: 36px
+        margin-top: 8px
+      &--plus:hover
+        background: var(--primary-v2)
+
+      &--remove
+        display: flex
+        justify-content: center
+        align-items: center
+        border-radius: 4px
+        padding: 8px
+        border: 1px solid #EB5757
+        color: #EB5757
+        background: #fff
+        cursor: pointer
+        height: 36px
+      &--remove:hover
+        color: #fff
+        background: #EB5757
+
+      &--default
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: 8px
+        border: 1px solid var(--bg-ui-2)
+        border-radius: 4px
+        background: var(--bg-ui-2)
+        cursor: pointer
+        height: 36px
+        margin-top: 8px
+        svg
+          fill: var(--text-light-2)
+      &--default:hover
+        border-color: $color-primary
+      &--default.rm-selected:hover
+        border-color: #EB5757
+        fill: #EB5757
+        color: #EB5757
+  &_mid
+    &_content_table
+      //display: flex
+      //flex-direction: column
+      //height: calc(100vh - 170px)
+      //justify-content: space-between
+      .image-default
+        display: flex
+        justify-content: center
+        align-items: center
+        padding: 7px
+        border: 1px solid #f5f5f5
+        background: #f5f5f5
+        border-radius: 4px
+        color: $color-text-dark-02
+      .action-remove:hover
+        color: #EB5757
+      .action-copy:hover
+        color: $color-primary
+      .ant-table-row:hover
+        .quick-view
+          visibility: visible !important
+      .minus_height
+        .ant-table-body
+          max-height: calc(100vh - 300px) !important
+          min-height: calc(100vh - 300px)
+      .ant-table-body
+        min-height: calc(100vh - 310px)
+      .ant-table-thead
+        tr
+          th
+            background: $color-border
+            height: 44px !important
+            color: $color-text-dark-02
+            font-weight: 700
+      .ant-switch-checked
+        background-color: $color-primary
+      .ant-table-cell-scrollbar
+        box-shadow: none !important
+
+.modal_edit_product
+  width: 80% !important
+  min-width: 880px
+  .ant-modal-body
+    height: calc(100vh - 150px)
+
+.popover-filter
+  padding-top: 0
+  .ant-popover-content
+    .ant-popover-arrow
+      display: none
+    .ant-popover-inner
+      border-radius: 4px
+      background: var(--bg-ui-2)
+      .ant-popover-inner-content
+        color: var(--text-light-2)
+        padding: 0
+    .ant-tabs
+      color: var(--text-default)
+      .ant-tabs-nav
+        .ant-tabs-nav-wrap
+          .ant-tabs-nav-list
+            .ant-tabs-tab-active
+              background: var(--a-menu-option-selected)
+              .ant-tabs-tab-btn
+                color: var(--text-default)
+            .ant-tabs-tab
+              font-weight: 500
+              margin: 8px
+            .ant-tabs-tab:hover
+              background: var(--a-menu-option-hover)
+              border-radius: 4px
+              color: var(--text-default)
+          .ant-tabs-ink-bar
+            width: 0
+      .ant-tabs-content-holder
+        border-left: 1px solid var(--border-ui-2)
+        width: 240px
+        .ant-tabs-content
+          .ant-tabs-tabpane
+            //padding: 16px 16px 8px 16px
+            padding: 8px 0
+
+        .ant-radio-wrapper
+          color: var(--text-default)
+      .popover-menu
+        max-height: 300px
+        overflow: auto
+        margin: 0
+        .popover-menu-item
+          overflow: hidden
+          line-height: 22px
+          white-space: nowrap
+          text-overflow: ellipsis
+          padding: 5px 12px
+        .popover-menu-item:hover
+          background: var(--a-menu-option-hover)
+          cursor: pointer
+          
+
+  .ui-cate
+    height: 200px
+    overflow-y: auto
+    .li-cate
+      padding: 8px
+      cursor: pointer
+    .li-cate:hover
+      background: var(--a-menu-option-hover)
+  
+.modal-export-excel
+  .ant-modal-body
+    padding: 0
+    .ant-tabs
+      .ant-tabs-nav
+        .ant-tabs-nav-wrap
+          padding: 0 24px
+
+.modal-copy-products
+  .ant-modal-body
+    height: calc(100vh - 300px)
+
+  .ant-modal-body
+    padding: 16px
+
+  .ant-list.list-copy-products
+    background: var(--bg-ui-2)
+    .ant-spin-container
+      height: calc(100vh - 400px)
+      overflow-y: auto
+    .product-item
+      border-bottom: 1px solid #f0f0f0
+      padding: 5px 0
+      .ant-menu-title-content
+        display: flex
+        width: 100%
+
+  .table-variations
+    overflow-y: auto
+    .ant-table-body
+      height: calc(100vh - 400px)
+    .editable-cell-value-wrap
+      cursor: pointer
+      min-height: 32px
+      padding: 4px
+      white-space: normal
+      width: 100%
+
+.popover-attribute-copy-product
+  .table-product-attributes
+    width: 550px
+    .ant-table-thead
+      .ant-table-cell
+        padding: 5px !important
+        height: 40px !important
+    .ant-table-tbody
+      .ant-table-cell
+        padding: 5px !important
+        height: 40px !important
+    .select-dark-mode-2 .ant-select-multiple .ant-select-selector
+      min-height: 32px
+      .ant-select-selection-search-input
+        height: 32px !important
+
+.modal-edit-multiple
+  .ant-modal-body
+    height: calc(100vh - 300px)
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+  .table-edit-multiple
+    height: 100%
+    overflow-y: auto
+    .ant-table-thead
+      .ant-table-cell
+        padding: 12px !important
+    .ant-table-cell
+      .ant-table-row-expand-icon
+        margin-top: 10px
+
+.modal-edit-description
+  .ant-modal-body
+    height: calc(100vh - 300px)
+    overflow: hidden
+    .tinymce-editor
+      .tox-tinymce
+        height: calc(100vh - 350px) !important
+
+.modal-product-short-des
+  .ant-modal-body
+    .tox-tinymce
+      height: calc(100vh - 350px) !important
+      min-height: 200px
+
+.modal-tags
+  .ant-modal-body
+    .tag-create
+      padding: 8px 12px
+      background: rgb(240, 245, 255)
+      border: 1px solid rgb(173, 198, 255)
+      margin-bottom: 16px
+      border-radius: 2px
+
+    .tag-items
+      background: #fff
+      border: 1px solid #d9d9d9
+      overflow: auto
+      max-height: 60vh
+      .tag-item
+        padding: 8px 12px
+        border-bottom: 1px solid #d9d9d9
+        cursor: pointer
+        .action
+          display: none
+      .tag-item:hover
+        background: #f0f5ff
+        .action
+          display: block
+
+.modal-import-excel
+  .ant-modal-body
+    height: calc(100vh - 400px)
+    .vitural-scroller
+      height: calc(100vh - 585px)
+      .list-items
+        height: calc(100% - 55px)
+
+@media screen and ( max-width: 1901px )
+  .products_mid_content_table
+    .minus_height
+      .ant-table-body
+        min-height: calc(100vh - 360px)
+        max-height: calc(100vh - 360px) !important
+    .ant-table-body
+      min-height: calc(100vh - 310px)
+      max-height: calc(100vh - 310px) !important
+
+@media screen and (max-width: 1024px) and (max-height: 1366px)
+  .products_mid_content_table
+    .minus_height
+      .ant-table-body
+        min-height: calc(100vh - 390px)
+        max-height: calc(100vh - 390px) !important
+    .ant-table-body
+      min-height: calc(100vh - 310px)
+      max-height: calc(100vh - 310px) !important
+
+
+@media screen and (max-width: 1280px) and (max-height: 800px) 
+  .products_mid_content_table 
+    .minus_height
+      .ant-table-body 
+        min-height: calc(100vh - 350px)
+        max-height: calc(100vh - 350px) !important
+    .ant-table-body 
+      min-height: calc(100vh - 310px)
+      max-height: calc(100vh - 310px) !important
+
+
+@media screen and (max-width: 1024px) and (max-height: 600px) 
+  .products_mid_content_table 
+    .minus_height
+      .ant-table-body 
+        min-height: calc(100vh - 390px)
+        max-height: calc(100vh - 390px) !important
+    .ant-table-body 
+      min-height: calc(100vh - 310px)
+      max-height: calc(100vh - 310px) !important

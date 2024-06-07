@@ -32,7 +32,7 @@
                   placement="rightTop"
                   :overlayClassName="`sidebar-menu-popover ${!general.minimizedSidebar || !tab.sub ? 'hidden' : ''}`"
                 >
-                  <component :is="!tab.sub ? 'a' : 'span'" :href="`/manage/${siteId}/${tab.key}`">
+                  <component :is="!tab.sub ? 'a' : 'span'" :href="tab.target">
                     <div
                       :class="{ 'sidebar-menu--item': true, 'sidebar-menu--item-selected': selectedKeys.includes(tab.key), 'sidebar-menu-expand': !!tab.sub, 'sidebar-menu-expand-open': expandedTab.includes(tab.key) }"
                       @click.stop.prevent="handleClickItem(tab)">
@@ -48,7 +48,7 @@
                       :class="{ 'sidebar-menu--sub-item-wrapper': true, 'sidebar-menu--sub-item-wrapper-open': expandedTab.includes(tab.key) }"
                       v-if="!!tab.sub">
                       <template v-for="subTab in tab.sub" :key="subTab.key">
-                        <a :href="`/manage/${siteId}/${subTab.key}`">
+                        <a :href="subTab.target">
                           <div
                             :class="{ 'sidebar-menu--sub-item': true, 'sidebar-menu--sub-item-selected': selectedKeys.includes(subTab.key) }"
                             @click.stop.prevent="handleClickItem(subTab)">
@@ -65,7 +65,7 @@
                     :class="{ 'sidebar-menu--sub-item-wrapper': true, 'sidebar-menu--sub-item-wrapper-open': expandedTab.includes(tab.key) }"
                     v-if="!!tab.sub">
                     <template v-for="subTab in tab.sub" :key="subTab.key">
-                      <a :href="`/manage/${siteId}/${subTab.key}`">
+                      <a :href="subTab.target">
                         <div
                           :class="{ 'sidebar-menu--sub-item': true, 'sidebar-menu--sub-item-selected': selectedKeys.includes(subTab.key) }"
                           @click.stop.prevent="handleClickItem(subTab)">
@@ -142,15 +142,15 @@ export default {
     },
     tabs() {
       return [
-        { key: 'analytics', title: 'Thống kê', icon: homePageLogo },
+        { key: 'analytics', title: 'Thống kê', icon: homePageLogo, target: '/admin' },
         {
           key: 'product', title: 'Sản phẩm', icon: productLogo,
           sub: [
-            { key: 'products', title: 'Tất cả', icon: '' },
-            { key: 'categories', title: 'Danh mục', icon: '' },
+            { key: 'products', title: 'Tất cả sản phẩm', icon: '', target: '/admin/products' },
+            { key: 'categories', title: 'Danh mục', icon: '', target: '/admin/categories' },
           ]
         },
-        { key: 'orders', title: 'Đơn hàng', icon: orderLogo },
+        { key: 'orders', title: 'Đơn hàng', icon: orderLogo, target: '/admin/orders' },
         // { key: 'home', title: this.$t("dashboard.home_page"), icon: homePageLogo },
         // { key: 'analytics', title: this.$t("dashboard.analytic"), icon: analyticLogo, divide: true },
         // {
@@ -194,11 +194,8 @@ export default {
       this.$router.push(`/admin/${key}`);
     },
     handleClickItem(tab) {
-      if (tab.key == 'analytics') {
-        this.$router.push(`/admin`);
-      }
-      else if (!tab.sub) {
-        this.$router.push(`/admin/${tab.key}`);
+      if (tab.target) {
+        this.$router.push(tab.target);
       } else {
         this.handleExpandSub(tab)
       }

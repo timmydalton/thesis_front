@@ -6,7 +6,8 @@ export const useGeneralStore = defineStore("generalConfig", {
       theme: '',
       minimizedSidebar: false,
       expandedTab: JSON.parse(localStorage.getItem("expandedTab")) || [],
-      minimizedPageGroup: []
+      minimizedPageGroup: [],
+      currency: "VND"
     }
   },
   actions: {
