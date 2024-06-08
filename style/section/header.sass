@@ -1,0 +1,42 @@
+.sect-h1
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: .25rem .5rem
+  height: 40px
+  .sect-left
+    display: flex
+    align-items: center
+    font-size: 14px
+    font-weight: 700
+    .icon
+      height: 22px
+      width: 22px
+    .phone-number
+      color: rgb(255, 0, 0)
+  // .sect-right
+
+.sect-h2
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 6px 15px
+  .menu
+    display: flex
+    gap: 7px
+    font-size: 14px
+    text-transform: uppercase
+    font-weight: 700
+    .menu-item
+      padding: 6px
+      cursor: pointer
+      position: relative
+      &:hover
+        a
+          color: #bd0000 !important
+
+.header-popover
+  .ant-popover-arrow
+    display: none
+  .ant-popover-inner-content
+    padding: 0

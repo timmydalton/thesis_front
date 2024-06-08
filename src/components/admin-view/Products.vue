@@ -192,16 +192,22 @@ import { createVNode } from 'vue'
 
 import { useEditProductStore, useAllProductStore } from '@/stores/product.js'
 import { useGeneralStore } from "@/stores/general.js"
+import { useCategoryStore } from "@/stores/categories.js"
+import { useApipost, useApiget } from "@/composable/fetch.js"
+
+const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export default {
   setup() {
     const editProductStore = useEditProductStore()
     const allProducts = useAllProductStore()
     const general = useGeneralStore()
+    const categoryStore = useCategoryStore()
 
     return {
       editProductStore,
       allProducts,
+      categoryStore,
       general,
       getCurrencySymbol,
       formatNumber,
@@ -301,6 +307,7 @@ export default {
   },
   created() {
     this.gotoPage()
+    this.categoryStore.getCategories({ limit: 1000 })
   },
   computed: {
     rowSelection() {
@@ -374,7 +381,28 @@ export default {
       })
     },
     async removeProducts() {
+      this.allProducts.setValue('loading_products', true)
+      const url = `${VITE_BACKEND_API_URL}/api/admin/products/remove`
+      await useApipost(url, null, {ids: this.idsRowSelected})
+        .then((res) => {
+          if (res.status == 200) {
+            this.removeAllSelected()
+            this.allProducts.getProducts()
+            this.$notification.success({
+              message: "Thành công",
+              description: "Bạn đã xóa sản phẩm thành công",
+            });
 
+          }
+        })
+        .catch(error => {
+        let messageCode = error?.response?.data?.reason?.message_code
+        this.$notification.error({
+          message: "Thất bại",
+          description: "Xóa thất bại, check log lỗi",
+        });
+       
+        })
     },
     removeAllSelected() {
       this.idsRowSelected = []

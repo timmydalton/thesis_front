@@ -163,14 +163,13 @@ export const useAllProductStore = defineStore('all_products', {
     setPage(value) {
       this.products.page = value
     },
-    resetSearchProduct(siteId) {
+    resetSearchProduct() {
       this.products.term = undefined
 
       this.getProducts(1)
     },
     getProducts(page = this.products.page, limit = this.products.limit) {
       if(this.products.term){
-        // this.getSearch(siteId, {})
       }else{
         this.setPage(page)
         this.setLimit(limit)

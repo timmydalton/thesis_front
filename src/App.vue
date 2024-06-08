@@ -3,7 +3,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div class="store-view">
-    <RouterView />
-  </div>
+  <a-config-provider :theme="{hashed: false}">
+    <div class="store-view">
+      <RouterView />
+    </div>
+  </a-config-provider>
 </template>

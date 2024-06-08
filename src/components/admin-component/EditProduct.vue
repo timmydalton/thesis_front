@@ -26,31 +26,23 @@
             </div>
           </div>
 
-          <!-- <div class="flex mb-4">
-            <div class="select-dark-mode w-full">
-              <a-select
-                ref="select"
+          <div class="flex mb-4">
+            <div class="w-full select-dark-mode">
+              <a-tree-select
+                :value="editProductStore.categories"
+                placeholder="Chọn danh mục"
                 style="width: 100%"
-                mode="multiple"
-                placeholder="Gắn thẻ"
-                dropdownClassName="dropdown-dark-mode"
-                :value="editProductStore.tags"
-                @change="changeTag"
-                :filter-option="filterOptionTags"
+                :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+                multiple
+                :tree-data="renderTreeCate"
+                tree-node-filter-prop="label"
                 show-search
+                allow-clear
+                @change="changeTreeCate"
               >
-                <a-select-option
-                  v-for="value in allProductStore.product_tags"
-                  :value="value.id"
-                  :key="value.id"
-                  :title="value.name"
-                >
-                    {{ value.name }}
-                </a-select-option>
-
-              </a-select>
+              </a-tree-select>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
 
@@ -139,16 +131,20 @@ import { useEditProductStore, useAllProductStore } from '@/stores/product.js'
 import { escapeHTML, unescapeHTML, convertVN } from '@/composable/common.js'
 import { useApipost, useApiget } from "@/composable/fetch.js"
 
+import { useCategoryStore } from "@/stores/categories.js"
+
 const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export default {
   setup() {
     const editProductStore = useEditProductStore()
     const allProductStore = useAllProductStore()
+    const categoryStore = useCategoryStore()
     
     return {
       editProductStore,
       allProductStore,
+      categoryStore,
       escapeHTML,
       unescapeHTML,
       simpleImage: Empty.PRESENTED_IMAGE_SIMPLE,
@@ -175,23 +171,23 @@ export default {
       this.getProductById()
     }
   },
-  // computed() {
-  //   renderTreeCate() {
-  //     const callback = (children = []) => {
-  //       return children.map(el => {
-  //         if (el.children.length == 0) return {label: el.name, value: el.id}
-  //         return {label: el.name, value: el.id, children: callback(el.children)}
-  //       })
-  //     }
+  computed: {
+    renderTreeCate() {
+      const callback = (children = []) => {
+        return children.map(el => {
+          if (el.children.length == 0) return {label: el.name, value: el.id}
+          return {label: el.name, value: el.id, children: callback(el.children)}
+        })
+      }
 
-  //     let tree = this.categoryStore.categories.data.map(el => {
-  //         if (el.children.length == 0) return {label: el.name, value: el.id}
-  //         return {label: el.name, value: el.id, children: callback(el.children)}
-  //     })
+      let tree = this.categoryStore.categories.data.map(el => {
+          if (el.children.length == 0) return {label: el.name, value: el.id}
+          return {label: el.name, value: el.id, children: callback(el.children)}
+      })
 
-  //     return tree
-  //   },
-  // },
+      return tree
+    },
+  },
   methods: {
     getBase64(img, callback) {
       const reader = new FileReader();
@@ -430,6 +426,7 @@ export default {
       }
     },
     getProductById() {
+      if (!this.productId) return
       const url = `${VITE_BACKEND_API_URL}/api/admin/products/${this.productId}`
 
       useApiget(url)
@@ -437,14 +434,16 @@ export default {
           if (res.status == 200 && res.data.success == true) {
             let product = res.data.product
 
-            // product.categories = product.categories.map(el => el.id)
+            product.categories = product.categories.map(el => el.id)
 
             this.editProductStore.setUpdateProduct(product)
             this.variations.value = product.variations
           }
         })
-
-    }
+    },
+    changeTreeCate(value) {
+      this.editProductStore.setEditProduct('categories', value)
+    },
   }
 }
 </script>

@@ -4,7 +4,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Input, InputPassword, Button, Alert, Popover, Tooltip, Table, Pagination, Modal, TreeSelect,
   Select, SelectOption, SelectOptGroup, Empty, AutoComplete, Tag, Switch, Avatar, Card, UploadDragger, Upload,
-  Spin } from 'ant-design-vue'
+  Spin, ConfigProvider, Menu, MenuItem, SubMenu } from 'ant-design-vue'
 
 import 'ant-design-vue/dist/reset.css'
 import 'vue3-carousel/dist/carousel.css'
@@ -40,6 +40,10 @@ app.use(UploadDragger)
 app.use(Spin)
 app.use(Upload)
 app.use(Message)
+app.use(ConfigProvider)
+app.use(Menu)
+app.use(MenuItem)
+app.use(SubMenu)
 
 app.use(createPinia())
 app.use(router)
