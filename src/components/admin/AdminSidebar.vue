@@ -151,41 +151,6 @@ export default {
           ]
         },
         { key: 'orders', title: 'Đơn hàng', icon: orderLogo, target: '/admin/orders' },
-        // { key: 'home', title: this.$t("dashboard.home_page"), icon: homePageLogo },
-        // { key: 'analytics', title: this.$t("dashboard.analytic"), icon: analyticLogo, divide: true },
-        // {
-        //   key: 'customer', title: this.$t("dashboard.customer"), icon: customerLogo, divide: true,
-        //   sub: [
-        //     { key: 'customer_list', title: this.$t("dashboard.customer_list"), icon: '' },
-        //     { key: 'email_list', title: this.$t("dashboard.email_list"), icon: '' },
-
-        //   ]
-        // },
-        // { key: 'domains', title: this.$t("dashboard.domains"), icon: domainLogo },
-        // { key: 'discounts', title: this.$t("dashboard.discount"), icon: discountLogo },
-        // { key: 'integrations', title: this.$t("dashboard.integrations"), icon: integrationLogo },
-        // {
-        //   key: 'sale-channel', title: this.$t("dashboard.maketing_and_sale"), icon: applicationLogo, divide: true,
-        //   sub: [
-        //     { key: 'sale-channels', title: this.$t("dashboard.sale_channels"), icon: "" },
-        //     { key: 'seo-settings', title: "SEO", icon: '' },
-        //     { key: 'site_utms', title: "UTM", icon: '' },
-        //     // { key: 'send_email', title: this.$t("dashboard.send_email"), icon: '' }
-        //   ]
-        // },
-        // { key: 'applications', title: this.$t("dashboard.application"), icon: appIcon, divide: true,
-        //   sub: [
-        //     { key: 'app_installed', title: this.$t("dashboard.app_installed"), icon: ""},
-        //     { key: 'app_store', title: this.$t("dashboard.app_store"), icon: ""}
-        //   ]
-        // },
-        // { key: 'blog', title: this.$t("dashboard.blog"), icon: articleIcon, divide: true,
-        //   sub: [
-        //     { key: 'articles', title: this.$t("dashboard.articles"), icon: ''},
-        //     { key: 'blog_categories', title: this.$t("dashboard.categories"), icon: ''}
-        //   ]
-        // },
-        // { key: 'settings', title: this.$t("dashboard.setting"), icon: settingLogo },
       ]
     }
   },

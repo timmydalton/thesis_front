@@ -27,7 +27,7 @@
             <div style="overflow: hidden; vertical-align: middle; text-overflow: ellipsis; max-width: 125px; font-weight: 400; white-space: nowrap; text-align: center; display: inline-block;">{{fullName}}</div>
           </span>
         </div>
-        <a-tooltip :title="$t('profile.logout')" placement="bottom">
+        <a-tooltip title="Đăng xuất" placement="bottom">
           <div id="log-out-btn" @click="handleLogOut">
             <i aria-label="icon: logout" id="log-out-icon" class="anticon anticon-logout">
               <svg viewBox="64 64 896 896" class="" data-icon="logout" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false">

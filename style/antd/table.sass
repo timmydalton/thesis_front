@@ -1,0 +1,42 @@
+.ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before
+  @apply hidden
+
+.ant-table-thead > tr > th
+  @apply bg-theme-layout
+
+.ant-table-tbody > tr.ant-table-row-selected:hover > td
+  @apply text-primary
+
+.ant-table-tbody > tr.ant-table-row-selected
+  @apply bg-theme-table-selected
+
+.ant-table
+  @apply text-13px
+
+.ant-table-tbody
+  .ant-table-cell
+    @apply bg-inherit #{!important}
+
+.ant-table-row
+  @apply cursor-pointer bg-theme-layout
+
+.ant-table-tbody > tr.ant-table-row:hover > td, .ant-table-tbody > tr > td.ant-table-cell-row-hover
+  @apply bg-theme-color-hover #{!important}
+
+.ant-table-cell
+  @apply h-[60px] p-3 border-b-theme-border #{!important}
+
+.ant-spin-container
+  padding: 0 !important
+.ant-table-cell.ant-table-selection-column
+  padding-left: 20px !important
+
+.ant-table-pagination.ant-pagination
+  margin: 16px
+
+.ant-table-row-expand-icon
+  background: var(--color-checkbox-1)
+  border: 1px solid var(--color-border-checkbox-1)
+
+.ant-table-row-expand-icon:focus, .ant-table-row-expand-icon:hover
+  color: var(--primary-v2)

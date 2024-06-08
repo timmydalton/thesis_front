@@ -107,12 +107,12 @@
                 <span>{{record.total_sold}}</span>
               </template>
 
-              <template v-if="column.key === 'display_id'">
+              <template v-if="column.key === 'custom_id'">
                 <a-tooltip placement="top">
                   <template #title>
-                    <span>{{ record.display_id }}</span>
+                    <span>{{ record.custom_id }}</span>
                   </template>
-                  <div class="truncate"> {{ record.display_id }}</div>
+                  <div class="truncate"> {{ record.custom_id }}</div>
                 </a-tooltip>
               </template>
 
@@ -142,10 +142,11 @@
 
     <a-modal
       v-if="visibleModalEditProduct"
-      class="modal_edit_product modal-dark-mode custom-modal relative overflow-hidden z-[100000]"
+      class="modal_edit_product modal-dark-mode custom-modal relative overflow-hidden z-[100000] editor-modal"
       style="top: 20px"
       title="Cài đặt sản phẩm"
-      :visible="visibleModalEditProduct"
+      centered
+      :open="visibleModalEditProduct"
       @cancel="handleCancelEditProduct"
     >
       <template #footer>
@@ -173,6 +174,9 @@ import TrashIcon from '@/assets/svg/trash-sm.svg?component'
 import CloseIcon from '@/assets/svg/close-sm.svg?component'
 import ImageIcon from '@/assets/svg/image.svg?component'
 
+import EditProduct from '@/components/admin-component/EditProduct.vue'
+import { Modal } from 'ant-design-vue';
+
 import { getCurrencySymbol, formatNumber } from '@/composable/formatNumber.js'
 import { ExclamationCircleOutlined, DownOutlined, TagsOutlined, WarningOutlined } from '@ant-design/icons-vue'
 import { createVNode } from 'vue'
@@ -198,7 +202,8 @@ export default {
     PlusIcon,
     TrashIcon,
     CloseIcon,
-    ImageIcon
+    ImageIcon,
+    EditProduct
   },
   data() {
     // let columns = [
@@ -311,7 +316,29 @@ export default {
   },
   methods: {
     handleCreateNewProduct() {
+      this.editProductStore.reset()
+      this.productId = ''
 
+      if (localStorage.getItem(`editProduct`)) {
+        let that = this
+        Modal.confirm({
+          title: "Bạn có muốn hoàn thành sản phẩm đang tạo mới không ?",
+          okText: 'Tiếp tục',
+          cancelText: "Hủy",
+          onOk() {
+            let draftProduct = JSON.parse(localStorage.getItem(`editProduct`))
+            that.editProductStore.setUpdateProduct(draftProduct)
+            that.visibleModalEditProduct = true
+          },
+          onCancel() {
+            localStorage.removeItem(`editProduct-${that.siteId}`)
+            that.visibleModalEditProduct = true
+
+          }
+        })
+      } else {
+        this.visibleModalEditProduct = true
+      }
     },
     showConfirm() {
       let that = this
@@ -367,7 +394,7 @@ export default {
         || this.editProductStore.categories.length > 0
         || this.editProductStore.variations.length > 0)
       ) {
-        localStorage.setItem(`editProduct-${this.siteId}`, JSON.stringify(this.editProductStore.$state))
+        localStorage.setItem(`editProduct`, JSON.stringify(this.editProductStore.$state))
       
       }
       this.visibleModalEditProduct = false

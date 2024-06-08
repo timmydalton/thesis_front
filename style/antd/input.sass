@@ -1,0 +1,21 @@
+.ant-input
+  @apply rounded
+  @apply shadow-none #{!important}
+  color: var(--text-default)
+  &:hover, &:focus
+    border-color: var(--primary-v2) !important
+
+.ant-input-affix-wrapper
+  @apply rounded #{!important}
+  &:hover, &:focus
+    border-color: var(--primary-v2) !important
+    box-shadow: none !important
+.ant-input-number-affix-wrapper
+  @apply rounded
+
+.ant-input.danger
+  border-color: $theme-danger !important
+
+.ant-input-affix-wrapper
+  background-color: var(--bg-ui-2)
+  border: none

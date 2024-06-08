@@ -8,11 +8,10 @@ export const useEditProductStore = defineStore('edit_product', {
   state: () => ({
     id: '',
     name: '',
-    display_id: '',
+    custom_id: '',
     description: '',
     tags: [],
     categories: [],
-    slug: '',
     product_attributes: [],
     total_sold: 0,
     image: '',
@@ -35,15 +34,25 @@ export const useEditProductStore = defineStore('edit_product', {
     reset() {
       this.id = ''
       this.name = ''
-      this.display_id = ''
+      this.custom_id = ''
       this.description = ''
       this.tags = []
       this.categories = []
-      this.slug = ''
       this.product_attributes = []
       this.total_sold = 0
       this.image = ''
       this.variations = []
+    },
+    setUpdateProduct(val){
+      this.name = val.name || ''
+      this.custom_id = val.custom_id || ''
+      this.description = val.description || ''
+      this.tags = val.tags || []
+      this.categories = val.categories || []
+      this.product_attributes = val.product_attributes || []
+      this.total_sold = val.total_sold || 0
+      this.image = val.image || ''
+      this.variations = val.variations || []
     },
     setEditProduct(key, value) {
       this[key] = value
@@ -67,7 +76,72 @@ export const useAllProductStore = defineStore('all_products', {
     products: { data: [], limit: 20, page: 1 },
     total_product: 0,
     loading_products: false,
+    product_tags: [],
+    isLoadingProductTags: false
   }),
+  getters: {
+    renderProducts() {
+      const getRetailPrice = (variations) => {
+        let arrayPrice = variations.map(el => el.retail_price)
+        let min = Math.min(...arrayPrice) || 0
+        let max = Math.max(...arrayPrice) || 0
+
+        let result = (min == max || arrayPrice.length == 0)  ? max : `${min} - ${max}`
+
+        return result
+      }
+
+      const getOriginalPrice = (variations) => {
+        let arrayPrice = variations.map(el => el.original_price)
+        let min = Math.min(...arrayPrice) || 0
+        let max = Math.max(...arrayPrice) || 0
+
+        let result = (min == max || arrayPrice.length == 0) ? max : `${min} - ${max}`
+
+        return result
+      }
+
+      const getRemainQuantity = (variations) => {
+        let arrayAmount = variations.map(el => el.remain_quantity)
+        return arrayAmount.reduce((total, num) => {return total+num}, 0)
+      }
+
+      const getImage = (variations) => {
+        let arrayImage = variations.filter(el => el.images && el.images.length > 0)
+        let src = arrayImage.length > 0 ? arrayImage[0].images[0] : null
+        if (src == null) return ''
+        return src
+
+      }
+
+      const getInfoVariationsObj = {
+        retailPrice: getRetailPrice,
+        originalPrice: getOriginalPrice,
+        remainQuantity: getRemainQuantity,
+        image: getImage
+      }
+
+      const getInfoVariations = (variations, type) => {
+        return getInfoVariationsObj[type](variations)
+      }
+
+      return this.products.data.map((el, idx) => {
+        return {
+          key: el.id,
+          name: el.name,
+          custom_id: el.custom_id,
+          retail_price: getInfoVariations(el.variations, "retailPrice"),
+          original_price: getInfoVariations(el.variations, "originalPrice"),
+          remain_quantity: getInfoVariations(el.variations, "remainQuantity"),
+          image: el.image ? el.image : getInfoVariations(el.variations, "image"),
+          id: el.id,
+          variations: el.variations,
+          // categories: (el.categories || []).map(el => el.name).join(', '),
+          quantity_variation: el.variations.length,
+        }
+      })
+    }
+  },
   actions: {
     setValue(key, value) {
       this[key] = value
@@ -109,6 +183,46 @@ export const useAllProductStore = defineStore('all_products', {
           })
           .finally(() => this.loading_products = false)
       }
-    }
+    },
+    createOrUpdateProductTag(params, type) {
+      const url = `${BUILDER_API_HOST}/api/admin/products/product_tags/create_or_update`
+      useApipost(url, null, params)
+        .then(res => {
+          if (res.status == 200) {
+            switch(type) {
+              case 'create':
+                this.product_tags.unshift(res.data.product_tag)
+                break
+
+              case 'edit':
+                let idx = this.product_tags.findIndex(el => el.id == res.data.product_tag.id)
+                this.product_tags[idx].name = res.data.product_tag.name
+                this.product_tags[idx].is_edit = false
+                break
+
+              case 'remove':
+                let idxx = this.product_tags.findIndex(el => el.id == res.data.product_tag.id)
+                this.product_tags.splice(idxx, 1)
+                break
+            }
+            message.success("Thành công")
+
+          }
+        })
+    },
+    getAllProductTags() {
+      const url = `${VITE_BACKEND_API_URL}/api/admin/products/product_tags/all`
+
+      this.isLoadingProductTags = true
+      useApiget(url, null, {})
+        .then(res => {
+          if (res.status == 200) {
+            this.product_tags = res.data.product_tags
+          }
+        })
+        .finally(() => {
+          this.isLoadingProductTags = false
+        })
+    },
   }
 })

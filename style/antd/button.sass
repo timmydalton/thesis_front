@@ -1,0 +1,32 @@
+.ant-btn:hover, .ant-btn:focus
+  @apply text-theme-color
+  border: 1px solid var(--primary-v2)
+
+.ant-btn
+  @apply text-[13px] rounded border-theme-border
+  .icon-tabler 
+    @apply w-[16px]
+    & + span
+      @apply ml-[8px]
+
+.ant-btn-primary
+  @apply  text-theme-layout shadow-none
+  border: 1px solid var(--primary-v2)
+  background-color: var(--primary-v2)
+
+.ant-btn-primary:hover, .ant-btn-primary:focus
+  background-color: var(--primary-v2)
+
+.ant-btn-primary:hover, .ant-btn-primary:focus
+  @apply text-theme-layout
+
+.ant-btn-danger
+  @apply text-theme-layout
+  &:hover
+    @apply text-theme-layout border-theme-danger
+
+.ant-btn-dangerous:not(.ant-btn-primary)
+  border-color: #ff4d4f !important
+  &:hover
+    color: #ff7875 !important
+    border-color: #ff7875 !important
