@@ -31,11 +31,12 @@
         <div class="products_mid_content_table">
           <a-table
             :dataSource="allProducts.renderProducts"
+            :columns="columns"
             :pagination="false"
             :customRow="customRow"
             :rowSelection="rowSelection"
             :loading="allProducts.loading_products"
-            :scroll="{x: 1500, y: 'calc(100vh - 310px)' }"
+            :scroll="{x: 800, y: 'calc(100vh - 310px)' }"
             @resizeColumn="handleResizeColumn"
             class="table-dark-mode"
             :rowClassName="rowClassName"
@@ -99,6 +100,10 @@
                   </a-popover>
                   <div v-else class="image-default w-10 h-10">
                     <ImageIcon />
+                  </div>
+
+                  <div class="pl-3 truncate">
+                    {{ record.name }}
                   </div>
                 </div>
               </template>
@@ -206,71 +211,71 @@ export default {
     EditProduct
   },
   data() {
-    // let columns = [
-    //   {
-    //     dataIndex: 'name',
-    //     key: 'name',
-    //     width: 250,
-    //     title: 'Tên sản phẩm',
-    //     align: 'left',
-    //     fixed: true,
-    //     ellipsis: true,
-    //   },
-    //   {
-    //     dataIndex: 'display_id',
-    //     key: 'display_id',
-    //     width: 100,
-    //     title: 'Mã SP',
-    //     align: 'center',
-    //     fixed: true,
-    //     ellipsis: true,
-    //   },
-    //   {
-    //     dataIndex: 'categories',
-    //     key: 'categories',
-    //     width: 200,
-    //     title: 'Danh mục',
-    //     align: 'left',
-    //     ellipsis: true,
-    //     resizable: true
-    //   },
+    let columns = [
+      {
+        dataIndex: 'name',
+        key: 'name',
+        width: 200,
+        title: 'Tên sản phẩm',
+        align: 'left',
+        fixed: true,
+        ellipsis: true,
+      },
+      {
+        dataIndex: 'display_id',
+        key: 'display_id',
+        width: 100,
+        title: 'Mã SP',
+        align: 'center',
+        fixed: true,
+        ellipsis: true,
+      },
       // {
-      //   dataIndex: 'retail_price',
-      //   key: 'retail_price',
+      //   dataIndex: 'categories',
+      //   key: 'categories',
       //   width: 200,
-      //   title: this.$t('products.retail_price'),
-      //   align: 'right',
+      //   title: 'Danh mục',
+      //   align: 'left',
       //   ellipsis: true,
       //   resizable: true
       // },
-      // {
-      //   dataIndex: 'original_price',
-      //   key: 'original_price',
-      //   width: 200,
-      //   title: this.$t('products.original_price'),
-      //   align: 'right',
-      //   ellipsis: true,
-      //   resizable: true
-      // },
-      // {
-      //   dataIndex: 'remain_quantity',
-      //   key: 'remain_quantity',
-      //   width: 100,
-      //   title: this.$t('products.amount'),
-      //   align: 'center',
-      //   ellipsis: true,
-      //   resizable: true
-      // },
-      // {
-      //   dataIndex: 'total_sold',
-      //   key: 'total_sold',
-      //   width: 100,
-      //   title: 'Đã bán',
-      //   align: 'center',
-      //   ellipsis: true,
-      //   resizable: true
-      // },
-    // ]
+      {
+        dataIndex: 'retail_price',
+        key: 'retail_price',
+        width: 150,
+        title: 'Giá bán',
+        align: 'center',
+        ellipsis: true,
+        resizable: true
+      },
+      {
+        dataIndex: 'original_price',
+        key: 'original_price',
+        width: 150,
+        title: 'Giá gốc',
+        align: 'center',
+        ellipsis: true,
+        resizable: true
+      },
+      {
+        dataIndex: 'remain_quantity',
+        key: 'remain_quantity',
+        width: 75,
+        title: "Tồn kho",
+        align: 'center',
+        ellipsis: true,
+        resizable: true
+      },
+      {
+        dataIndex: 'total_sold',
+        key: 'total_sold',
+        width: 75,
+        title: 'Đã bán',
+        align: 'center',
+        ellipsis: true,
+        resizable: true
+      },
+    ]
 
     return {
       visibleModalEditProduct: false,
@@ -278,7 +283,7 @@ export default {
       idsRowSelected: [],
       rowsSelected: [],
       loaddingSaveProduct: false,
-      // columns
+      columns
     }
   },
   created() {
@@ -312,7 +317,7 @@ export default {
         columnWidth: '50px',
         selectedRowKeys: this.idsRowSelected,
       }
-    },
+    }
   },
   methods: {
     handleCreateNewProduct() {

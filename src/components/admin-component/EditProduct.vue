@@ -167,6 +167,14 @@ export default {
       optionsAttribute: []
     }
   },
+  mounted() {
+    this.getProductById()
+  },
+  watch: {
+    productId() {
+      this.getProductById()
+    }
+  },
   // computed() {
   //   renderTreeCate() {
   //     const callback = (children = []) => {
@@ -302,7 +310,7 @@ export default {
         ])
 
       product_params.product_attributes = this.editProductStore.product_attributes.map(el => { return {...el, name: el.name.trim()}})
-      product_params = this.editProductStore.id ? Object.assign(product_params, {product_id: editProductStore.id}) : product_params
+      product_params = this.editProductStore.id ? Object.assign(product_params, {product_id: this.editProductStore.id}) : product_params
 
       let price_wrong = this.variations
         .map(item => {
@@ -351,9 +359,7 @@ export default {
           return res
         })
         .catch(err => {
-          console.log(err)
           let mes_code = err?.response?.data?.reason?.message_code
-          console.log('this case 222', mes_code)
           notification.error({
             message: "Lưu thất bại",
             description: "Something went wrong!"
@@ -369,6 +375,34 @@ export default {
     },
     checkDuplicateFields(which, product) {
       let isDuplicate = false
+      
+      const customizer = (objValue, othValue) => {
+        if (!objValue.length && !othValue.length) return false
+        let obj = [], oth = [];
+        objValue.map(i => {
+          obj.push({
+            name: i.name,
+            value: i.value
+          })
+        })
+        othValue.map(i => {
+          oth.push({
+            name: i.name,
+            value: i.value
+          })
+        })
+        let isDuplicate = true
+        if (obj.length == oth.length) {
+          obj.map(item => {
+            const idx = oth.findIndex(i => i.name == item.name && i.value == item.value)
+            if (idx == -1) isDuplicate = false
+          })
+        } else {
+          isDuplicate = false
+        }
+        return isDuplicate
+      }
+      
       if (which == "product_attributes") {
         const productAttributes = product.product_attributes
         productAttributes.reduce((acc, att) => {
@@ -394,6 +428,22 @@ export default {
         }, [])
         return isDuplicate;
       }
+    },
+    getProductById() {
+      const url = `${VITE_BACKEND_API_URL}/api/admin/products/${this.productId}`
+
+      useApiget(url)
+        .then(res => {
+          if (res.status == 200 && res.data.success == true) {
+            let product = res.data.product
+
+            // product.categories = product.categories.map(el => el.id)
+
+            this.editProductStore.setUpdateProduct(product)
+            this.variations.value = product.variations
+          }
+        })
+
     }
   }
 }

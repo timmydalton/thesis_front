@@ -44,6 +44,7 @@ export const useEditProductStore = defineStore('edit_product', {
       this.variations = []
     },
     setUpdateProduct(val){
+      this.id = val.id
       this.name = val.name || ''
       this.custom_id = val.custom_id || ''
       this.description = val.description || ''

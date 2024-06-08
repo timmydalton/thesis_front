@@ -195,6 +195,9 @@ import PlusIcon from '@/assets/svg/plus-sm.svg?component'
 import ImageIcon from "@/assets/svg/image.svg?component"
 import TrashIcon from '@/assets/svg/trash-sm.svg?component'
 import { PlusOutlined, LoadingOutlined, PictureOutlined } from '@ant-design/icons-vue'
+import { useApipost, useApiget } from "@/composable/fetch.js"
+
+const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export default {
   setup() {
@@ -327,7 +330,50 @@ export default {
       this.editProductStore.setEditProduct('variations', newVariations)
     },
     fileChange(event, index, type) {
-      
+      let files = event.target.files || []
+      let typeFile = files[0].type
+      const ImgSize = files[0].size / 1024 / 1024
+      const that = this
+      if (ImgSize <= 100) {
+        let _URL = window.URL || window.webkitURL
+        let count = 0
+        let uploadedList = []
+
+        for (let i=0; i<files.length; i++) {
+          let img = new Image()
+          let objectUrl = _URL.createObjectURL(files[i])
+
+          img.onload = function() {
+            _URL.revokeObjectURL(objectUrl)
+            let data = new FormData()
+            data.append('file', files[i], files[i].name || files[i].filename)
+
+            let url = `${VITE_BACKEND_API_URL}/api/admin/content/upload_file`
+
+            that.loadingImage.splice(index, 1, true)
+            useApipost(url, null, data)
+              .then(res => {
+                if (res.data.success && res.status == 200) {
+                  let newVariations = [...that.editProductStore.variations]
+
+                  if (newVariations[index]["images"] == null) newVariations[index]["images"] = []
+                  newVariations[index]["images"].push(res.data.content_url)
+                  let images = [...newVariations[index]["images"]]
+                  that.editProductStore.setEditProduct('variations', newVariations)
+                  that.loadingImage.splice(index, 1, false)
+                }
+              })
+              .catch(error => {
+                that.loadingImage.splice(index, 1, false)
+                const reason = error?.response?.data?.reason
+              })
+          }
+
+          img.src = objectUrl
+        }
+      } else {
+        this.$message.error("File vượt quá dung lượng")
+      }
     }
   }
 }
