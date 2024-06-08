@@ -1,0 +1,89 @@
+.category-table
+  .ant-table-row
+    &:hover
+      .category-visible
+        display: grid !important
+.category-action
+  z-index: 10
+  .ant-popover-inner
+    border-radius: 4px
+  .ant-popover-inner-content
+    padding: 0px
+    padding-top: 12px
+    padding-bottom: 12px
+  &__item
+    display: flex
+    height: 36px
+    cursor: pointer
+    align-items: center
+    padding: 0px 24px 0px 18px
+    &:hover
+      background: #e7f0ff
+      color: $primary
+
+.category-tree
+  &-loading
+    background-color: var(--bg-ui-2)
+    opacity: 0.5
+  &-header
+    background: var(--bg-ui)
+    height: 50px
+  .active
+    background: var(--a-menu-option-selected)
+    border-left: 1px solid var(--border-ui-2) !important
+    border-right: 1px solid var(--border-ui-2) !important
+  ::-webkit-scrollbar
+    width: 4px !important
+    height: 4px !important
+    display: block
+    background: $theme-bg2
+
+  ::-webkit-scrollbar-thumb
+    background: $theme-bg-gray
+    border-radius: 4px
+  .tree-root
+    // overflow: hidden
+    // overflow-y: scroll
+    // height: calc(100vh - 220px)
+    
+  .tree-node 
+    margin-bottom: -1px !important
+    height: fit-content
+    min-height: 64px
+    display: flex
+    align-items: center
+    padding: 0px !important
+    background: var(--bg-ui)
+    border: 1px solid var(--border-ui-2) !important
+    border-right: none !important
+    border-left: none !important
+    cursor: move
+  .tree-placeholder
+    div > div
+      border: none !important
+      border-top: 2px solid var(--primary) !important
+      height: 64px
+  .draging
+    border: 2px solid red !important
+    opacity: 1 !important
+    background: var(--bg-ui) !important
+  .ant-empty
+    background: var(--bg-ui)
+    border-top: 1px solid var(--border-ui-2)
+  .tree-node-back
+    &:hover
+      .category-visible
+        visibility: visible
+
+.category-products
+  .ant-card-body
+    height: calc(100% - 50px)
+    padding-right: 0
+    .ant-pagination-next, .ant-pagination-prev
+      button
+        border: none
+    .ant-pagination-item-active
+      border-color: var(--primary)
+      background: var(--primary)
+      a
+        color: var(--bg-ui-2)

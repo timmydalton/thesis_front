@@ -49,7 +49,7 @@
                 <div class="w-3/6 flex" :style="{'margin-left': '95px'} ">
                   <div class="flex items-center justify-center pr-2">
                     <div class="w-10 h-10">
-                      <img v-if="(vari.images || []).length > 0" class="w-full h-full object-cover shrink-0" :src="resizeImageSize(vari.images[0], 40, 40) || ''" />
+                      <img v-if="(vari.images || []).length > 0" class="w-full h-full object-cover shrink-0" :src="vari.images[0] || ''" />
                       <div v-else class="image-default">
                         <ImageIcon />
                       </div>
@@ -108,10 +108,6 @@
                 </div>
               </template>
 
-              <template v-if="column.key === 'total_sold'">
-                <span>{{record.total_sold}}</span>
-              </template>
-
               <template v-if="column.key === 'custom_id'">
                 <a-tooltip placement="top">
                   <template #title>
@@ -119,6 +115,10 @@
                   </template>
                   <div class="truncate"> {{ record.custom_id }}</div>
                 </a-tooltip>
+              </template>
+
+              <template v-if="column.key === 'total_sold'">
+                <span>{{record.total_sold}}</span>
               </template>
 
               <template v-if="column.key === 'categories'">
@@ -130,6 +130,10 @@
                     <span class="truncate">Danh mục</span>
                   </a-tooltip>
                 </div>
+              </template>
+
+              <template v-if="column.key === 'is_hidden'">
+                <a-switch :checked="!record.is_hidden" @click="(checked, e) => handleHidden(!checked, record.id, e)"/>
               </template>
             </template>
           </a-table>
@@ -222,8 +226,8 @@ export default {
         ellipsis: true,
       },
       {
-        dataIndex: 'display_id',
-        key: 'display_id',
+        dataIndex: 'custom_id',
+        key: 'custom_id',
         width: 100,
         title: 'Mã SP',
         align: 'center',
@@ -260,7 +264,7 @@ export default {
       {
         dataIndex: 'remain_quantity',
         key: 'remain_quantity',
-        width: 75,
+        width: 100,
         title: "Tồn kho",
         align: 'center',
         ellipsis: true,
@@ -271,6 +275,15 @@ export default {
         key: 'total_sold',
         width: 75,
         title: 'Đã bán',
+        align: 'center',
+        ellipsis: true,
+        resizable: true
+      },
+      {
+        dataIndex: 'is_hidden',
+        key: 'is_hidden',
+        width: 100,
+        title: "Trạng thái",
         align: 'center',
         ellipsis: true,
         resizable: true
@@ -413,6 +426,18 @@ export default {
     },
     gotoPage() {
       this.allProducts.getProducts()
+    },
+    handleHidden(checked, product_id, e) {
+      e.preventDefault()
+      e.stopPropagation()
+
+      this.allProducts.handleHiddenProduct(product_id, checked)
+        .catch(error => {
+          this.$notification.error({
+            message: "Thất bại",
+            description: "Có gì đó sai sai",
+          });
+        })
     },
   }
 }

@@ -139,6 +139,7 @@ export const useAllProductStore = defineStore('all_products', {
           variations: el.variations,
           // categories: (el.categories || []).map(el => el.name).join(', '),
           quantity_variation: el.variations.length,
+          is_hidden: el.is_hidden
         }
       })
     }
@@ -223,6 +224,22 @@ export const useAllProductStore = defineStore('all_products', {
         })
         .finally(() => {
           this.isLoadingProductTags = false
+        })
+    },
+    async handleHiddenProduct(product_id, checked) {
+      const url = `${VITE_BACKEND_API_URL}/api/admin/products/hidden`
+      let data = []
+      data.push({product_id, is_hidden: checked})
+
+      return useApipost(url, null ,{data})
+        .then(res => {
+          if (res.status == 200) {
+            res.data.products.map(el => {
+              let idx = this.products.data.findIndex(elm => elm.id == el.id)
+
+              this.products.data[idx].is_hidden = el.is_hidden
+            })
+          }
         })
     },
   }

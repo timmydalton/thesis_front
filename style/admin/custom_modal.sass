@@ -1,0 +1,36 @@
+.custom-modal
+  @apply w-[95%] h-[90%] p-0 #{!important}
+  @apply max-w-[1600px] 2xl:w-[85%] #{!important}
+  ::-webkit-scrollbar
+    width: 4px !important
+    height: 4px !important
+    display: block
+    background: $theme-bg2
+
+  ::-webkit-scrollbar-thumb
+    background-color: var(--scrollbar-thumb)
+    border-radius: 4px
+
+  .ant-modal-header
+    @apply bg-theme-layout p-4
+    background-color: var(--bg-ui-2)
+    .ant-modal-title
+      color: var(--text-normal)
+  .ant-modal-content
+    @apply h-full flex flex-col
+    .ant-modal-body
+      @apply flex-1 bg-theme-bg2 p-4 overflow-y-auto
+      background-color: var(--bg-ui-8)
+  .ant-card
+    &-head
+      @apply h-[49px] flex items-center p-3
+      &-title
+        @apply font-semibold
+      &-wrapper
+        @apply w-full
+
+  .ant-input-number-handler-wrap
+    // @apply opacity-100
+
+  .ant-drawer-mask
+    background: #f0f0f073

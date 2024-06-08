@@ -9,6 +9,7 @@ import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
 import Products from '@/components/admin-view/Products.vue'
+import Categories from '@/components/admin-view/Categories.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,7 +32,7 @@ const router = createRouter({
         {
           path: 'categories',
           name: 'categories',
-          component: Products,
+          component: Categories,
         },
         {
           path: 'orders',
