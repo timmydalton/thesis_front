@@ -38,6 +38,7 @@
 
 <script>
 import { useUserStore } from '@/stores/user'
+import { setCookie } from '@/composable/common.js'
 
 export default {
   setup() {
@@ -79,6 +80,32 @@ export default {
       this.loading = true
 
       this.user.createAccount(this.username, this.password)
+        .then(res => {
+          if (res.status == 200) {
+            this.handleLogin()
+          }
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
+    handleLogin() {
+      if (!this.username || !this.password) {
+        this.alertText = 'Bạn phải nhập đầy đủ thông tin!'
+        this.showAlert = true
+        return
+      }
+
+      this.loading = true
+
+      this.user.handleLogin(this.username, this.password)
+        .then(res => {
+          const user = res.data.data
+          const jwt = user.access_token
+
+          setCookie('jwt', jwt)
+          this.$router.push('/home')
+        })
         .finally(() => {
           this.loading = false
         })
