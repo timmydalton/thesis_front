@@ -30,7 +30,7 @@
       </div>
 
       <div class="see-more">
-        <a class="btn" href="/all-product">
+        <a class="btn" href="/category/all">
           Xem thêm
         </a>
       </div>

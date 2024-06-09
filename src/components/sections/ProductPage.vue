@@ -104,7 +104,13 @@ export default {
       return this.product.variations || []
     },
     images() {
-      return this.variations.reduce((acc, cur) => cur.images ? [...acc, ...cur.images] : acc, [])
+      const images = this.variations
+        .reduce((acc, cur) => cur.images ? [...acc, ...cur.images] : acc, [])
+        .filter(function(item, pos, a) {
+          return a.indexOf(item) == pos;
+        })
+
+      return images
     },
     price() {
       const listPrice = this.variations.map(el => el.retail_price)

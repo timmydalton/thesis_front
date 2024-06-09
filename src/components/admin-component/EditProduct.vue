@@ -71,8 +71,8 @@
                   <a-empty :image="simpleImage" />
                 </li>
               </ul>
-              <div class="w-full h-fulll" v-else v-for="(attr, idx) in editProductStore.product_attributes">
-                <li class="attribute-item w-full flex items-center">
+              <div class="w-full h-fulll" v-else>
+                <li class="attribute-item w-full flex items-center" v-for="(attr, idx) in editProductStore.product_attributes">
                   <span class="pt-4 mr-2" style="font-size: 15px; cursor: all-scroll;" >
                     <svg viewBox="64 64 896 896" focusable="false" data-icon="more" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                       <path

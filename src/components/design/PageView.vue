@@ -48,7 +48,7 @@ export default {
       return []
     },
     src() {
-      return 'https://printstyle.com.vn/tshirtecommerce//uploaded/design/Case/ao/dg-designer-4dcf4354146237658447896726710021304.png'
+      return 'https://content.pancake.vn/web_content/fc/35/88/e4/83f6a1b3da3d6a88b40f4535d7a48e44ad9f9e9dd7732d81fb3fde86.png'
     },
     editingView() {
       return this.ui.editingProductView || 0

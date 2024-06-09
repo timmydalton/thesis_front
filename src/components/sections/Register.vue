@@ -56,6 +56,9 @@ export default {
       loading: false,
     }
   },
+  mounted() {
+    if (this.user.me.username) this.$router.push('/home')
+  },
   watch: {
     password() {
       this.showAlert = false

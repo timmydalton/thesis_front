@@ -65,8 +65,14 @@
 
     <div class="header-right">
       <div class="flex">
-        <div class="cart">
-          
+        <div class="cart mr-4 cursor-pointer" @click="visibleCart = !visibleCart">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.2991 9.50857L13.472 3H10.528L6.70093 9.50857H1.5L3.46262 17.6686C3.75701 19.0286 4.93458 20 6.30841 20H17.6916C19.0654 20 20.1449 19.0286 20.5374 17.6686L22.5 9.50857H17.2991V9.50857ZM11.4112 4.74857H12.5888L15.4346 9.60571H8.56542L11.4112 4.74857ZM18.9673 17.28C18.8692 17.5714 18.771 17.8629 18.4766 18.0571C18.2804 18.2514 17.986 18.3486 17.6916 18.3486H6.30841C6.01402 18.3486 5.71963 18.2514 5.52336 18.0571C5.3271 17.8629 5.13084 17.5714 5.03271 17.3771L3.56075 11.2571H20.4393L18.9673 17.28Z" fill="currentColor"></path>
+          </svg>
+
+          <div class="cart-item-count">
+            0
+          </div>
         </div>
 
         <a href="/login" v-if="!user.me?.username">
@@ -84,6 +90,16 @@
         <AdminProfileMenu :user="user" v-else/>
       </div>
     </div>
+
+    <a-drawer
+      title="Giỏ hàng"
+      placement="right"
+      :closable="false"
+      class="custom-cart"
+      v-model:open="visibleCart"
+    >
+      <Cart />
+    </a-drawer>
   </section>
 </template>
 
@@ -91,6 +107,8 @@
 import { CaretDownOutlined } from "@ant-design/icons-vue"
 
 import AdminProfileMenu from '../admin/AdminProfileMenu.vue'
+import Cart from '@/components/element/Cart.vue'
+
 import { useUserStore } from '@/stores/user'
 import { useMainStore } from '@/stores/store'
 
@@ -106,7 +124,13 @@ export default {
   },
   components: {
     CaretDownOutlined,
-    AdminProfileMenu
+    AdminProfileMenu,
+    Cart
+  },
+  data() {
+    return {
+      visibleCart: false
+    }
   },
   computed: {
     listCategories() {

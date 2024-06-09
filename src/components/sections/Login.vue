@@ -53,6 +53,9 @@ export default {
       loading: false,
     }
   },
+  mounted() {
+    if (this.user.me.username) this.$router.push('/home')
+  },
   methods: {
     handleLogin() {
       if (!this.username || !this.password) {

@@ -1,0 +1,22 @@
+.ant-radio-group
+  .ant-radio-checked
+    .ant-radio-inner
+      border-color: var(--primary-v2)
+      background: none
+    .ant-radio-inner::after
+      background-color: var(--primary-v2)
+
+.ant-radio-group-outline
+  .ant-radio-button-wrapper
+    &:hover
+      color: var(--primary-v2)
+  .ant-radio-button-wrapper-checked
+    @apply bg-theme-bg6 first:rounded-tl first:rounded-bl last:rounded-tr last:rounded-br
+    color: var(--primary-v2)
+    border-color: var(--primary-v2) !important
+
+.ant-radio-wrapper:hover .ant-radio, .ant-radio:hover .ant-radio-inner, .ant-radio-input:focus + .ant-radio-inner, .ant-radio-checked::after
+  border-color: var(--primary-v2)
+
+.ant-radio-input:focus + .ant-radio-inner
+  box-shadow: none
