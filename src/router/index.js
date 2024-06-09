@@ -8,6 +8,7 @@ import AdminLayout from  '@/components/layout/AdminLayout.vue'
 import Homepage from  '@/components/sections/Homepage.vue'
 import ProductPage from  '@/components/sections/ProductPage.vue'
 import CategoryPage from  '@/components/sections/CategoryPage.vue'
+import DesignPage from  '@/components/sections/DesignPage.vue'
 import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
@@ -74,6 +75,18 @@ const router = createRouter({
                 next()
               })
           },
+        },
+      ]
+    },
+    {
+      path: '/design',
+      name: 'design',
+      component: StoreLayout,
+      children: [
+        {
+          path: '',
+          name: 'design',
+          component: DesignPage,
         },
       ]
     },

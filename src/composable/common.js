@@ -1,3 +1,5 @@
+import { get } from 'lodash'
+
 export const setCookie = (cname, cvalue, exdays = 365 * 100) => {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -60,4 +62,72 @@ export const traversal = (node, callback, parent) => {
   if (!Array.isArray(node.children)) return
 
   node.children.forEach(child => traversal(child, callback, node))
+}
+
+export function getStyle(element, key, value) {
+  return get(element, ['style', key], value)
+}
+export function getConfig(element, key, value) {
+  return get(element, ['config', key], value)
+}
+
+//Parse all mouse/touch event coordinates to x-y
+export function eventParser(e) {
+  if (e.nativeEvent) e = e.nativeEvent
+    const changedTouches = e.changedTouches || []
+    const touchPoints = e.targetTouches || []
+    const detail = e.detail && e.detail.x ? e.detail : null
+    return {
+      id: detail
+        ? detail.identifier
+          ? detail.identifier
+          : 'i'
+        : !touchPoints[0]
+        ? 'd'
+        : touchPoints[0]
+        ? touchPoints[0].identifier
+        : 'e',
+      idChanged: detail
+        ? detail.identifier
+          ? detail.identifier
+          : 'i'
+        : !changedTouches[0]
+        ? 'd'
+        : changedTouches[0]
+        ? changedTouches[0].identifier
+        : 'e',
+      raw: e,
+      x:
+        detail && detail.x
+          ? detail.x
+          : touchPoints[0]
+          ? touchPoints[0].screenX
+          : detail
+          ? detail.x
+          : e.pageX,
+      y:
+        detail && detail.y
+          ? detail.y
+          : touchPoints[0]
+          ? touchPoints[0].screenY
+          : detail
+          ? detail.y
+          : e.pageY,
+    }
+}
+
+export function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max)
+}
+
+export const PROPERTY_NOW_SHOW = ['top', 'left', 'width', 'height']
+
+//This is not used anymore
+export const getCenterArea = () => {
+  const dom = document.getElementById('design-area')
+
+  return {
+    top: dom.offsetHeight / 2,
+    left: dom.offsetWidth / 2
+  }
 }

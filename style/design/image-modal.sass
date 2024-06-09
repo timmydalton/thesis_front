@@ -1,0 +1,64 @@
+.image-picker-wrapper
+  display: grid
+  gap: 10px
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  max-height: 400px
+  overflow: auto
+  .image-picker-item, .folder-picker-item
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    transition: transform .3s ease, background-color .3s
+    padding: .5rem
+    img
+      width: 100%
+      aspect-ratio: 1/1
+      object-fit: contain
+    .item-title
+      width: 100%
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+  .folder-picker-item
+    &:hover
+      background-color: rgba(236, 254, 255, 1)
+  .image-picker-item
+    &:hover
+      background-color: #0003
+
+.image-picker-breadcrumb
+  display: flex
+  margin-bottom: .5rem
+  .breadcrumb-item
+    display: flex
+    .separator
+      display: flex
+      align-items: center
+    .breadcrumb-name
+      align-items: center
+      border-radius: 999px
+      cursor: pointer
+      display: flex
+      font-size: 14px
+      height: 30px
+      justify-content: center
+      line-height: 18px
+      padding: 0 10px
+      transition-duration: .1s
+      transition-timing-function: linear
+      transition-property: background-color, color, border-color
+      -webkit-user-select: none
+      -moz-user-select: none
+      user-select: none
+      max-width: 100px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      &:hover
+        background-color: #1677ff
+        color: #fff
+
+.ant-tabs-nav
+  margin-bottom: 8px

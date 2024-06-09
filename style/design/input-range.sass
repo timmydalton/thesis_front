@@ -1,0 +1,52 @@
+.input-range
+  height: 16px
+  position: relative
+
+.slider-line-px
+  width: 160px !important
+  .slider
+    width: 100% !important
+
+.slider-line
+  position: relative
+  height: 36px
+  margin: 0 18px 0 0
+  width: 120px
+  font-size: 12px
+.line
+  position: absolute
+  z-index: 1
+  top: 5px// 45%
+  width: 100%
+  height: 6px
+  border-radius: 5px
+  background-color: #d3edff
+  overflow: hidden
+
+.line .fill
+  display: block
+  height: 100%
+  background-color: #00C1A2
+
+.slider
+  position: absolute
+  z-index: 2
+  -webkit-appearance: none
+  width: 100%
+  height: 6px
+  border-radius: 5px
+  outline: none
+  background-color: transparent
+  top: 5px
+
+.slider::-webkit-slider-thumb
+  -webkit-appearance: none
+  width: 15px
+  height: 15px
+  background-color: #00C1A2
+  border-radius: 50%
+  cursor: pointer
+  outline: none
+  box-shadow: 0 1px 3px 0 rgba(52, 94, 151, .6)
+  border: 3px solid #fff
+  transition: .3s ease-in-out

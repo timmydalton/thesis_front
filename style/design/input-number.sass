@@ -1,0 +1,65 @@
+@mixin editable-input-number()
+  background-color: transparent
+  width: 100%
+  padding: 0 0 0 7px
+  height: 28px
+  border: none
+  background-clip: padding-box
+  min-width: 15px
+  color: #333
+  fill: #333
+  border-radius: 2px
+  background-clip: padding-box
+  border-left: 0
+  margin-left: 0
+  outline: 0
+  font-size: 11px
+  height: 100%
+
+.builder--input-number-container
+  display: flex
+  justify-content: space-between
+  width: 55px
+  height: 32px
+  position: relative
+  border: 1px solid rgba(0, 0, 0, 0.1)
+  border-radius: 5px
+  &.border-hover
+    border-color: rgba(0 ,0 ,0 ,0 )
+  &.hide-value
+    input
+      display: none
+  &:hover
+    border: 1px solid rgba(0, 0, 0, 0.1)
+  &:focus-within
+    border: 1px solid #00C1A2
+  .add-on
+    border-left: 1px solid rgba(0, 0, 0, 0.1)
+
+.builder--editable-input-number
+  @include editable-input-number()
+
+.builder--input-number-container.disabled
+  background-color: #f3f3f3
+  .builder--editable-input-number
+    cursor: not-allowed
+
+.builder--input-number--unit
+  height: 100%
+  font-size: 10px
+  color: #00C1A2
+  margin: auto
+  padding: 0 4px 0 2px
+  line-height: 29px
+  white-space: nowrap
+
+.builder--editable-input-number[type='number']::-webkit-inner-spin-button
+  height: 100%
+  right: 0px
+  top: 0
+  width: 25px
+  position: absolute
+  border-top-right-radius: 3px
+  border-bottom-right-radius: 3px
+.builder--editable-input-number.show-type-input[type='number']::-webkit-inner-spin-button
+  display: none
