@@ -2,7 +2,7 @@
   <a-popover trigger="hover" overlayClassName="db--topbar-profile--popover" placement="bottomRight">
     <div class="db--topbar-profile flex items-center cursor-pointer h-10">
       <div class="db--topbar-avatar mr-2">
-        <img :src="user.me.avatar || 'https://64.media.tumblr.com/0a049264fba0072a818f733a6c533578/tumblr_mqvlz4t5FK1qcnibxo1_540.pnj'" />
+        <img :src="user.me?.avatar || 'https://64.media.tumblr.com/0a049264fba0072a818f733a6c533578/tumblr_mqvlz4t5FK1qcnibxo1_540.pnj'" />
       </div>
       <div class="db--topbar-username flex items-center">
         <div class="username-text">
@@ -15,6 +15,21 @@
       </div>
     </div>
     <template #content>
+      <div class="db--topbar-user flex items-center"
+        @click="onClickBackSites('/home')"
+      >
+        <span>Trang chủ</span>
+      </div>
+
+      <div class="db--topbar-user flex items-center"
+        v-if="user.me?.role == 0"
+        @click="onClickBackSites('/admin')"
+      >
+        <span>Quản lý cửa hàng</span>
+      </div>
+
+      <a-divider class="divider-3-0"/>
+
       <div class="db--topbar-user db--topbar--dropdown-avatar" @click="onClickProfile">
         <div style="display: flex; pointer-events: none;height: 46px; width: 46px;justify-content:center;align-items:center;">
           <span class="rr-status-badge ant-badge">
@@ -58,13 +73,13 @@ export default {
   },
   computed: {
     fullName() {
-      const name = '' + (this.user.me.first_name || "") + (this.user.me.last_name ? " " + this.user.me.last_name : "") || "No name"
+      const name = '' + (this.user.me.first_name || "") + (this.user.me.last_name ? " " + this.user.me.last_name : "") || this.user.me.username || "No name"
       return name;
     },
   },
   methods: {
     onClickProfile() {
-      this.$router.push(`/dashboard/setting`);
+      // this.$router.push(`/dashboard/setting`);
     },
     onClickBackSites(path) {
       this.$router.push(path);

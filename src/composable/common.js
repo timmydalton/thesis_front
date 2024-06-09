@@ -53,3 +53,11 @@ export const convertVN = str => {
   str = str.replace(/[^a-zA-Z0-9/, ]/g, '');
   return str;
 };
+
+export const traversal = (node, callback, parent) => {
+  callback(node, parent)
+
+  if (!Array.isArray(node.children)) return
+
+  node.children.forEach(child => traversal(child, callback, node))
+}

@@ -1,0 +1,27 @@
+.product-card
+  padding: 8px
+  border-radius: 8px
+  &:hover
+    background: #e3e3e3
+  .thumbnail-img
+    padding: 4px
+    background: #f7f7f7
+    border-radius: 6px
+    img
+      width: 100%
+      aspect-ratio: 1/1
+      object-fit: cover
+  .product-info
+    padding: 8px 0
+    display: flex
+    flex-direction: column
+    .name
+      font-size: 13px
+    .price
+      display: flex
+      font-size: 15px
+      .retail-price
+        color: #ff0000
+      .original-price
+        color: #777
+        text-decoration: line-through

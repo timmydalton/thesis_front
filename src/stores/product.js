@@ -142,6 +142,68 @@ export const useAllProductStore = defineStore('all_products', {
           is_hidden: el.is_hidden
         }
       })
+    },
+    renderProductsMinMax() {
+      const getRetailPrice = (variations) => {
+        let arrayPrice = variations.map(el => el.retail_price)
+        let min = Math.min(...arrayPrice) || 0
+        let max = Math.max(...arrayPrice) || 0
+
+        let result = (min == max || arrayPrice.length == 0)  ? max : min
+
+        return result
+      }
+
+      const getOriginalPrice = (variations) => {
+        let arrayPrice = variations.map(el => el.original_price)
+        let min = Math.min(...arrayPrice) || 0
+        let max = Math.max(...arrayPrice) || 0
+
+        let result = (min == max || arrayPrice.length == 0) ? max : max
+
+        return result
+      }
+
+      const getRemainQuantity = (variations) => {
+        let arrayAmount = variations.map(el => el.remain_quantity)
+        return arrayAmount.reduce((total, num) => {return total+num}, 0)
+      }
+
+      const getImage = (variations) => {
+        let arrayImage = variations.filter(el => el.images && el.images.length > 0)
+        let src = arrayImage.length > 0 ? arrayImage[0].images[0] : null
+        if (src == null) return ''
+        return src
+
+      }
+
+      const getInfoVariationsObj = {
+        retailPrice: getRetailPrice,
+        originalPrice: getOriginalPrice,
+        remainQuantity: getRemainQuantity,
+        image: getImage
+      }
+
+      const getInfoVariations = (variations, type) => {
+        return getInfoVariationsObj[type](variations)
+      }
+
+      return this.products.data.map((el, idx) => {
+        return {
+          key: el.id,
+          name: el.name,
+          custom_id: el.custom_id,
+          retail_price: getInfoVariations(el.variations, "retailPrice"),
+          original_price: getInfoVariations(el.variations, "originalPrice"),
+          remain_quantity: getInfoVariations(el.variations, "remainQuantity"),
+          image: el.image ? el.image : getInfoVariations(el.variations, "image"),
+          id: el.id,
+          variations: el.variations,
+          // categories: (el.categories || []).map(el => el.name).join(', '),
+          quantity_variation: el.variations.length,
+          is_hidden: el.is_hidden
+        }
+      })
     }
   },
   actions: {

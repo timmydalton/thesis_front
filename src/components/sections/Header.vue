@@ -13,9 +13,6 @@
     </div>
 
     <div class="sect-right">
-      <a href="/admin" class="mr-2">
-        Admin
-      </a>
     </div>
   </section>
 
@@ -39,12 +36,12 @@
           Trang chủ
         </a>
       </div>
-      <a-popover trigger="hover" overlayClassName="header-popover">
+      <a-popover trigger="hover" overlayClassName="header-popover" placement="bottom">
         <template #content>
           <a-menu :selected-keys="[]" style="width: 256px" mode="vertical">
             <component :is="cate.children?.length ? 'a-sub-menu' : 'a-menu-item'" v-for="cate in listCategories" :key="cate.id" :title="cate.name" @click="handleClickCate(cate.id)">
               <template v-if="cate.children?.length">
-                <a-menu-item v-for="item in cate.children" @click="handleClickCate(cate.id)">
+                <a-menu-item v-for="item in cate.children" @click="handleClickCate(item.id)">
                   {{ item.name }}
                 </a-menu-item>
               </template>
@@ -53,7 +50,7 @@
           </a-menu>
         </template>
         <div class="menu-item">
-          <a href="/all-product">
+          <a href="/category/all">
             Sản phẩm
             <CaretDownOutlined/>
           </a>
@@ -72,7 +69,7 @@
           
         </div>
 
-        <a href="/login">
+        <a href="/login" v-if="!user.me?.username">
           <div class="account flex items-center">
             <div style="height: 24px; width: 24px;">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -83,6 +80,8 @@
             <div>Tài khoản</div>
           </div>
         </a>
+
+        <AdminProfileMenu :user="user" v-else/>
       </div>
     </div>
   </section>
@@ -91,35 +90,32 @@
 <script>
 import { CaretDownOutlined } from "@ant-design/icons-vue"
 
-import { useCategoryStore } from "@/stores/categories.js"
+import AdminProfileMenu from '../admin/AdminProfileMenu.vue'
+import { useUserStore } from '@/stores/user'
+import { useMainStore } from '@/stores/store'
 
 export default {
   setup() {
-    const categoryStore = useCategoryStore()
+    const user = useUserStore()
+    const mainStore = useMainStore()
 
     return {
-      categoryStore
+      user,
+      mainStore
     }
   },
   components: {
-    CaretDownOutlined
+    CaretDownOutlined,
+    AdminProfileMenu
   },
   computed: {
     listCategories() {
-      return this.categoryStore.categories.data
+      return this.mainStore.categories.data
     }
-  },
-  mounted() {
-    this.categoryStore.getCategories({ limit: 1000 })
-      .catch(error => {
-        let messageCode = error?.response?.data?.reason?.message_code
-          console.log(messageCode)
-          this.$message.error("Có gì đó sai sai!!!")
-      })
   },
   methods: {
     handleClickCate(id) {
-      this.$router.push(`/category/${id}`)
+      this.$router.replace(`/category/${id}`)
     }
   }
 }

@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useMainStore } from '@/stores/store'
 
 import StoreLayout from  '@/components/layout/StoreLayout.vue'
 import AdminLayout from  '@/components/layout/AdminLayout.vue'
 
 import Homepage from  '@/components/sections/Homepage.vue'
+import ProductPage from  '@/components/sections/ProductPage.vue'
+import CategoryPage from  '@/components/sections/CategoryPage.vue'
 import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
@@ -40,6 +43,37 @@ const router = createRouter({
           path: 'orders',
           name: 'orders',
           component: Orders,
+        },
+      ]
+    },
+    {
+      path: '/category',
+      name: 'category',
+      component: StoreLayout,
+      children: [
+        {
+          path: ':category_id',
+          name: 'category',
+          component: CategoryPage,
+        },
+      ]
+    },
+    {
+      path: '/product',
+      name: 'product',
+      component: StoreLayout,
+      children: [
+        {
+          path: ':product_id',
+          name: 'product',
+          component: ProductPage,
+          beforeEnter: (to, from, next) => {
+            const product_id = to.params.product_id
+            useMainStore().getProductById(product_id)
+              .finally(() => {
+                next()
+              })
+          },
         },
       ]
     },
@@ -80,6 +114,9 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   const user = useUserStore()
   user.fetchAccount()
+
+  const mainStore = useMainStore()
+  mainStore.getCategories()
 })
 
 export default router

@@ -430,6 +430,8 @@ export default {
       return record.id == this.editProductStore.id ? "bg-theme-table-selected" : ""
     },
     onChangePagination(p, ps) {
+      if (ps != this.allProducts.products.limit && p != 1) p = 1
+      this.allProducts.getProducts(p, ps)
     },
     handleCancelEditProduct() {
       if ( !this.productId
