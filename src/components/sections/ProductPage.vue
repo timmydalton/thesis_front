@@ -1,107 +1,141 @@
 <template>
-  <section class="product-page">
-    <div class="sect-item flex">
-      <div class="left carousel flex-1">
-        <Carousel id="gallery" :wrap-around="true">
-          <Slide v-for="image in images" :key="image">
-            <div class="carousel__item w-full h-full">
-              <img :src="image" class="w-full h-full" alt="">
+  <section class="section-product">
+    <div class="container">
+      <div class="row">
+        <div class="col-xxl-4 col-xl-5 col-md-6 col-12 mb-24">
+          <div class="vehicle-detail-banner banner-content clearfix">
+            <div class="banner-slider">
+              <swiper
+                class="mySwiper"
+                :navigation="true"
+                :thumbs="{ swiper: thumbsSwiper }"
+                :modules="modules"
+              >
+                <swiper-slide v-for="img in images" :key="img">
+                  <div class="swiper-banner-image">
+                    <img :src="img" alt="">
+                  </div>
+                </swiper-slide>
+              </swiper>
+
+              <swiper
+                @swiper="setThumbsSwiper"
+                :spaceBetween="10"
+                :slidesPerView="6"
+                :freeMode="true"
+                :watchSlidesProgress="true"
+                :modules="modules"
+                class="mySwiper"
+              >
+                <swiper-slide v-for="img in images" :key="img">
+                  <div class="swiper-thumbnail-image">
+                    <img :src="img" alt="">
+                  </div>
+                </swiper-slide>
+              </swiper>
             </div>
-          </Slide>
-        </Carousel>
+          </div>
+        </div>
 
-        <!-- <div class="mt-2"></div>
-
-        <Carousel
-          id="thumbnails"
-          :items-to-show="4"
-          :wrap-around="true"
-          v-model="currentSlide"
-          ref="carousel"
-        >
-          <Slide v-for="image in images" :key="image">
-            <div class="carousel__item cursor-pointer" @click="slideTo(image - 1)"><img :src="image"></div>
-          </Slide>
-        </Carousel> -->
-      </div>
-
-      <div class="right flex-1">
-        <div class="flex flex-col">
-          <div class="product-name mb-2">{{ product.name }}</div>
-
-          <div class="total-sold mb-4">Đã bán: {{ product.total_sold }}</div>
-
-          <div class="price">
-            <span class="retail-price">{{ price }} đ</span>
-            <template v-if="originalPrice > price">
-              <span class="original-price ml-8">{{ originalPrice }} đ</span>
-            </template>
+        <div class="col-xxl-8 col-xl-7 col-md-6 col-12 mb-24">
+          <div class="cr-size-and-weight-contain">
+            <h2 class="heading">{{ product.name }}</h2>
           </div>
 
-          <div class="attr mt-4" v-for="attr in product_attributes">
-            <div class="attr-title">
-              {{ attr.name }}
+          <div class="cr-size-and-weight">
+            <div class="list">
+              <ul>
+                <li v-if="categoriesName">
+                  <label>Danh mục<span>:</span></label>
+                  {{ categoriesName }}
+                </li>
+                <li>
+                  <label>Đã bán<span>:</span></label>
+                  {{ product.total_sold || 0 }}
+                </li>
+                <li>
+                  <label>Còn<span>:</span></label>
+                  {{ remain_quantity }}
+                </li>
+              </ul>
             </div>
 
-            <div class="attr-options flex mt-2">
-              <div class="attr-options-item cursor-pointer" v-for="item in (attr.values || [])">
-                {{ item }}
+            <div class="cr-product-price">
+              <span class="new-price">{{ price }}₫</span>
+              <span class="old-price ml-2" v-if="originalPrice > price">{{ originalPrice }}₫</span>
+            </div>
+
+            <div class="cr-attrs" v-for="attr in product_attributes" :key="attr.name">
+              <h5>{{ attr.name }}:</h5>
+              <div class="cr-attr">
+                <ul>
+                  <li :class="{'active-color': selectedAttrs[attr.name] == value, 'disabled': !(availableAttr[attr.name] || []).includes(value) }" v-for="value in (attr.values || [])" :key="value" @click="selectAttr(attr.name, value)">
+                    {{ value }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="cr-add-card">
+              <div class="cr-qty-main">
+                <input :value="quantity" @input="quantity = parseInt($event.target.value) || 1" type="text" placeholder="." value="1" minlength="1" maxlength="20" class="quantity">
+                <button type="button" class="plus" @click="quantity = quantity + 1">+</button>
+                <button type="button" class="minus" @click="quantity = quantity - 1 || 1">-</button>
+              </div>
+              <div class="cr-add-button">
+                <button type="button" class="cr-button cr-shopping-bag" @click="addToCart">Add to cart</button>
               </div>
             </div>
           </div>
-
-          <div class="quantity mt-4">
-            <div class="quantity-btn plus" @click="quantity = quantity+1">+</div>
-            <div class="quantity-number flex-1">{{ quantity }}</div>
-            <div class="quantity-btn minus" @click="quantity = quantity-1 ? quantity-1 : 1">-</div>
-          </div>
-
-          <div class="action w-full flex mt-4">
-            <div class="buy-now action-btn flex-1">Mua ngay</div>
-            <div class="add-to-cart action-btn flex-1">Thêm vào giỏ hàng</div>
-          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="sect-item mt-4 flex">
-      <div class="title">
-        Mô tả sản phẩm
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { Carousel, Navigation, Slide, Pagination } from 'vue3-carousel'
+import { FreeMode, Navigation, Thumbs } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import { useMainStore } from '@/stores/store'
+import { useCartStore } from '@/stores/cart'
+import { cloneDeep } from 'lodash'
 
 export default {
   setup() {
     const mainStore = useMainStore()
+    const cart = useCartStore()
 
     return {
+      cart,
       mainStore
     }
   },
   components: {
-    Pagination,
-    Carousel,
-    Slide,
-    Navigation,
+    Swiper,
+    SwiperSlide
   },
   data() {
     return {
       currentSlide: 0,
-      quantity: 1
+      quantity: 1,
+      thumbsSwiper: null
     }
   },
   computed: {
     product() {
       return this.mainStore.product || {}
     },
+    selectedAttrs() {
+      return this.mainStore.selectedAttrs || {}
+    },
     variations() {
       return this.product.variations || []
+    },
+    categories() {
+      return this.product.categories || []
+    },
+    categoriesName() {
+      return this.categories.map(e => e.name).join(', ')
     },
     images() {
       const images = this.variations
@@ -122,12 +156,50 @@ export default {
     },
     product_attributes() {
       return this.product.product_attributes || []
+    },
+    remain_quantity() {
+      return this.variations.reduce((acc, cur) => {
+        return acc + cur.remain_quantity
+      }, 0)
+    },
+    modules() {
+      return [FreeMode, Navigation, Thumbs]
+    },
+    availableAttr() {
+      return this.variations.reduce((acc, cur) => {
+        const fields = cur.fields || []
+
+        fields.forEach(field => {
+          if (!acc[field.name]) acc[field.name] = []
+          if (!acc[field.name].includes(field.value)) acc[field.name].push(field.value)
+        })
+
+        return acc
+      }, {})
     }
   },
   methods: {
     slideTo(val) {
       this.currentSlide = val
     },
+    setThumbsSwiper(swiper) {
+      this.thumbsSwiper = swiper;
+    },
+    selectAttr(name, value) {
+      const attrs = cloneDeep(this.selectedAttrs)
+
+      if (attrs[name] == value) delete attrs[name]
+      else attrs[name] = value
+
+      this.mainStore.setState({ selectedAttrs: attrs })
+    },
+    addToCart() {
+      const product = cloneDeep(this.product)
+      const attrs = cloneDeep(this.selectedAttrs)
+      const quantity = this.quantity
+
+      this.cart.addToCart(product, attrs, quantity)
+    }
   }
 }
 </script>

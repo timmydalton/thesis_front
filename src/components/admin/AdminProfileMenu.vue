@@ -90,7 +90,7 @@ export default {
     handleLogOut(e) {
       e.stopPropagation()
       this.delete_cookie('jwt')
-      this.$router.replace({path: '/'})
+      window.location.reload()
     },
     delete_cookie(name) {
       document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';

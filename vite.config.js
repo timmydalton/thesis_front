@@ -13,9 +13,30 @@ export default defineConfig({
     vue(),
     svgLoader()
   ],
+  build: {
+    minify: 'esbuild'
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s[a|c]ss$/,
+        use: [
+          {
+            loader: 'sass-loader',
+            options: {
+              // sass-loader version >= 8
+              sassOptions: {
+                indentedSyntax: true
+              }
+            }
+          }
+        ]
+      }
+    ]
   }
 })

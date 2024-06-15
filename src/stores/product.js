@@ -137,7 +137,7 @@ export const useAllProductStore = defineStore('all_products', {
           image: el.image ? el.image : getInfoVariations(el.variations, "image"),
           id: el.id,
           variations: el.variations,
-          // categories: (el.categories || []).map(el => el.name).join(', '),
+          categories: el.categories,
           quantity_variation: el.variations.length,
           is_hidden: el.is_hidden
         }
@@ -199,7 +199,7 @@ export const useAllProductStore = defineStore('all_products', {
           image: el.image ? el.image : getInfoVariations(el.variations, "image"),
           id: el.id,
           variations: el.variations,
-          // categories: (el.categories || []).map(el => el.name).join(', '),
+          categories: el.categories,
           quantity_variation: el.variations.length,
           is_hidden: el.is_hidden
         }

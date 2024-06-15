@@ -1,5 +1,97 @@
 <template>
-  <div class="section-account-form">
+  <section class="section-register">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="mb-6">
+            <div class="cr-banner">
+                <h2>Đăng ký</h2>
+            </div>
+            <div class="cr-banner-sub-title">
+              <p>Đăng ký tài khoản mới dành cho bạn. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="cr-register">
+            <!-- <div class="form-logo">
+              <img src="assets/img/logo/logo.png" alt="logo">
+            </div> -->
+            <form class="cr-content-form">
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Tên đăng nhập</label>
+                    <a-input class="cr-form-control" placeholder="Tên sử dụng để đăng nhập tài khoản" v-model:value="username"></a-input>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <a-input-password class="cr-form-control" placeholder="Nhập mật khẩu" v-model:value="password"></a-input-password>
+                  </div>
+                </div>
+                
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label>Nhập lại mật khẩu</label>
+                    <a-input-password class="cr-form-control" placeholder="Nhập lại mật khẩu" v-model:value="repassword"></a-input-password>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label>Họ*</label>
+                    <a-input class="cr-form-control" placeholder="Nhập họ" v-model:value="first_name"></a-input>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label>Tên*</label>
+                    <a-input class="cr-form-control" placeholder="Nhập tên và tên đệm" v-model:value="last_name"></a-input>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label>Email*</label>
+                    <a-input class="cr-form-control" placeholder="Nhập email" v-model:value="email"></a-input>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label>Số điện thoại*</label>
+                    <a-input class="cr-form-control" placeholder="Số điện thoại" v-model:value="phone_number"></a-input>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <a-input class="cr-form-control" placeholder="Số nhà, đường, quận, thành phố,..." v-model:value="address"></a-input>
+                  </div>
+                </div>
+
+                <div class="cr-register-buttons">
+                  <a-button class="cr-button" type="primary" :loading="loading" @click="handleRegister">Đăng ký</a-button>
+
+                  <a href="/login" class="link">Đã có tài khoản?</a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <div class="section-account-form">
     <div class="content-wrapper">
       <div class="account-header mb-6">
         Đăng ký tài khoản
@@ -33,7 +125,7 @@
         </div>
       </form>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -48,6 +140,11 @@ export default {
   },
   data() {
     return {
+      first_name: '',
+      last_name: '',
+      email: '',
+      phone_number: '',
+      address: '',
       username: '',
       password: '',
       repassword: '',

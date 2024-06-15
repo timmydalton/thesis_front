@@ -1,41 +1,56 @@
-.footer-1
-  display: flex
-  padding: 30px 15px
-  gap: 20px
-  align-items: center
-  .footer-item
-    display: flex
-    align-items: center
-    .icon
-      width: 80px
-      flex-shrink: 0
-      padding: 16px
-      img
-        aspect-ratio: 1/1
-    .text-1
-      font-size: 15px
-      font-weight: 600
-      color: #ff0000
-    .text-2
-      font-size: 13px
+.footer
+  position: relative
+  border-top: 1px solid #e9e9e9
+  padding-top: 100px
+  &::before
+    width: 70px
+    height: 60px
+    content: ""
+    background-image: url(https://statics.pancake.vn/web-media/e7/0e/51/7a/d6858355a35b8943bd7990c2eb09fa6fa40e80895e4a0461edd7876e.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    top: -25px
+    right: 100px
+    z-index: 1
+  &::after
+    width: 60px
+    height: 60px
+    content: ""
+    background-image: url(https://statics.pancake.vn/web-media/a4/29/e2/38/6618bcde7532f00568dea195ca4214d0109ff9e8b1adb8d11c1c8d6a.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    top: 200px
+    left: -10px
+    z-index: 1
+  .container
+    position: relative
+    &::before
+      width: 120px
+      height: 60px
+      content: ""
+      background-image: url(https://statics.pancake.vn/web-media/b9/5f/ca/f6/e8a9d82ca440a3708db5f366f65d99ab8a35bba3469b36dfbe0fbe5a.png)
+      background-size: 100%
+      background-position: center
+      background-repeat: no-repeat
+      position: absolute
+      bottom: 20px
+      right: -85px
+      z-index: 0
 
-.footer-2
-  border-top: 1px solid #eee
-  padding: 40px 15px
-  font-size: 14px
-  gap: 100px
-  .footer-left
-    flex: 0.4
-  .footer-right
-    flex: 0.6
-    display: grid
-    grid-template-columns: 1fr 1fr
-    .right-item
-      .title
-        font-weight: 700
-        margin-bottom: 12px
-      .item
-        margin-bottom: 6px
-        cursor: pointer
-        &:hover
-          font-weight: 700
+.footer-top
+  padding-bottom: 100px
+
+.cr-last-footer
+  padding: 20px 0
+  border-top: 1px solid #e9e9e9
+  text-align: center
+  p
+    font-size: 14px
+    color: #000
+    line-height: 1.2
+  a
+    color: #64b496

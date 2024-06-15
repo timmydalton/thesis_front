@@ -11,6 +11,7 @@ export const useMainStore = defineStore('main', {
     categories: { data: [] },
     products: { data: [], limit: 20, page: 1, total: 0 },
     product: {},
+    selectedAttrs: {}
   }),
   getters: {
     renderProducts() {

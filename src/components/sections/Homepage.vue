@@ -14,11 +14,11 @@
       </Carousel>
     </div>
 
-    <div class="home-sect-1 mt-4">
+    <!-- <div class="home-sect-1 mt-4">
       <div class="item flex-1" v-for="image in displayBanner">
         <img :src="image" alt="">
       </div>
-    </div>
+    </div> -->
 
     <div class="home-sect-2 mt-4 pb-4">
       <div class="header pt-4 pb-4">
@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     products() {
-      return this.allProductStore.renderProductsMinMax.splice(0, 4)
+      return this.allProductStore.renderProductsMinMax.splice(0, 8)
     }
   }
 }
