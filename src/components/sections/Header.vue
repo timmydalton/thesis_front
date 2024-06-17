@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="top-header">
-            <a href="/home" class="cr-logo">
+            <a @click="redirect('/home')" class="cr-logo">
               <img src="https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/logo/logo.png" alt="logo" class="logo">
             </a>
             <form class="cr-search">
@@ -66,13 +66,13 @@
             <div class="navbar-collapse">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a href="/home" class="nav-link">Trang chủ</a>
+                  <a @click="redirect('/home')" class="nav-link">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                  <a href="/category/all" class="nav-link">Tất cả sản phẩm</a>
+                  <a @click="redirect('/category/all')" class="nav-link">Tất cả sản phẩm</a>
                 </li>
                 <li class="nav-item">
-                  <a href="/design" class="nav-link">Thiết kế</a>
+                  <a @click="redirect('/design')" class="nav-link">Thiết kế</a>
                 </li>
                 <!-- <li class="nav-item dropdown">
                   <a href="/category/all" class="nav-link dropdown-toggle">Danh mục <CaretDownOutlined class="icon"/> </a>
@@ -149,6 +149,9 @@ export default {
   methods: {
     handleClickCate(id) {
       this.$router.replace(`/category/${id}`)
+    },
+    redirect(path) {
+      this.$router.push(path)
     }
   }
 }

@@ -21,6 +21,12 @@
 
 .cr-size-and-weight
   padding-top: 20px
+  .cr-review-star
+    display: flex
+    .cr-star
+      margin-right: 10px
+      display: flex
+      align-items: center
   .list
     ul
       margin-top: 15px
@@ -31,24 +37,28 @@
         list-style: none
         display: flex
         label
-          min-width: 100p
+          min-width: 80px
           margin-right: 10px
           color: #2b2b2d
           font-weight: 600
           display: flex
           justify-content: space-between
   .cr-product-price
-    padding-top: 20px
-    span.new-price
-      font-size: 24px
-      font-weight: 600
-      line-height: 1.167
-      color: #64b496
-    span.old-price
-      font-size: 16px
-      text-decoration: line-through
-      line-height: 1.75
-      color: #7a7a7a
+    .price-wrapper
+      padding: 10px 20px
+      border-radius: 15px
+      background: #F4F4F4
+      max-width: 50%
+      span.new-price
+        font-size: 24px
+        font-weight: 600
+        line-height: 1.167
+        color: #64b496
+      span.old-price
+        font-size: 16px
+        text-decoration: line-through
+        line-height: 1.75
+        color: #7a7a7a
   .cr-attrs
     display: flex
     align-items: center

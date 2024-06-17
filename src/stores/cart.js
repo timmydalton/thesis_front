@@ -9,11 +9,22 @@ export const useCartStore = defineStore('cart', {
       visibleCart: false
     }
   },
+  getters: {
+    totalPrice() {
+      return this.items.reduce((acc, cur) => {
+        return acc + cur.retail_price * cur.quantity
+      }, 0)
+    }
+  },
   actions: {
     setState(obj = {}) {
       for(const key in obj) {
         this[key] = obj[key]
       }
+    },
+    changeItems(items) {
+      this.items = items
+      localStorage.setItem('cart-items', JSON.stringify(this.items))
     },
     addItem(item) {
       const items = cloneDeep(this.items)

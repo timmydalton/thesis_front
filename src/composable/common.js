@@ -131,3 +131,9 @@ export const getCenterArea = () => {
     left: dom.offsetWidth / 2
   }
 }
+
+export const getAttrString = (variation) => {
+  const fields = variation.fields || []
+
+  return fields.map(f => f.value).join('/')
+}

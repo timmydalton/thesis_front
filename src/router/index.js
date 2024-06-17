@@ -49,24 +49,23 @@ const router = createRouter({
       ]
     },
     {
-      path: '/category',
-      name: 'category',
+      path: '/',
+      name: 'store',
       component: StoreLayout,
       children: [
         {
-          path: ':category_id',
+          path: '',
+          name: 'home',
+          component: Homepage,
+          alias: '/home'
+        },
+        {
+          path: 'category/:category_id',
           name: 'category',
           component: CategoryPage,
         },
-      ]
-    },
-    {
-      path: '/product',
-      name: 'product',
-      component: StoreLayout,
-      children: [
         {
-          path: ':product_id',
+          path: 'product/:product_id',
           name: 'product',
           component: ProductPage,
           beforeEnter: (to, from, next) => {
@@ -77,42 +76,15 @@ const router = createRouter({
               })
           },
         },
-      ]
-    },
-    {
-      path: '/checkout',
-      name: 'checkout',
-      component: StoreLayout,
-      children: [
         {
-          path: '',
+          path: 'checkout',
           name: 'checkout',
           component: CheckoutPage,
         },
-      ]
-    },
-    {
-      path: '/design',
-      name: 'design',
-      component: StoreLayout,
-      children: [
         {
-          path: '',
+          path: 'design',
           name: 'design',
           component: DesignPage,
-        },
-      ]
-    },
-    {
-      path: '/',
-      name: 'store',
-      component: StoreLayout,
-      children: [
-        {
-          path: '',
-          name: 'home',
-          component: Homepage,
-          alias: '/home'
         },
         {
           path: 'login',
@@ -126,14 +98,6 @@ const router = createRouter({
         }
       ]
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
   ]
 })
 
