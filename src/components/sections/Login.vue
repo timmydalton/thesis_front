@@ -1,37 +1,52 @@
 <template>
-  <div class="section-account-form">
-    <div class="content-wrapper">
-      <div class="account-header mb-6">
-        Đăng nhập
-      </div>
-      <div class="account-header-2 mb-2">
-        <span>Chưa có tài khoản?&nbsp;</span>
-        <a href="/register">Đăng ký ngay</a>
-      </div>
-
-      <form>
-        <div class="form-wrapper">
-          <div class="form-text mb-2">
-            Tên đăng nhập
+  <section class="section-login padding-tb-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="mb-30 aos-init appear-animate">
+            <div class="cr-banner">
+              <h2>Đăng nhập tài khoản</h2>
+            </div>
+            <div class="cr-banner-sub-title">
+              <p>Sử dụng thông tin đã được đăng ký để đăng nhập. </p>
+            </div>
           </div>
-
-          <a-input class="mb-2" placeholder="Nhập tên đăng nhập..." v-model:value="username" />
-
-          <div class="form-text mb-2">
-            Mật khẩu
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="cr-login aos-init appear-animate">
+            <div class="form-logo">
+              <img src="https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/logo/logo.png" alt="logo">
+            </div>
+            <form class="cr-content-form">
+              <div class="form-group">
+                <label>Tên đăng nhập*</label>
+                <a-input class="cr-form-control" id="username" placeholder="Nhập tên đăng nhập..." v-model:value="username" />
+              </div>
+              <div class="form-group">
+                <label>Mật khẩu*</label>
+                <a-input-password class="cr-form-control" id="password" placeholder="Nhập mật khẩu..." v-model:value="password" />
+              </div>
+              <div class="remember">
+                <span class="form-group custom">
+                  <a-checkbox id="html" :checked="true"/>
+                  <label class="pl-2" for="html">Nhớ tài khoản</label>
+                </span>
+                <a class="link" href="forgot.html">Quên mật khẩu?</a>
+              </div><br>
+              <div class="login-buttons">
+                <button type="button" class="cr-button" @click="handleLogin">Đăng nhập</button>
+                <a href="register.html" class="link">
+                  Đăng ký?
+                </a>
+              </div>
+            </form>
           </div>
-
-          <a-input-password placeholder="Nhập mật khẩu..." v-model:value="password" />
-
-          <a-alert class="mt-2" type="error" :message="alertText" v-if="showAlert"/>
         </div>
-
-        <div class="flex flex-col items-center mt-4">
-          <a-button type="primary" @click="handleLogin">Đăng nhập</a-button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>

@@ -142,6 +142,7 @@ export default {
     tabs() {
       return [
         { key: 'analytics', title: 'Thống kê', icon: homePageLogo, target: '/admin' },
+        { key: 'orders', title: 'Đơn hàng', icon: orderLogo, target: '/admin/orders' },
         {
           key: 'product', title: 'Sản phẩm', icon: productLogo,
           sub: [
@@ -149,7 +150,6 @@ export default {
             { key: 'categories', title: 'Danh mục', icon: '', target: '/admin/categories' },
           ]
         },
-        { key: 'orders', title: 'Đơn hàng', icon: orderLogo, target: '/admin/orders' },
       ]
     }
   },

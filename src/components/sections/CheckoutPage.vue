@@ -1,5 +1,5 @@
 <template>
-  <section class="checkout-section">
+  <section class="checkout-section appear-animate">
     <div class="container">
       <div class="row">
         <div class="cr-checkout-rightside col-lg-4 col-md-12">
@@ -32,13 +32,13 @@
                       <div class="cr-product-inner">
                         <div class="cr-pro-image-outer">
                           <div class="cr-pro-image">
-                            <a :href="`/product/${item.product.id}`" class="image">
+                            <a @click="redirect(`/product/${item.product.id}`)" class="image">
                               <img class="main-image" :src="item.images?.[0]" alt="Product">
                             </a>
                           </div>
                         </div>
                         <div class="cr-pro-content cr-product-details">
-                          <h5 class="cr-pro-title"><a :href="`/product/${item.product.id}`">{{ item.product?.name }}</a></h5>
+                          <h5 class="cr-pro-title"><a @click="redirect(`/product/${item.product.id}`)">{{ item.product?.name }}</a></h5>
                           <div class="cr-pro-quantity">{{ getAttrString(item) }} × {{ item.quantity }}</div>
                           <div class="cr-pro-rating">
                             <svg v-for="i in 5" width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="#FCD53F" d="m18.7 4.627l2.247 4.31a2.27 2.27 0 0 0 1.686 1.189l4.746.65c2.538.35 3.522 3.479 1.645 5.219l-3.25 2.999a2.225 2.225 0 0 0-.683 2.04l.793 4.398c.441 2.45-2.108 4.36-4.345 3.24l-4.536-2.25a2.282 2.282 0 0 0-2.006 0l-4.536 2.25c-2.238 1.11-4.786-.79-4.345-3.24l.793-4.399c.14-.75-.12-1.52-.682-2.04l-3.251-2.998c-1.877-1.73-.893-4.87 1.645-5.22l4.746-.65a2.23 2.23 0 0 0 1.686-1.189l2.248-4.309c1.144-2.17 4.264-2.17 5.398 0"/></svg>
@@ -117,20 +117,20 @@
                       <form>
                         <span class="cr-bill-wrap cr-bill-half">
                           <label>Họ*</label>
-                          <input type="text" name="firstname" placeholder="Nhập họ" required="">
+                          <input :value="first_name" @change="setOrderData('first_name', $event.target.value)" type="text" name="firstname" placeholder="Nhập họ" required="">
                         </span>
                         <span class="cr-bill-wrap cr-bill-half">
                           <label>Tên*</label>
-                          <input type="text" name="lastname" placeholder="Nhập tên đệm và tên" required="">
+                          <input :value="last_name" @change="setOrderData('last_name', $event.target.value)" type="text" name="lastname" placeholder="Nhập tên đệm và tên" required="">
                         </span>
                         <span class="cr-bill-wrap">
                           <label>Địa chỉ</label>
-                          <input type="text" name="address" placeholder="Số nhà xx, đường yy,...">
+                          <input :value="address" @change="setOrderData('address', $event.target.value)" type="text" name="address" placeholder="Số nhà xx, đường yy,...">
                         </span>
                         <span class="cr-bill-wrap cr-bill-half">
                           <label>Tỉnh/Thành phố *</label>
                           <span class="cr-bl-select-inner">
-                            <select name="cr_select_city" id="cr-select-city" class="cr-bill-select" :value="selectedCity"  @change="selectedCity = $event.target.value">
+                            <select name="cr_select_city" id="cr-select-city" class="cr-bill-select" :value="selectedCity"  @change="setOrderData('city', $event.target.value)">
                               <option value="" selected="" disabled="">Chưa chọn</option>
                               <option :value="city.code" v-for="city in listCity" :key="city.code">{{ city.name }}</option>
                             </select>
@@ -138,7 +138,7 @@
                         </span>
                         <span class="cr-bill-wrap cr-bill-half">
                           <label>Số điện thoại</label>
-                          <input type="text" name="phonenumber" placeholder="09xxxxxxxxx">
+                          <input :value="phone_number" @change="setOrderData('phone_number', $event.target.value)" type="text" name="phonenumber" placeholder="09xxxxxxxxx">
                         </span>
                       </form>
                     </div>
@@ -147,7 +147,7 @@
               </div>
 
               <span class="cr-check-order-btn">
-                <a class="cr-button mt-8" href="#">Đặt hàng</a>
+                <a class="cr-button mt-8" @click="submitOrder">Đặt hàng</a>
               </span>
             </div>
           </div>
@@ -161,7 +161,10 @@
 import { getAttrString } from '@/composable/common.js'
 import { useCartStore } from '@/stores/cart'
 import { cloneDeep } from 'lodash'
+import { useApiget, useApipost } from '@/composable/fetch'
 import city from '@/common/city.json'
+
+const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export default {
   setup() {
@@ -174,12 +177,8 @@ export default {
   },
   data() {
     return {
-      full_name: '',
-      phone_number: '',
-      address: '',
-      shipping: "1",
+      orderData: {},
       paymentMethod: 'cod',
-      selectedCity: ''
     }
   },
   computed: {
@@ -199,9 +198,89 @@ export default {
     },
     listCity() {
       return Object.values(city)
+    },
+    first_name() {
+      return this.orderData.first_name || ''
+    },
+    last_name() {
+      return this.orderData.last_name || ''
+    },
+    address() {
+      return this.orderData.address || ''
+    },
+    selectedCity() {
+      return this.orderData.city || ''
+    },
+    phone_number() {
+      return this.orderData.phone_number || ''
     }
   },
   methods: {
+    redirect(path) {
+      this.$router.push(path)
+    },
+    async submitOrder() {
+      const order_items = this.items.map(item => {
+        const variation_info = {
+          id: item.id,
+          custom_id: item.custom_id,
+          original_price: item.original_price,
+          retail_price: item.retail_price,
+          name: item.product.name,
+          images: item.images,
+          fields: item.fields,
+          product_id: item.product?.id
+        }
+
+        return {
+          variation_id: item.id,
+          quantity: item.quantity,
+          variation_info
+        }
+      })
+
+      const city_name = this.listCity.find(el => el.code == this.selectedCity)?.name
+      
+      const params = {
+        ...this.orderData,
+        order_items,
+        shipping_fee: this.shippingFee,
+        payment_method: this.paymentMethod,
+        shipping_address: {
+          address: this.orderData.address,
+          city_code: this.selectedCity,
+          city_name
+        }
+      }
+
+      return useApipost(`${VITE_BACKEND_API_URL}/api/store/order/quick_order`, null, params)
+        .then((res) => {
+          console.log(res)
+          if (res.status == 200) {
+            const order = res.data.data.data
+            this.$router.push(`/order/${order.id}`)
+          }
+        })
+        .catch(err => {
+          const data = err.response?.reason?.[0]
+          if (data && data.message_code == 2003 && data.message == "") {
+            this.$notification.error({
+              message: "Thất bại",
+              description: "Mẫu mã xxx trong đơn hàng vượt quá số lượng tồn kho, hiện còn 0 sản phẩm",
+            });
+          } else {
+            this.$notification.error({
+              message: "Thất bại",
+              description: "Tạo đơn thất bại, check log lỗi",
+            });
+          }
+
+          console.log(err)
+        })
+    },
+    setOrderData(key, value) {
+      this.orderData[key] = value
+    }
   }
 }
 </script>

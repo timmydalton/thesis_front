@@ -35,3 +35,11 @@ export function useApipost(url, params, body, headers = {}) {
     data: body
   })
 }
+
+// export function useApipost(url, params = null, headers = {}) {
+//   return axios.get(url, params, { headers })
+// }
+
+// export function useApipost(url, params, headers = {}) {
+//   return axios.post(url, params, { headers })
+// }

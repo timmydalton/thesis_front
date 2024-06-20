@@ -77,3 +77,45 @@ a
 
 .h-full
   height: 100%
+
+@keyframes appear
+  0%
+    transform: translateY(50px)
+    opacity: 0
+  100%
+    transform: translateY(0)
+    opacity: 1
+
+.appear-animate
+  animation-duration: 1s
+  animation-timing-function: ease-in-out
+  animation-delay: 0s
+  animation-iteration-count: 1
+  animation-name: appear
+
+.mb-30
+  margin-bottom: 30px
+
+@media (min-width: 576px)
+  .container
+    max-width: 540px !important
+
+@media (min-width: 720px)
+  .container
+    max-width: 768px !important
+
+@media (min-width: 992px)
+  .container
+    max-width: 960px !important
+
+@media (min-width: 1200px)
+  .container
+    max-width: 1140px !important
+
+@media (min-width: 1400px)
+  .container
+    max-width: 1320px !important
+
+@media (min-width: 1600px)
+  .container
+    max-width: 1500px !important

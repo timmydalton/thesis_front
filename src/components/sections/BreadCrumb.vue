@@ -5,8 +5,8 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="cr-breadcrumb-title">
-              <h2>Page title</h2>
-              <span><a href="/home">Home</a> - Title</span>
+              <h2>Page</h2>
+              <span><a href="/home">Trang chủ</a> - {{ title }}</span>
             </div>
           </div>
         </div>
@@ -18,6 +18,23 @@
 <script>
 export default {
   computed: {
+    siteName() {
+      return this.$route.name
+    },
+    title() {
+      switch (this.siteName) {
+        case 'cart':
+          return 'Giỏ hàng'
+        case 'product':
+          return 'Sản phẩm'
+        case 'category':
+          return 'Danh mục'
+        case 'checkout':
+          return 'Đặt đơn'
+        default:
+          return 'Page title'
+      }
+    },
   }
 }
 </script>

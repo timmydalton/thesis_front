@@ -4,7 +4,9 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { Input, InputPassword, InputNumber, Button, Alert, Popover, Tooltip, Table, Pagination, Modal, TreeSelect,
   Select, SelectOption, SelectOptGroup, Empty, AutoComplete, Tag, Switch, Avatar, Card, UploadDragger, Upload,
-  Spin, Menu, MenuItem, SubMenu, Divider, TabPane, Tabs, Drawer, Radio, RadioGroup } from 'ant-design-vue'
+  Spin, Menu, MenuItem, SubMenu, Divider, TabPane, Tabs, Drawer, Radio, RadioGroup, Checkbox, DatePicker } from 'ant-design-vue'
+
+import '../style/main.sass'
 
 import 'ant-design-vue/dist/reset.css'
 import 'vue3-carousel/dist/carousel.css'
@@ -13,8 +15,6 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'remixicon/fonts/remixicon.css'
-
-import '../style/main.sass'
 
 import Message from '@/plugins/message.js'
 
@@ -56,6 +56,8 @@ app.use(InputNumber)
 app.use(Drawer)
 app.use(Radio)
 app.use(RadioGroup)
+app.use(Checkbox)
+app.use(DatePicker)
 
 app.use(createPinia())
 app.use(router)

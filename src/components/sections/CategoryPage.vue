@@ -1,5 +1,5 @@
 <template>
-  <section class="category-page">
+  <section class="category-page appear-animate">
     <div class="sect-item">
       <div class="cate-info flex">
         <div class="text mr-2">

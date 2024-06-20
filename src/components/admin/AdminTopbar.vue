@@ -15,9 +15,8 @@
           pt-1
           pb-1
         ">
-
         <div class="flex h-8 items-center flex-1">
-          
+          <div class="text-lg pl-8 pr-8 h-full flex items-center" style="cursor: pointer" v-html="titleHeader"></div>
         </div>
 
         <div class="flex items-center justify-center h-fit">
@@ -46,6 +45,22 @@ export default {
   components: {
     AdminProfileMenu
   },
+  computed: {
+    titleHeader() {
+      switch (this.$route.name) {
+        case "analytics":
+          return "Thống kê"
+        case "products":
+          return "Thông tin sản phẩm"
+        case "categories":
+          return "Danh mục sản phẩm"
+        case "orders":
+          return "Thông tin đơn hàng"
+        default:
+          return "Page title"
+      }
+    }
+  }
 }
 </script>
 

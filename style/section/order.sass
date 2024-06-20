@@ -1,0 +1,81 @@
+.action-bar__button
+  @apply ml-3 items-center mb-1 w-auto py-2 px-[10px]
+  @apply inline-flex #{!important}
+  overflow: hidden
+  background-color: var(--bg-ui-2) !important 
+  color: var(--text-normal) !important
+  border-color: var(--border-ui-1) !important
+  display: flex
+  align-items: center
+  &--normal
+    &:hover
+      background-color: var(--bg-ui-7) !important
+      color: var(--text-normal) !important
+    &:last-child
+      margin-right: 0
+  &--delete
+    background: red !important
+    color: white !important
+    margin-right: 0px !important
+  &--primary
+    @apply max-w-fit px-4
+    background-color: $primary !important
+    color: white !important
+    transition: background-color 0.3s
+    &:hover
+      opacity: 0.9
+      // background-color: var(--a-menu-option-hover-2) !important
+    svg
+      @apply fill-white
+
+.custom-table
+  .order-payment
+    .invoice__item
+      @apply mb-0
+.order-items-overlay
+  .ant-popover-inner-content
+    @apply p-0
+
+.order-text
+  color: var(--text-normal)
+
+.order-payment
+  .ant-card
+    background-color: var(--bg-ui-2)
+    color: var(--text-normal)
+    .ant-card-head-title
+      color: var(--text-normal)
+  &__item
+    @apply mb-3
+    .ant-input-affix-wrapper
+      @apply py-3
+      background-color: var(--bg-ui)
+      color: var(--text-normal)
+      border-color: var(--border-ui-2)
+      .ant-input
+        background-color: var(--bg-ui)
+        color: var(--text-normal)
+    &__title
+      @apply ml-3
+    input
+      @apply text-end w-full
+    .ant-input-number-affix-wrapper
+      @apply w-full px-3
+      
+  .invoice
+    @apply p-3
+    &__item
+      @apply flex font-medium mb-3
+      &__title
+        @apply flex-1
+      &__money
+        @apply flex items-end
+      &--total
+        @apply text-primary
+      &--lack
+        @apply text-red-600
+      &--back
+        @apply text-color-primary
+      
+.text-theme-button-primary
+  color: var(--primary-v2)

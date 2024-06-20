@@ -1,0 +1,61 @@
+@import '../_variable/_color.sass'
+
+main
+  height: calc(100vh - 48px)
+
+.subtext-dark
+  color: #cfd0d2
+
+.db-topbar
+  background: var(--bg-ui-2)
+  color: var(--a-menu-title)
+  font-family: 'Roboto'
+  font-style: normal
+  height: 60px
+  border-bottom: 1px solid var(--divider)
+  .right-panel
+    z-index: 1
+  .toggle-theme-button
+    height: 2.25rem
+    width: 2.25rem
+    border-radius: 18px
+    position: relative
+    transition: all .2s ease !important
+    .icon-theme
+      display: flex
+      align-items: center
+      justify-content: center
+      .theme-button
+        display: flex
+        align-items: center
+        justify-content: center
+        &:not(.active)
+          display: none
+    &:hover
+      width: 4.5rem
+      background-color: var(--bg-ui-5)
+      .icon-theme
+        justify-content: space-between
+        .theme-button
+          display: flex
+          align-items: center
+          justify-content: center
+          height: 2rem
+          width: 2rem
+          border-radius: 50%
+          z-index: 2
+          &:not(.active)
+            opacity: 0.5
+          &-bg
+            position: absolute
+            height: 2rem
+            width: 2rem
+            background-color: var(--bg-ui-2)
+            border-radius: 50%
+            z-index: 1
+            transition: all .3s ease !important
+        .theme-button-bg
+          left: 38px
+        &.dark
+          .theme-button-bg
+            left: 2px

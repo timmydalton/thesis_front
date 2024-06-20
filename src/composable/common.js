@@ -1,4 +1,5 @@
 import { get } from 'lodash'
+import moment from "moment"
 
 export const setCookie = (cname, cvalue, exdays = 365 * 100) => {
   const d = new Date();
@@ -21,6 +22,10 @@ export const getCookieDecode = (cname) => {
     }
   }
   return "";
+}
+
+export const formatNumber = num => {
+  return num
 }
 
 export const removeCookie = (name) => {
@@ -136,4 +141,75 @@ export const getAttrString = (variation) => {
   const fields = variation.fields || []
 
   return fields.map(f => f.value).join('/')
+}
+
+export const getOrderStatus = () => [
+  {
+    id: -1,
+    text: "Tất cả",
+  },
+  {
+    id: 0,
+    text: "Đơn mới",
+    bgColor: "#00a2ae",
+  },
+  {
+    id: 1,
+    text: "Đã xác nhận",
+    bgColor: "#1890ff",
+    icon: "CheckboxIcon"
+  },
+  {
+    id: 2,
+    text: "Đã gửi hàng",
+    bgColor: "#f79009",
+    icon: "TruckDeliveryIcon",
+  },
+  {
+    id: 3,
+    text: "Đã nhận",
+    bgColor: "#3dbd7d",
+    icon: "HeartHandshakeIcon",
+  },
+  {
+    id: 6,
+    text: "Đã hủy",
+    bgColor: "#d73435",
+    icon: "CircleXIcon",
+  },
+  {
+    id: 7,
+    text: "Xóa gần đây",
+    bgColor: "#962223",
+    icon: "TrashIcon",
+  },
+];
+
+export const formatDateTime = (timezone, time, full, format, options = {}) => {
+  if (timezone != 0) {
+    timezone = timezone || 7
+  }
+  let timeAndZone = typeof time === "number" ? moment(time, "X") : moment.utc(time)
+  timeAndZone = timezone ? timeAndZone.utcOffset(parseFloat(timezone)) : timeAndZone
+
+  if (full) return moment(timeAndZone).format(format || "HH:mm DD/MM/YYYY")
+  if (format) return moment(timeAndZone).format(format)
+  if (options.hideText) {
+    return moment(timeAndZone).calendar(null, {
+      sameDay: `HH:mm [hôm nay]`,
+      nextDay: `HH:mm [ngày mai]`,
+      nextWeek: "HH:mm DD/MM",
+      lastDay: `HH:mm [hôm qua]`,
+      lastWeek: "HH:mm DD/MM",
+      sameElse: `HH:mm DD/MM/YYYY`,
+    })
+  }
+  return moment(timeAndZone).calendar(null, {
+    sameDay: `HH:mm [hôm nay]`,
+    nextDay: `HH:mm [ngày mai]`,
+    nextWeek: "HH:mm DD/MM",
+    lastDay: `HH:mm [hôm qua]`,
+    lastWeek: "HH:mm DD/MM",
+    sameElse: `HH:mm [ngày] DD/MM/YYYY`,
+  })
 }

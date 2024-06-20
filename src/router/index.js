@@ -10,6 +10,7 @@ import ProductPage from  '@/components/sections/ProductPage.vue'
 import CategoryPage from  '@/components/sections/CategoryPage.vue'
 import DesignPage from  '@/components/sections/DesignPage.vue'
 import CheckoutPage from  '@/components/sections/CheckoutPage.vue'
+import CartPage from  '@/components/sections/CartPage.vue'
 import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
@@ -80,6 +81,11 @@ const router = createRouter({
           path: 'checkout',
           name: 'checkout',
           component: CheckoutPage,
+        },
+        {
+          path: 'cart',
+          name: 'cart',
+          component: CartPage
         },
         {
           path: 'design',

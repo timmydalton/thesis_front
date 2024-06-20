@@ -3,12 +3,12 @@
     <template v-if="items.length">
       <ul class="crcart-pro-items">
         <li v-for="(item, idx) in items" :key="item.id">
-          <a :href="`/product/${item.product.id}`" class="crside_pro_img">
+          <a @click="redirect(`/product/${item.product.id}`)" class="crside_pro_img">
             <img :src="item.images?.[0] || ''" alt="">
           </a>
 
           <div class="cr-pro-content">
-            <a :href="`/product/${item.product.id}`" class="cart_pro_title">{{ item.product?.name || "No name" }}</a>
+            <a @click="redirect(`/product/${item.product.id}`)" class="cart_pro_title">{{ item.product?.name || "No name" }}</a>
             <span class="cart-price"><span>{{ item.retail_price }}₫</span> - {{ getAttrString(item) }}</span>
             <div class="cr-cart-qty">
               <div class="cart-qty-plus-minus">
@@ -35,8 +35,8 @@
         </div>
 
         <div class="cart_btn">
-          <a href="/cart" class="cr-button">Xem giỏ</a>
-          <a href="/checkout" class="cr-btn-secondary">Checkout</a>
+          <a @click="redirect(`/cart`)" class="cr-button">Xem giỏ</a>
+          <a @click="redirect(`/checkout`)" class="cr-btn-secondary">Checkout</a>
         </div>
       </div>
     </template>
@@ -78,6 +78,10 @@ export default {
     }
   },
   methods: {
+    redirect(path) {
+      this.cart.setState({ visibleCart: false })
+      this.$router.push(path)
+    },
     changeQuantity(idx, quantity) {
       const items = cloneDeep(this.items)
 

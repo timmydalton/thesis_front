@@ -1,5 +1,5 @@
 <template>
-  <section class="section-product">
+  <section class="section-product appear-animate">
     <div class="container">
       <div class="row">
         <div class="col-xxl-4 col-xl-5 col-md-6 col-12 mb-24">

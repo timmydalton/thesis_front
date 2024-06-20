@@ -24,23 +24,26 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle cr-right-bar-item" :href="me.username ? '/profile' : ''">
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="96" r="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle><path d="M32,216c19.37-33.47,54.55-56,96-56s76.63,22.53,96,56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>
-                    <span>{{ me.username ? me.username : 'Account' }}</span>
+                    <span>{{ me.username ? me.username : 'Tài khoản' }}</span>
                   </a>
                   <ul class="dropdown-menu">
                     <template v-if="!me.username">
                       <li>
-                        <a class="dropdown-item" href="/register">Đăng ký</a>
+                        <a class="dropdown-item" @click="redirect('/register')">Đăng ký</a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="/login">Đăng nhập</a>
+                        <a class="dropdown-item" @click="redirect('/login')">Đăng nhập</a>
                       </li>
                     </template>
                     <template v-else>
                       <li>
-                        <a class="dropdown-item" href="/admin">Quản lý</a>
+                        <a class="dropdown-item" @click="redirect('/profile')">Trang cá nhân</a>
+                      </li>
+                      <li v-if="me.role == 0">
+                        <a class="dropdown-item" @click="redirect('/admin')">Quản lý cửa hàng</a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="">Đăng xuất</a>
+                        <a class="dropdown-item" @click="handleLogOut">Đăng xuất</a>
                       </li>
                     </template>
                   </ul>
@@ -50,7 +53,7 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M17.2991 9.50857L13.472 3H10.528L6.70093 9.50857H1.5L3.46262 17.6686C3.75701 19.0286 4.93458 20 6.30841 20H17.6916C19.0654 20 20.1449 19.0286 20.5374 17.6686L22.5 9.50857H17.2991V9.50857ZM11.4112 4.74857H12.5888L15.4346 9.60571H8.56542L11.4112 4.74857ZM18.9673 17.28C18.8692 17.5714 18.771 17.8629 18.4766 18.0571C18.2804 18.2514 17.986 18.3486 17.6916 18.3486H6.30841C6.01402 18.3486 5.71963 18.2514 5.52336 18.0571C5.3271 17.8629 5.13084 17.5714 5.03271 17.3771L3.56075 11.2571H20.4393L18.9673 17.28Z" fill="currentColor"></path>
                 </svg>
-                <span>Cart</span>
+                <span>Giỏ hàng</span>
               </a>
             </div>
           </div>
@@ -152,6 +155,14 @@ export default {
     },
     redirect(path) {
       this.$router.push(path)
+    },
+    handleLogOut(e) {
+      e.stopPropagation()
+      this.delete_cookie('jwt')
+      window.location.replace('/home')
+    },
+    delete_cookie(name) {
+      document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
   }
 }
