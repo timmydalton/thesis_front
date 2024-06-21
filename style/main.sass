@@ -6,6 +6,9 @@
 @import 'element'
 @import 'design'
   
+html
+  font-size: 100%
+
 *
   padding: 0
   margin: 0
@@ -25,6 +28,10 @@ p
 
 a
   cursor: pointer
+  color: inherit
+  text-decoration: inherit
+  &:hover
+    color: inherit
 
 .carousel__pagination-button::after
   background-color: #00bcc24e

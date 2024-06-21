@@ -1,0 +1,68 @@
+.search-variation
+  @apply relative #{!important}
+  &__icon
+    @apply z-10 top-[5px] 
+    @apply absolute left-[10px] #{!important}
+    color: var(--text-light)
+  &__input
+    @apply w-56
+    .ant-select-selector
+      border-color: var(--border-ui-2) !important
+      background-color: var(--bg-ui-2) !important
+      .ant-select-selection-search
+        color: var(--text-normal)
+        @apply left-8 #{!important}
+      .ant-select-selection-placeholder
+        @apply pl-5 #{!important}
+.dropdown-search-variation
+  .ant-select-item-option-disabled
+    opacity: 0.7
+    background: var(--bg-ui-8)
+
+.overlay-search-customer
+  padding: 0
+  .ant-popover-arrow
+    display: none
+  .ant-popover-inner-content
+    width: 300px
+
+.order-product
+  &__item
+    //margin-bottom: 2rem !important
+    .ant-input-number
+      background-color: var(--bg-ui-9)
+      color: var(--text-normal)
+      border-color: var(--border-ui-4)
+      border: none !important
+      box-shadow: none
+      border-radius: 0
+      .ant-input-number-input
+        @apply text-center h-[24px]
+    .ant-btn
+      @apply flex h-[24px] w-[18px]
+      >span
+        @apply flex
+    .background
+      background-color: var(--bg-ui-7)
+    .custom-delete-icon
+      background: var(--svg-2)
+      box-shadow: 0px 2px 4px -2px rgba(24, 39, 75, 0.12), 0px 4px 4px -2px rgba(24, 39, 75, 0.08)
+      >div
+        background-color: var(--bg-ui-6)
+        &:hover
+          background-color: var(--theme-color-hover)
+        >svg
+          color: var(--svg-2)
+  .custom-btn
+    background-color: var(--bg-ui-6)
+    border: 1px solid var(--border-ui-4)
+.custom-card
+  .ant-card-head
+    background-color: var(--bg-ui-2)
+    .ant-card-head-title
+      color: var(--text-normal)
+  .ant-card-body
+    @apply min-h-[320px] pb-0
+    background-color: var(--bg-ui-2)
+    color: var(--text-normal) !important
+    padding: 12px 24px

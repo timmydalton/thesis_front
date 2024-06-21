@@ -24,8 +24,11 @@ export const getCookieDecode = (cname) => {
   return "";
 }
 
-export const formatNumber = num => {
-  return num
+export const formatNumber = value => {
+  value = value ? value.toString() : '0';
+  value = value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, `$1.`)
+  
+  return value
 }
 
 export const removeCookie = (name) => {

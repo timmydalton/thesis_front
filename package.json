@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "app": "npx tailwindcss -i ./style/tailwind/index.css -o ./style/tailwind/output.css --watch & vite --port 5174",
     "dev": "vite --port 5174",
     "build": "vite build",
     "preview": "vite preview"
@@ -20,6 +21,7 @@
     "pinia": "^2.1.7",
     "remixicon": "^4.3.0",
     "swiper": "^11.1.4",
+    "tailwindcss": "^3.4.4",
     "uuid": "^9.0.1",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.21",

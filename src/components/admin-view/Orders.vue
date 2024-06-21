@@ -15,6 +15,7 @@
     </div>
 
     <OrderTable/>
+    <ModalOrder/>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import { ORDER_STATUS } from "@/common/enum"
 
 import OrderActions from "@/components/admin-view/order/OrderActions.vue"
 import OrderTable from "@/components/admin-view/order/OrderTable.vue"
+import ModalOrder from "@/components/admin-view/order/ModalOrder.vue"
 
 export default {
   setup() {
@@ -40,7 +42,8 @@ export default {
   },
   components: {
     OrderActions,
-    OrderTable
+    OrderTable,
+    ModalOrder
   },
   mounted() {
     this.orderStore.getOrders({ limit: 30 })

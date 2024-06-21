@@ -1,0 +1,56 @@
+.custom-table
+  @apply flex-1 overflow-hidden
+  ::-webkit-scrollbar
+    width: 4px !important
+    height: 4px !important
+    display: block
+    background: var(--bg-ui)
+
+  ::-webkit-scrollbar-thumb
+    background: var(--bg-ui-5)
+    border-radius: 4px
+  .ant-table-thead
+    > tr > th
+      border-color: var(--border-ui-2) !important
+    .ant-table-selection-column
+      padding: 12px !important
+  .ant-table-body
+    height: calc(100% - 60px)
+    overflow-y: scroll
+    max-height: 100%
+  .ant-table-row
+    background-color: var(--bg-ui-2) !important
+    color: var(--text-normal)
+    .ant-table-cell
+      border-color: var(--border-ui-2) !important
+      @apply h-[46px] #{!important}
+      @apply bg-theme-bg
+    .ant-table-selection-column
+      padding: 12px !important
+
+    &:hover
+      .quick-view
+        visibility: visible !important
+  .bg-theme-table-selected, .ant-table-row-selected
+    background-color: var(--bg-ui-7) !important
+  .ant-table-wrapper, .ant-spin-nested-loading, .ant-spin-container, .ant-table, .ant-table-container, .ant-table-content
+    @apply h-full
+    background-color: var(--bg-ui-2)
+
+.custom-table--hover-head
+    .ant-table-thead
+      .ant-table-cell
+        background-color: var(--bg-ui-2)
+        color: var(--text-normal)
+    .ant-empty-description
+      color: var(--text-normal)
+    .ant-table-tbody
+      >tr.ant-table-row:hover>td, tr> td.ant-table-cell-row-hover
+        background-color: var(--theme-color-hover) !important
+      >tr>td
+        border-color: var(--border-ui-2) !important
+        transition: background-color 0s !important
+.custom-table--hover-head
+  .ant-card-head
+    .ant-card-head-title
+      color: var(--text-normal)

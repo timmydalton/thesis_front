@@ -34,8 +34,8 @@
 
         <template v-if="column.key === 'phone_number'">
           <a-tooltip>
-            <template #title>{{ $t("common.click_to_copy") }}</template>
-            <div class="text-theme-button-primary w-fit" @click="handleCopy(record.bill_phone_number, $event)"> {{
+            <template #title>Click để copy</template>
+            <div class="text-theme-button-primary w-fit cursor-pointer" @click="handleCopy(record.bill_phone_number, $event)"> {{
               record.bill_phone_number
             }}</div>
           </a-tooltip>
@@ -97,6 +97,12 @@
             </div>
           </div>
         </template>
+
+        <template v-if="column.key === 'status'">
+          <div class="flex items-center justify-center">
+            <OrderStatus :item="record" />
+          </div>
+        </template>
       </template>
     </a-table>
   </div>
@@ -107,25 +113,39 @@
 
 <script>
 import { useOrderStore } from "@/stores/order.js"
-import { cloneDeep } from 'lodash'
-import { formatDateTime,formatNumber } from "@/composable/common"
+import { cloneDeep, findIndex } from "lodash"
+import { formatDateTime, formatNumber } from "@/composable/common"
+import { LoadingOutlined } from "@ant-design/icons-vue"
+import { h } from "vue"
+
+import OrderStatus from "@/components/admin-view/order/OrderStatus.vue"
 
 export default {
   setup() {
     const orderStore = useOrderStore()
+
+    let indicatorLoadSpin = h(LoadingOutlined, {
+      style: {
+        fontSize: '30px',
+      },
+    })
     
     return {
       orderStore,
       formatDateTime,
-      formatNumber
+      formatNumber,
+      indicatorLoadSpin
     }
+  },
+  components: {
+    OrderStatus
   },
   data() {
     let columns = [
       {
         dataIndex: 'display_id',
         key: 'display_id',
-        width: 80,
+        width: 60,
         title: "ID",
         fixed: "left",
       },
@@ -133,13 +153,15 @@ export default {
         dataIndex: 'customer',
         key: 'customer',
         resizable: true,
-        minWidth: 150,
+        width: 120,
+        minWidth: 120,
         title: 'Khách hàng'
       },
       {
         dataIndex: 'items',
         key: 'items',
         resizable: true,
+        width: 250,
         minWidth: 200,
         title: 'Sản phẩm'
       },
@@ -147,13 +169,15 @@ export default {
         dataIndex: 'phone_number',
         key: 'phone_number',
         resizable: true,
-        minWidth: 150,
+        width: 100,
+        minWidth: 100,
         title: 'Số điện thoại'
       },
       {
         dataIndex: 'receiver_info',
         key: 'receiver_info',
-        minWidth: 300,
+        width: 150,
+        minWidth: 150,
         resizable: true,
         title: 'Địa chỉ'
       },
@@ -161,27 +185,29 @@ export default {
         dataIndex: 'inserted_at',
         key: 'inserted_at',
         resizable: true,
-        minWidth: 200,
+        width: 150,
+        minWidth: 150,
         title: 'Thời gian tạo'
       },
       {
         dataIndex: 'invoice_value',
         key: 'invoice_value',
+        width: 250,
         minWidth: 250,
         resizable: true,
-        title: 'Tổng đơn hàng'
+        title: 'Tổng số tiền'
       },
       {
         dataIndex: 'status',
         key: 'status',
-        width: 250,
+        width: 180,
         title: 'Trạng thái',
         fixed: 'right'
       }
     ]
     return {
       columns,
-      scrollTable: { x: 1500, y: "100%" }
+      scrollTable: { x: 1000, y: "100%" }
     }
   },
   methods: {
