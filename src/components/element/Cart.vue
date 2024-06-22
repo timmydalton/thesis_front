@@ -9,7 +9,7 @@
 
           <div class="cr-pro-content">
             <a @click="redirect(`/product/${item.product.id}`)" class="cart_pro_title">{{ item.product?.name || "No name" }}</a>
-            <span class="cart-price"><span>{{ item.retail_price }}₫</span> - {{ getAttrString(item) }}</span>
+            <span class="cart-price"><span>{{ formatNumber(item.retail_price) }}₫</span> - {{ getAttrString(item) }}</span>
             <div class="cr-cart-qty">
               <div class="cart-qty-plus-minus">
                 <button type="button" class="plus" @click="changeQuantity(idx, item.quantity + 1)">+</button>
@@ -28,7 +28,7 @@
             <tbody>
               <tr>
                 <td class="text-left">Tổng cộng :</td>
-                <td class="text-right primary-color">{{ totalPrice }}₫</td>
+                <td class="text-right primary-color">{{ formatNumber(totalPrice) }}₫</td>
               </tr>
             </tbody>
           </table>
@@ -57,6 +57,7 @@
 import { getAttrString } from '@/composable/common.js'
 import { useCartStore } from '@/stores/cart'
 import { cloneDeep } from 'lodash'
+import { formatNumber } from '@/composable/formatNumber.js'
 
 import { Modal } from 'ant-design-vue';
 
@@ -66,7 +67,8 @@ export default {
 
     return {
       cart,
-      getAttrString
+      getAttrString,
+      formatNumber
     }
   },
   computed: {

@@ -29,6 +29,35 @@ export const useOrderStore = defineStore("order", {
         startTime: dayjs().subtract(6, 'day').startOf('day').toISOString(),
         endTime: dayjs().endOf('day').toISOString()
       },
+      info_order: [],
+      insight_order: [],
+      insight_revenue: [],
+      insight_account: [],
+      dataCountDay: [],
+      data_product_hot: []
+    }
+  },
+  getters: {
+    total_order_count(state) {
+      return state.insight_order.reduce((acc, cur) => {
+        return acc + cur
+      }, 0)
+    },
+    total_revenue_count(state) {
+      return state.insight_revenue.reduce((acc, cur) => {
+        return acc + cur
+      }, 0)
+    },
+    total_account_count(state) {
+      return state.insight_account.reduce((acc, cur) => {
+        return acc + cur
+      }, 0)
+    },
+    total_sold_count(state) {
+      return state.info_order.reduce((acc, cur) => {
+        const amount = (cur.order_items).reduce((a, c) => a + c.quantity, 0)
+        return acc + amount
+      }, 0)
     }
   },
   actions: {
@@ -82,5 +111,55 @@ export const useOrderStore = defineStore("order", {
           this.loadingOrders = false
         })
     },
+    getOrders_insight(setOrder){
+      let url = `${VITE_BACKEND_API_URL}/api/admin/orders/get_by_time`
+      return useApiget(url, setOrder)
+        .then(res => {
+          this.info_order = res.data.insight.info_order
+          this.insight_order = res.data.insight.insight_order.map(item => item.count)
+          this.insight_revenue = res.data.insight.insight_revenue.map(item => item.count)
+          this.insight_account = res.data.insight.insight_account.map(item => item.count)
+          this.dataCountDay = res.data.insight.insight_revenue.map(item => item.day)
+
+          let order_items = this.info_order.reduce((arr, item) => {
+            let newItem = item.order_items.map(order_item => {
+              order_item ={
+                ...order_item,
+                abc: item.id
+              }
+              return order_item
+            })
+            return [...arr, ...newItem]
+          },[])
+  
+          let product_info = order_items.map(el => ({
+            ...el.variation_info,  
+            quantity: el.quantity,  
+          }));
+
+          let aggregatedData = {};
+
+          this.data_product_hot = product_info.reduce((acc, item) => {
+            let productId = item.product_id;
+
+            if (!aggregatedData[productId]) {
+              aggregatedData[productId] = {
+                quantity: item.quantity,
+                retail_price: item.retail_price,
+                retailPriceTotal: item.retail_price * item.quantity,
+                image: item.images[0],
+                name: item.name,
+              };
+              acc.push(aggregatedData[productId]);
+            } else {
+              aggregatedData[productId].quantity += item.quantity;
+              aggregatedData[productId].retailPriceTotal += item.retail_price * item.quantity;
+            }
+
+            return acc;
+          }, []);
+          this.data_product_hot.sort((a, b) => b.quantity - a.quantity);
+        })
+    }
   }
 })

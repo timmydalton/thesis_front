@@ -11,6 +11,7 @@ import CategoryPage from  '@/components/sections/CategoryPage.vue'
 import DesignPage from  '@/components/sections/DesignPage.vue'
 import CheckoutPage from  '@/components/sections/CheckoutPage.vue'
 import CartPage from  '@/components/sections/CartPage.vue'
+import ProfilePage from  '@/components/sections/ProfilePage.vue'
 import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
@@ -86,6 +87,11 @@ const router = createRouter({
           path: 'cart',
           name: 'cart',
           component: CartPage
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: ProfilePage
         },
         {
           path: 'design',

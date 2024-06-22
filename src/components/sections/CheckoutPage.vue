@@ -2,6 +2,58 @@
   <section class="checkout-section appear-animate">
     <div class="container">
       <div class="row">
+        <div class="cr-checkout-leftside col-lg-8 col-md-12 m-t-991">
+          <div class="cr-checkout-content">
+            <div class="cr-checkout-inner">
+              <div class="cr-checkout-wrap">
+                <div class="cr-checkout-block cr-check-bill">
+                  <h3 class="cr-checkout-title">Thông tin đơn hàng</h3>
+
+                  <div class="cr-bl-block-content">
+                    <div class="cr-check-bill-form mb-minus-24">
+                      <form>
+                        <span class="cr-bill-wrap cr-bill-half">
+                          <label>Họ*</label>
+                          <input :value="first_name" @change="setOrderData('first_name', $event.target.value)" type="text" name="firstname" placeholder="Nhập họ" required="">
+                        </span>
+                        <span class="cr-bill-wrap cr-bill-half">
+                          <label>Tên*</label>
+                          <input :value="last_name" @change="setOrderData('last_name', $event.target.value)" type="text" name="lastname" placeholder="Nhập tên đệm và tên" required="">
+                        </span>
+                        <span class="cr-bill-wrap">
+                          <label>Địa chỉ</label>
+                          <input :value="address" @change="setOrderData('address', $event.target.value)" type="text" name="address" placeholder="Số nhà xx, đường yy,...">
+                        </span>
+                        <span class="cr-bill-wrap cr-bill-half">
+                          <label>Tỉnh/Thành phố *</label>
+                          <span class="cr-bl-select-inner">
+                            <select name="cr_select_city" id="cr-select-city" class="cr-bill-select" :value="selectedCity"  @change="setOrderData('city', $event.target.value)">
+                              <option value="" selected="" disabled="">Chưa chọn</option>
+                              <option :value="city.code" v-for="city in listCity" :key="city.code">{{ city.name }}</option>
+                            </select>
+                          </span>
+                        </span>
+                        <span class="cr-bill-wrap cr-bill-half">
+                          <label>Số điện thoại</label>
+                          <input :value="phone_number" @change="setOrderData('phone_number', $event.target.value)" type="text" name="phonenumber" placeholder="09xxxxxxxxx">
+                        </span>
+                        <span class="cr-bill-wrap">
+                          <label>Ghi chú</label>
+                          <a-textarea rows="3" :value="note" @change="setOrderData('note', $event.target.value)" name="note" placeholder="Ghi chú nếu bạn cần lưu ý đặc biệt về đơn hàng..."/>
+                        </span>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <span class="cr-check-order-btn">
+                <a class="cr-button mt-8" @click="submitOrder">Đặt hàng</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
         <div class="cr-checkout-rightside col-lg-4 col-md-12">
           <div class="cr-sidebar-wrap">
             <div class="cr-sidebar-block">
@@ -104,54 +156,6 @@
             </div>
           </div>
         </div>
-
-        <div class="cr-checkout-leftside col-lg-8 col-md-12 m-t-991">
-          <div class="cr-checkout-content">
-            <div class="cr-checkout-inner">
-              <div class="cr-checkout-wrap">
-                <div class="cr-checkout-block cr-check-bill">
-                  <h3 class="cr-checkout-title">Thông tin đơn hàng</h3>
-
-                  <div class="cr-bl-block-content">
-                    <div class="cr-check-bill-form mb-minus-24">
-                      <form>
-                        <span class="cr-bill-wrap cr-bill-half">
-                          <label>Họ*</label>
-                          <input :value="first_name" @change="setOrderData('first_name', $event.target.value)" type="text" name="firstname" placeholder="Nhập họ" required="">
-                        </span>
-                        <span class="cr-bill-wrap cr-bill-half">
-                          <label>Tên*</label>
-                          <input :value="last_name" @change="setOrderData('last_name', $event.target.value)" type="text" name="lastname" placeholder="Nhập tên đệm và tên" required="">
-                        </span>
-                        <span class="cr-bill-wrap">
-                          <label>Địa chỉ</label>
-                          <input :value="address" @change="setOrderData('address', $event.target.value)" type="text" name="address" placeholder="Số nhà xx, đường yy,...">
-                        </span>
-                        <span class="cr-bill-wrap cr-bill-half">
-                          <label>Tỉnh/Thành phố *</label>
-                          <span class="cr-bl-select-inner">
-                            <select name="cr_select_city" id="cr-select-city" class="cr-bill-select" :value="selectedCity"  @change="setOrderData('city', $event.target.value)">
-                              <option value="" selected="" disabled="">Chưa chọn</option>
-                              <option :value="city.code" v-for="city in listCity" :key="city.code">{{ city.name }}</option>
-                            </select>
-                          </span>
-                        </span>
-                        <span class="cr-bill-wrap cr-bill-half">
-                          <label>Số điện thoại</label>
-                          <input :value="phone_number" @change="setOrderData('phone_number', $event.target.value)" type="text" name="phonenumber" placeholder="09xxxxxxxxx">
-                        </span>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <span class="cr-check-order-btn">
-                <a class="cr-button mt-8" @click="submitOrder">Đặt hàng</a>
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -213,6 +217,9 @@ export default {
     },
     phone_number() {
       return this.orderData.phone_number || ''
+    },
+    note() {
+      return this.orderData.note || ''
     }
   },
   methods: {
@@ -245,7 +252,7 @@ export default {
         ...this.orderData,
         order_items,
         shipping_fee: this.shippingFee,
-        payment_method: this.paymentMethod,
+        payment_method: this.paymentMethod == 'cod' ? 0 : 1,
         shipping_address: {
           address: this.orderData.address,
           city_code: this.selectedCity,

@@ -44,6 +44,18 @@
             </div>
           </div>
         </div>
+
+        <div class="w-1/2 bg-ui-2 p-4 flex flex-col ml-2">
+          <div class="flex items-center justify-between mb-4 color-text-1">
+            <span class="text-base font-medium"> 
+              Mô tả ngắn
+            </span>
+          </div>
+
+          <div class="w-full h-full textarea-dark-mode mb-4">
+            <a-textarea :rows="6" :maxlength="100" :value="editProductStore.description || ''" @change="handleChangeInputProduct('description', $event.target.value)"/>
+          </div>
+        </div>
       </div>
 
       <div class="edit_product_mid_collapse mb-4">
@@ -214,6 +226,7 @@ export default {
       }
     },
     handleChangeInputProduct(key, value) {
+      console.log(key, value)
       this.editProductStore.setEditProduct(key, escapeHTML(value))
     },
     filterOption(input, option) {

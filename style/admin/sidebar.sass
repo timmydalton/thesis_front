@@ -21,8 +21,8 @@
             display: none
 
 .db-sidebar--main
-  @apply bg-ui-2
-  border-right: 1px solid var(--divider)
+  background-color: rgba(236, 238, 240, 0.93)
+  border-right: 1px solid #e1e1e1
   display: flex
   flex-direction: column
   &.minimized
@@ -38,6 +38,7 @@
   padding: 0px 0.75rem
   flex-shrink: 0
   height: 60px
+  border-bottom: 1px solid #e1e1e1
   .icon-wrapper
     overflow: hidden
     height: 54px
@@ -65,7 +66,6 @@
   
 .db-sidebar, .sidebar-menu-popover
   user-select: none
-  background-color: var(--bg-ui-2)
   color: var(--a-menu-title)
   font-family: 'Roboto'
   font-style: normal
@@ -76,7 +76,6 @@
   box-shadow: 0px 3px 8px rgba(0, 0, 0, var(--topbar-shadow-opacity))
   z-index: 1002
   &--wrapper
-    background-color: var(--bg-ui-2)
     z-index: 1
     width: 224px
     transition: all .2s ease

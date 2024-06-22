@@ -66,7 +66,7 @@
         <CustomerShipping />
         <div class="order-note">
           <a-card size="small" title="Ghi chú">
-            <a-textarea :rows="6" show-count :maxlength="100" :value="orderStore.editOrder.note" :disabled="true"/>
+            <a-textarea :rows="6" :maxlength="100" :value="orderStore.editOrder.note || 'Không có ghi chú'" :disabled="true"/>
           </a-card>
         </div>
       </div>

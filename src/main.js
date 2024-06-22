@@ -5,7 +5,7 @@ import { createPinia } from 'pinia'
 import { Input, InputPassword, InputNumber, Button, Alert, Popover, Tooltip, Table, Pagination, Modal, TreeSelect,
   Select, SelectOption, SelectOptGroup, Empty, AutoComplete, Tag, Switch, Avatar, Card, UploadDragger, Upload,
   Spin, Menu, MenuItem, SubMenu, Divider, TabPane, Tabs, Drawer, Radio, RadioGroup, Checkbox, DatePicker,
-  Textarea } from 'ant-design-vue'
+  Textarea, Space } from 'ant-design-vue'
 
 import {
   CheckCircle,
@@ -52,7 +52,6 @@ import {
   DescriptionSvg
 } from "vue-pancake-icons"
 
-import '../style/main.sass'
 import '../style/tailwind/index.css'
 
 import 'ant-design-vue/dist/reset.css'
@@ -62,6 +61,8 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'remixicon/fonts/remixicon.css'
+
+import '../style/main.sass'
 
 import Message from '@/plugins/message.js'
 
@@ -106,6 +107,7 @@ app.use(RadioGroup)
 app.use(Checkbox)
 app.use(DatePicker)
 app.use(Textarea)
+app.use(Space)
 
 app.use(CheckCircle)
 app.use(ArrowsLeftRight)

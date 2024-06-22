@@ -6,7 +6,7 @@
           <div class="vehicle-detail-banner banner-content clearfix">
             <div class="banner-slider">
               <swiper
-                class="mySwiper"
+                class="mySwiper swiper-head"
                 :navigation="true"
                 :thumbs="{ swiper: thumbsSwiper }"
                 :modules="modules"
@@ -25,7 +25,7 @@
                 :freeMode="true"
                 :watchSlidesProgress="true"
                 :modules="modules"
-                class="mySwiper"
+                class="mySwiper swiper-nav"
               >
                 <swiper-slide v-for="img in images" :key="img">
                   <div class="swiper-thumbnail-image">
@@ -40,6 +40,7 @@
         <div class="col-xxl-8 col-xl-7 col-md-6 col-12 mb-24">
           <div class="cr-size-and-weight-contain">
             <h2 class="heading">{{ product.name }}</h2>
+            <p>{{ product.description || '' }}</p>
           </div>
 
           <div class="cr-size-and-weight">
@@ -69,8 +70,8 @@
 
             <div class="cr-product-price">
               <div class="price-wrapper">
-                <span class="new-price">{{ price }}₫</span>
-                <span class="old-price ml-2" v-if="originalPrice > price">{{ originalPrice }}₫</span>
+                <span class="new-price">{{ formatNumber(price) }}₫</span>
+                <span class="old-price ml-2" v-if="originalPrice > price">{{ formatNumber(originalPrice) }}₫</span>
               </div>
             </div>
 
@@ -108,6 +109,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { useMainStore } from '@/stores/store'
 import { useCartStore } from '@/stores/cart'
 import { cloneDeep } from 'lodash'
+import { formatNumber } from '@/composable/formatNumber.js'
 
 export default {
   setup() {
@@ -116,7 +118,8 @@ export default {
 
     return {
       cart,
-      mainStore
+      mainStore,
+      formatNumber
     }
   },
   components: {

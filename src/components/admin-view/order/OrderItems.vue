@@ -15,7 +15,7 @@
 
         <div>
           <div class="h-[400px] overflow-y-auto bg-ui-3" v-if="(orderStore.editOrder.order_items || []).length">
-            <OrderItem class="order-product__item bg-ui m-4"
+            <OrderItem class="order-product__item bg-ui m-2"
               v-for="(el, index) in orderStore.editOrder.order_items || []"
               :key="index"
               :item="el"
