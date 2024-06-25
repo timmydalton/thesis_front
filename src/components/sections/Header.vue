@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="top-header">
-            <a @click="redirect('/home')" class="cr-logo">
+            <a :href="'/home'" class="cr-logo">
               <img src="https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/logo/logo.png" alt="logo" class="logo">
             </a>
             <form class="cr-search">
@@ -38,18 +38,18 @@
                   <ul class="dropdown-menu">
                     <template v-if="!me.username">
                       <li>
-                        <a class="dropdown-item" @click="redirect('/register')">Đăng ký</a>
+                        <a class="dropdown-item" :href="'/register'">Đăng ký</a>
                       </li>
                       <li>
-                        <a class="dropdown-item" @click="redirect('/login')">Đăng nhập</a>
+                        <a class="dropdown-item" :href="'/login'">Đăng nhập</a>
                       </li>
                     </template>
                     <template v-else>
                       <li>
-                        <a class="dropdown-item" @click="redirect('/profile')">Trang cá nhân</a>
+                        <a class="dropdown-item" :href="'/profile'">Trang cá nhân</a>
                       </li>
                       <li v-if="me.role == 0">
-                        <a class="dropdown-item" @click="redirect('/admin')">Quản lý cửa hàng</a>
+                        <a class="dropdown-item" :href="'/admin'">Quản lý cửa hàng</a>
                       </li>
                       <li>
                         <a class="dropdown-item" @click="handleLogOut">Đăng xuất</a>
@@ -107,16 +107,16 @@
             <div class="navbar-collapse">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a @click="redirect('/home')" class="nav-link">Trang chủ</a>
+                  <a :href="'/home'" class="nav-link">Trang chủ</a>
                 </li>
                 <li class="nav-item">
-                  <a @click="redirect('/category/all')" class="nav-link">Tất cả sản phẩm</a>
+                  <a :href="'/category/all'" class="nav-link">Tất cả sản phẩm</a>
                 </li>
                 <li class="nav-item">
-                  <a @click="redirect('/tracking')" class="nav-link">Tra cứu đơn</a>
+                  <a :href="'/tracking'" class="nav-link">Tra cứu đơn</a>
                 </li>
                 <li class="nav-item">
-                  <a @click="redirect('/design')" class="nav-link">Thiết kế</a>
+                  <a :href="'/design'" class="nav-link">Thiết kế</a>
                 </li>
               </ul>
             </div>

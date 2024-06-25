@@ -8,10 +8,10 @@
 
     <div class="cr-product-details">
       <div class="cr-brand">
-        <a @click="redirect(`/category/${showCategory.id}`)" v-if="showCategory">{{ showCategory.name }}</a>
+        <a :href="`/category/${showCategory.id}`" v-if="showCategory">{{ showCategory.name }}</a>
         <span v-else>&nbsp;</span>
       </div>
-      <a @click="redirect(`/product/${product.id}`)" class="title">{{product.name}}</a>
+      <a :href="`/product/${product.id}`" class="title">{{product.name}}</a>
       <p class="cr-price"><span class="new-price">{{ product.retail_price }}</span> <span class="old-price">{{ product.original_price }}</span></p>
     </div>
   </div>

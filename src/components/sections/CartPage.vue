@@ -98,8 +98,8 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="cr-cart-update-bottom">
-                <a @click="redirect('/home')" class="cr-links">Tiếp tục mua sắm</a>
-                <a @click="redirect('/checkout')" class="cr-button">
+                <a :href="'/home'" class="cr-links">Tiếp tục mua sắm</a>
+                <a :href="'/checkout'" class="cr-button">
                   Check Out
                 </a>
               </div>
@@ -158,7 +158,8 @@ export default {
       })
     },
     deleteItem(idx) {
-      const items = cloneDeep(this.items).splice(idx, 1)
+      const items = cloneDeep(this.items)
+      items.splice(idx, 1)
 
       this.cart.changeItems(items)
     },
@@ -182,7 +183,8 @@ export default {
       })
     },
     deleteItemCustom(idx) {
-      const custom_items = cloneDeep(this.cart.custom_items).splice(idx, 1)
+      const custom_items = cloneDeep(this.cart.custom_items)
+      custom_items.splice(idx, 1)
 
       this.cart.changeCustomItems(custom_items)
     }

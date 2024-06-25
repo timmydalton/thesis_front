@@ -79,18 +79,18 @@
                 </div>
 
                 <div class="cr-checkout-pro">
-                  <template v-if="items.length">
+                  <template v-if="items.length || custom_items.length">
                     <div class="col-sm-12 mb-6" v-for="item in items" :key="item.id">
                       <div class="cr-product-inner">
                         <div class="cr-pro-image-outer">
                           <div class="cr-pro-image">
-                            <a @click="redirect(`/product/${item.product.id}`)" class="image">
+                            <a :href="`/product/${item.product.id}`" class="image">
                               <img class="main-image" :src="item.images?.[0]" alt="Product">
                             </a>
                           </div>
                         </div>
                         <div class="cr-pro-content cr-product-details">
-                          <h5 class="cr-pro-title"><a @click="redirect(`/product/${item.product.id}`)">{{ item.product?.name }}</a></h5>
+                          <h5 class="cr-pro-title"><a :href="`/product/${item.product.id}`">{{ item.product?.name }}</a></h5>
                           <div class="cr-pro-quantity">{{ getAttrString(item) }} × {{ item.quantity }}</div>
                           <div class="cr-pro-rating">
                             <svg v-for="i in 5" width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="#FCD53F" d="m18.7 4.627l2.247 4.31a2.27 2.27 0 0 0 1.686 1.189l4.746.65c2.538.35 3.522 3.479 1.645 5.219l-3.25 2.999a2.225 2.225 0 0 0-.683 2.04l.793 4.398c.441 2.45-2.108 4.36-4.345 3.24l-4.536-2.25a2.282 2.282 0 0 0-2.006 0l-4.536 2.25c-2.238 1.11-4.786-.79-4.345-3.24l.793-4.399c.14-.75-.12-1.52-.682-2.04l-3.251-2.998c-1.877-1.73-.893-4.87 1.645-5.22l4.746-.65a2.23 2.23 0 0 0 1.686-1.189l2.248-4.309c1.144-2.17 4.264-2.17 5.398 0"/></svg>

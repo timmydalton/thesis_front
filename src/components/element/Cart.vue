@@ -1,14 +1,14 @@
 <template>
   <div class="w-full h-full relative cart-container">
-    <template v-if="items.length">
+    <template v-if="items.length || custom_items.length">
       <ul class="crcart-pro-items">
         <li v-for="(item, idx) in items" :key="item.id">
-          <a @click="redirect(`/product/${item.product.id}`)" class="crside_pro_img">
+          <a :href="`/product/${item.product.id}`" class="crside_pro_img">
             <img :src="item.images?.[0] || ''" alt="">
           </a>
 
           <div class="cr-pro-content">
-            <a @click="redirect(`/product/${item.product.id}`)" class="cart_pro_title">{{ item.product?.name || "No name" }}</a>
+            <a :href="`/product/${item.product.id}`" class="cart_pro_title">{{ item.product?.name || "No name" }}</a>
             <span class="cart-price"><span>{{ formatNumber(item.retail_price) }}₫</span> - {{ getAttrString(item) }}</span>
             <div class="cr-cart-qty">
               <div class="cart-qty-plus-minus">
@@ -54,8 +54,8 @@
         </div>
 
         <div class="cart_btn">
-          <a @click="redirect(`/cart`)" class="cr-button">Xem giỏ</a>
-          <a @click="redirect(`/checkout`)" class="cr-btn-secondary">Checkout</a>
+          <a :href="`/cart`" class="cr-button">Xem giỏ</a>
+          <a :href="`/checkout`" class="cr-btn-secondary">Checkout</a>
         </div>
       </div>
     </template>
@@ -126,7 +126,8 @@ export default {
       })
     },
     deleteItem(idx) {
-      const items = cloneDeep(this.items).splice(idx, 1)
+      const items = cloneDeep(this.items)
+      items.splice(idx, 1)
 
       this.cart.changeItems(items)
     },
@@ -150,7 +151,8 @@ export default {
       })
     },
     deleteItemCustom(idx) {
-      const custom_items = cloneDeep(this.cart.custom_items).splice(idx, 1)
+      const custom_items = cloneDeep(this.cart.custom_items)
+      custom_items.splice(idx, 1)
 
       this.cart.changeCustomItems(custom_items)
     }

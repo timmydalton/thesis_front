@@ -43,7 +43,7 @@
 
         <template v-if="column.key === 'items'">
           <div>
-            <div v-if="(record.order_items || []).length">
+            <div v-if="(record.order_items || []).length || (record.custom_items || []).length">
               <div
                 class="flex pb-1 mb-1 items-center border-b border-dashed border-t-0 border-l-0 border-r-0 border-theme-border w-fit last:border-none"
                 v-for="(el, index) in record.order_items" :key="index">
@@ -53,6 +53,17 @@
                 <div class="whitespace-nowrap">
                   <div class="leading-[16px]">{{ el.variation_info.name }}</div>
                   <div class="text-color-text-dark-02 leading-[16px]">{{ getVariationTitle(el.variation_info) }}</div>
+                </div>
+              </div>
+
+              <div
+                class="flex pb-1 mb-1 items-center border-b border-dashed border-t-0 border-l-0 border-r-0 border-theme-border w-fit last:border-none"
+                v-for="(el, index) in record.custom_items" :key="index">
+                <div class="mr-1">
+                  <a-avatar shape="square" :src="el.images?.[0]" />
+                </div>
+                <div class="whitespace-nowrap">
+                  <div class="leading-[16px]">Sản phẩm thiết kế</div>
                 </div>
               </div>
             </div>
