@@ -20,6 +20,25 @@
             </div>
           </div>
         </li>
+
+        <li v-for="(item, idx) in custom_items" :key="idx">
+          <a class="crside_pro_img">
+            <img :src="item.images?.[0] || ''" alt="">
+          </a>
+
+          <div class="cr-pro-content">
+            <a class="cart_pro_title">{{ item.product?.name || "No name" }}</a>
+            <span class="cart-price"><span>{{ formatNumber(item.retail_price) }}₫</span></span>
+            <div class="cr-cart-qty">
+              <div class="cart-qty-plus-minus">
+                <button type="button" class="minus" @click="changeQuantityCustom(idx, item.quantity - 1 || 1)">-</button>
+                <input :value="item.quantity" @input="changeQuantityCustom(idx, parseInt($event.target.value) || 1)" type="text" placeholder="." value="1" minlength="1" maxlength="20" class="quantity">
+                <button type="button" class="plus" @click="changeQuantityCustom(idx, item.quantity + 1)">+</button>
+              </div>
+              <div class="cursor-pointer remove" @click="confirmDeleteItemCustom(idx)">×</div>
+            </div>
+          </div>
+        </li>
       </ul>
 
       <div class="cr-cart-bottom">
@@ -75,6 +94,9 @@ export default {
     items() {
       return this.cart.items || []
     },
+    custom_items() {
+      return this.cart.listCustomItems || []
+    },
     totalPrice() {
       return this.cart.totalPrice
     }
@@ -107,6 +129,30 @@ export default {
       const items = cloneDeep(this.items).splice(idx, 1)
 
       this.cart.changeItems(items)
+    },
+    changeQuantityCustom(idx, quantity) {
+      const custom_items = cloneDeep(this.cart.custom_items)
+
+      custom_items[idx].quantity = quantity
+      this.cart.changeCustomItems(custom_items)
+    },
+    confirmDeleteItemCustom(idx) {
+      let that = this
+      Modal.confirm({
+        title: "Bạn có muốn xóa sản phẩm này khỏi giỏ hàng?",
+        okText: 'Tiếp tục',
+        cancelText: "Hủy",
+        onOk() {
+          that.deleteItemCustom(idx)
+        },
+        onCancel() {
+        }
+      })
+    },
+    deleteItemCustom(idx) {
+      const custom_items = cloneDeep(this.cart.custom_items).splice(idx, 1)
+
+      this.cart.changeCustomItems(custom_items)
     }
   }
 }

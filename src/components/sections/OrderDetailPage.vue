@@ -17,7 +17,7 @@
 
       <div class="order-content">
         <div class="order-content__left">
-          <OrderItems :items="order.order_items || []"/>
+          <OrderItems :items="totalItems"/>
           <div class="grid gap-3">
             <OrderPayment :order="order" class="col-span-1"/>
           </div>
@@ -60,6 +60,29 @@ export default {
   computed: {
     order() {
       return this.user.viewOrder || {}
+    },
+    order_items() {
+      return this.order.order_items || []
+    },
+    custom_items() {
+      const items = this.order.custom_items || []
+
+      return items.map(el => {
+        return {
+          variation_info: {
+            fields: [],
+            original_price: 200000,
+            retail_price: 149000,
+            images: el.images,
+            name: "Sản phẩm thiết kế",
+            custom_id: "DES-ITEM"
+          },
+          quantity: el.quantity,
+        }
+      })
+    },
+    totalItems() {
+      return this.order_items.concat(this.custom_items)
     }
   }
 }

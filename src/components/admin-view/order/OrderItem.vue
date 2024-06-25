@@ -15,7 +15,7 @@
       </div>
 
       <div class="flex my-2 items-center">
-        <div class="mr-[12px]" v-for="(el, index) in item.variation_info.fields" :key="index">
+        <div class="mr-[12px]" v-for="(el, index) in item.variation_info?.fields" :key="index">
           <span class="text-theme-text-color-1 capitalize">{{ el.name }}:</span>
           <span class="ml-1 capitalize">{{ getVariationValue(item.variation_info, el.name) }}</span>
         </div>

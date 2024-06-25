@@ -49,7 +49,7 @@
           <div class="invoice__item__title font-medium">Phương thức thanh toán</div>
         </div>
         <div class="flex items-center">
-          {{ order.payment_method ? 'Thanh toán khi nhận (COD)' : 'VNPay' }}
+          {{ order.payment_method ? 'VNPay' : 'Thanh toán khi nhận (COD)' }}
         </div>
       </div>
 

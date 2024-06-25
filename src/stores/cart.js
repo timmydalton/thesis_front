@@ -6,14 +6,35 @@ export const useCartStore = defineStore('cart', {
   state: () => {
     return {
       items: JSON.parse(localStorage.getItem("cart-items")) || [],
+      custom_items: JSON.parse(localStorage.getItem("custom-items")) || [],
       visibleCart: false
     }
   },
   getters: {
     totalPrice() {
-      return this.items.reduce((acc, cur) => {
+      const total_normal = this.items.reduce((acc, cur) => {
         return acc + cur.retail_price * cur.quantity
       }, 0)
+
+      const total_custom = this.custom_items.reduce((acc, cur) => {
+        return acc + 149000 * cur.quantity
+      }, 0)
+
+      return total_normal + total_custom
+    },
+    listCustomItems() {
+      return this.custom_items.map(el => {
+        return {
+          fields: [],
+          product: {
+            name: "Sản phẩm thiết kế"
+          },
+          original_price: 200000,
+          retail_price: 149000,
+          quantity: el.quantity,
+          images: el.images
+        }
+      })
     }
   },
   actions: {
@@ -22,9 +43,23 @@ export const useCartStore = defineStore('cart', {
         this[key] = obj[key]
       }
     },
+    resetCart() {
+      this.changeItems([])
+      this.changeCustomItems([])
+    },
     changeItems(items) {
       this.items = items
       localStorage.setItem('cart-items', JSON.stringify(this.items))
+    },
+    changeCustomItems(items) {
+      this.custom_items = items
+      localStorage.setItem('custom-items', JSON.stringify(this.custom_items))
+    },
+    addCustomItem(item) {
+      const custom_items = cloneDeep(this.custom_items)
+      custom_items.push(item)
+
+      this.changeCustomItems(custom_items)
     },
     addItem(item) {
       const items = cloneDeep(this.items)

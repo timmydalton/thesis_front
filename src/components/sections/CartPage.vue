@@ -60,6 +60,34 @@
                           </a>
                         </td>
                       </tr>
+
+                      <tr v-for="(item, idx) in custom_items" :key="idx">
+                        <td class="cr-cart-name">
+                          <a href="javascript:void(0)">
+                            <img :src="item.images?.[0]" alt="product-1" class="cr-cart-img">
+                            {{ item.product?.name || 'No name' }}
+                          </a>
+                        </td>
+                        <td class="cr-cart-attribute">
+                          <span>-</span>
+                        </td>
+                        <td class="cr-cart-price">
+                          <span class="amount">{{ item.retail_price }}₫</span>
+                        </td>
+                        <td class="cr-cart-qty">
+                          <div class="cart-qty-plus-minus">
+                            <button type="button" class="plus" @click="changeQuantityCustom(idx, item.quantity + 1)">+</button>
+                            <input :value="item.quantity" @input="changeQuantityCustom(idx, parseInt($event.target.value) || 1)" type="text" placeholder="." value="1" minlength="1" maxlength="20" class="quantity">
+                            <button type="button" class="minus" @click="changeQuantityCustom(idx, item.quantity - 1 || 1)">-</button>
+                          </div>
+                        </td>
+                        <td class="cr-cart-subtotal">{{ item.retail_price * item.quantity }}₫</td>
+                        <td class="cr-cart-remove">
+                          <a @click="confirmDeleteItemCustom(idx)">
+                            <i class="ri-delete-bin-line"></i>
+                          </a>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -101,7 +129,10 @@ export default {
   computed: {
     items() {
       return this.cart.items
-    }
+    },
+    custom_items() {
+      return this.cart.listCustomItems || []
+    },
   },
   methods: {
     redirect(path) {
@@ -130,6 +161,30 @@ export default {
       const items = cloneDeep(this.items).splice(idx, 1)
 
       this.cart.changeItems(items)
+    },
+    changeQuantityCustom(idx, quantity) {
+      const custom_items = cloneDeep(this.cart.custom_items)
+
+      custom_items[idx].quantity = quantity
+      this.cart.changeCustomItems(custom_items)
+    },
+    confirmDeleteItemCustom(idx) {
+      let that = this
+      Modal.confirm({
+        title: "Bạn có muốn xóa sản phẩm này khỏi giỏ hàng?",
+        okText: 'Tiếp tục',
+        cancelText: "Hủy",
+        onOk() {
+          that.deleteItemCustom(idx)
+        },
+        onCancel() {
+        }
+      })
+    },
+    deleteItemCustom(idx) {
+      const custom_items = cloneDeep(this.cart.custom_items).splice(idx, 1)
+
+      this.cart.changeCustomItems(custom_items)
     }
   }
 }

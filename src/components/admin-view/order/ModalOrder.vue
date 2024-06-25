@@ -57,13 +57,13 @@
 
     <div class="order-content">
       <div class="order-content__left">
-        <OrderItems :items="orderStore.editOrder.order_items || []"/>
+        <OrderItems :items="totalItems || []"/>
         <div class="grid gap-3">
           <OrderPayment :order="orderStore.editOrder" class="col-span-1"/>
         </div>
       </div>
       <div class="order-content__right">
-        <CustomerShipping :order="order" />
+        <CustomerShipping :order="orderStore.editOrder" />
         <div class="order-note">
           <a-card size="small" title="Ghi chú">
             <a-textarea :rows="6" :maxlength="100" :value="orderStore.editOrder.note || 'Không có ghi chú'" :disabled="true"/>
@@ -101,6 +101,34 @@ export default {
     OrderItems,
     OrderPayment,
     CustomerShipping
+  },
+  computed: {
+    order() {
+      return this.orderStore.editOrder || {}
+    },
+    order_items() {
+      return this.order.order_items || []
+    },
+    custom_items() {
+      const items = this.order.custom_items || []
+
+      return items.map(el => {
+        return {
+          variation_info: {
+            fields: [],
+            original_price: 200000,
+            retail_price: 149000,
+            images: el.images,
+            name: "Sản phẩm thiết kế",
+            custom_id: "DES-ITEM"
+          },
+          quantity: el.quantity,
+        }
+      })
+    },
+    totalItems() {
+      return this.order_items.concat(this.custom_items)
+    }
   },
   methods: {
     closeModal() {

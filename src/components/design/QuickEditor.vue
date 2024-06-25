@@ -5,18 +5,16 @@ import SideBar from './SideBar.vue'
 
 import { useUIStore } from '@/stores/design/editor.js'
 import { useTraitStore } from '@/stores/design/trait.js'
-// import { useAddToCart } from '@/src/composable/addToCart.js'
+import { useCartStore } from '@/stores/cart'
 import { message } from 'ant-design-vue'
 
 export default {
   setup() {
     const ui = useUIStore()
     const trait = useTraitStore()
+    const cart = useCartStore()
 
-    // const { loading, addToCart } = useAddToCart()
-
-    // return { ui, trait, loading, addToCart }
-    return { ui, trait }
+    return { ui, trait, cart }
   },
   data: () => ({
     visible: false
@@ -39,8 +37,11 @@ export default {
       message.success('Lưu thành công')
     },
     async handleAddToCart() {
-      // await this.addToCart()
-      this.visible = false
+      const res = await this.ui.addToCart()
+      if (res) this.$message.success("Sản phẩm thêm vào giỏ thành công!")
+      else this.$message.success("Thêm vào giỏ thất bại!")
+
+      this.cart.setState({visibleCart: true})
     }
   }
 }
@@ -65,13 +66,15 @@ export default {
     </div>
 
     <div class="quick-editor">
-      <div class="save" @click.stop="save">
+      <!-- <div class="save" @click.stop="save">
         <a-tooltip title="Lưu thiết kế">
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M219.31,72,184,36.69A15.86,15.86,0,0,0,172.69,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V83.31A15.86,15.86,0,0,0,219.31,72ZM168,208H88V152h80Zm40,0H184V152a16,16,0,0,0-16-16H88a16,16,0,0,0-16,16v56H48V48H172.69L208,83.31ZM160,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h56A8,8,0,0,1,160,72Z"></path></svg>
         </a-tooltip>
-      </div>
+      </div> -->
 
       <a-button v-if="ui.deviceType == 'mobile'" type="primary" @click.stop="visible = true">Mua ngay</a-button>
+
+      <a-button class="mr-4" type="primary" @click="handleAddToCart" :loading="ui.loadingAddToCart">Thêm vào giỏ</a-button>
 
       <template v-if="ui.deviceType == 'desktop'">
         <div class="btn-open-trait" :class="{active: trait.visible}" @click.stop="toggleTrait">

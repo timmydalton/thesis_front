@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia'
 import { cloneDeep, get } from 'lodash'
-// import { useProductStore } from '@/stores/product.js'
+import { useApipost, useApiget } from "@/composable/fetch.js"
+import { nextTick } from 'vue'
+import { useCartStore } from '@/stores/cart'
+
+import html2canvas from 'html2canvas'
+
+const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export const useUIStore = defineStore('ui', {
   state: () => ({
@@ -17,7 +23,8 @@ export const useUIStore = defineStore('ui', {
       OGHeight: 500
     },
     sources: {},
-    editingProductView: 0
+    editingProductView: 0,
+    loadingAddToCart: false
   }),
   getters: {
     selectedElement(state) {
@@ -160,6 +167,61 @@ export const useUIStore = defineStore('ui', {
       this.editingProductView = value
       this.elements = this.sources[this.editingProductView] || {}
       this.sources[value] = this.elements
+    },
+    async getContent() {
+      const wrapper = document.querySelector('.editor-bounding')
+      const node = wrapper.cloneNode(true)
+      Array.from(node.querySelectorAll('.product-design')).forEach(el => el.style.opacity = 0)
+  
+      node.style.top = '-1000%'
+      node.style.left = '-1000%'
+  
+      document.body.appendChild(node)
+  
+      const canvas = await html2canvas(node.querySelector('.editor'), { useCORS: true })
+      const dataURL = canvas.toDataURL('image/jpeg', 1)
+      const res = await useApipost(`${VITE_BACKEND_API_URL}/api/admin/content/b64`, null, { base64: dataURL })
+      document.body.removeChild(node)
+  
+      return res.data.data
+    },
+    async getWrapper() {
+      const dom = document.querySelector('.editor')
+      const canvas = await html2canvas(dom, { useCORS: true })
+      const dataURL = canvas.toDataURL('image/jpeg', 1)
+      const res = await useApipost(`${VITE_BACKEND_API_URL}/api/admin/content/b64`, null, { base64: dataURL })
+      return res.data.data
+    },
+    async addToCart() {
+      this.loadingAddToCart = true
+
+      const cart = useCartStore()
+
+      const dom = document.querySelector('.editor')
+      if(!dom) {
+        this.loadingAddToCart = false
+        return false
+      }
+
+      try {
+        this.setEditingProductView(0)
+        await nextTick()
+
+        const link = await this.getWrapper()
+
+        const item = {
+          quantity: 1,
+          images: [link]
+        }
+  
+        cart.addCustomItem(item)
+      } catch(e) {
+        console.error('oops, something went wrong!', e)
+        return false
+      }
+
+      this.loadingAddToCart = false
+      return true
     }
   }
 })
