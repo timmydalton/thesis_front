@@ -21,7 +21,7 @@
             <div class="order-payment__item__title ml-2">Phí vận chuyển</div>
           </div>
           <div class="flex items-center">
-            {{formatNumber(orderStore.editOrder.shipping_fee)}}₫
+            {{formatNumber(order.shipping_fee)}}₫
           </div>
         </div>
 
@@ -31,17 +31,36 @@
             <div class="order-payment__item__title ml-2">Chuyển khoản</div>
           </div>
           <div class="flex items-center">
-            {{formatNumber(orderStore.editOrder.transfer_money)}}₫
+            {{formatNumber(order.transfer_money)}}₫
           </div>
         </div>
       </div>
 
       <div class="order-payment__item my-2 flex justify-between px-[11px] py-[4px]">
         <div class="flex items-center">
+          <div class="invoice__item__title font-medium">Tiền hàng</div>
+        </div>
+        <div class="flex items-center">
+          {{formatNumber(order.invoice_value)}}₫
+        </div>
+      </div>
+      <div class="order-payment__item my-2 flex justify-between px-[11px] py-[4px]">
+        <div class="flex items-center">
+          <div class="invoice__item__title font-medium">Phương thức thanh toán</div>
+        </div>
+        <div class="flex items-center">
+          {{ order.payment_method ? 'Thanh toán khi nhận (COD)' : 'VNPay' }}
+        </div>
+      </div>
+
+      <a-divider class="divider-3-0"/>
+
+      <div class="order-payment__item my-2 flex justify-between px-[11px] py-[4px]">
+        <div class="flex items-center">
           <div class="invoice__item__title font-medium">Tổng số tiền</div>
         </div>
         <div class="flex items-center">
-          {{formatNumber(orderStore.editOrder.invoice_value + orderStore.editOrder.shipping_fee)}}₫
+          {{formatNumber(order.invoice_value + order.shipping_fee)}}₫
         </div>
       </div>
     </a-card>
@@ -53,16 +72,14 @@ import { CreditCard } from 'vue-pancake-icons'
 import { CarOutlined, PercentageOutlined, SwapOutlined, CreditCardOutlined, DollarOutlined } from "@ant-design/icons-vue"
 
 import { formatNumber } from "@/composable/common"
-import { useOrderStore } from "@/stores/order.js"
 
 export default {
   setup() {
-    const orderStore = useOrderStore()
     return {
-      orderStore,
       formatNumber
     }
   },
+  props: ['order'],
   components: {
     CreditCard,
     CarOutlined,

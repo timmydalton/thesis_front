@@ -12,9 +12,9 @@
             <span class="cart-price"><span>{{ formatNumber(item.retail_price) }}₫</span> - {{ getAttrString(item) }}</span>
             <div class="cr-cart-qty">
               <div class="cart-qty-plus-minus">
-                <button type="button" class="plus" @click="changeQuantity(idx, item.quantity + 1)">+</button>
-                <input :value="item.quantity" @input="changeQuantity(idx, parseInt($event.target.value) || 1)" type="text" placeholder="." value="1" minlength="1" maxlength="20" class="quantity">
                 <button type="button" class="minus" @click="changeQuantity(idx, item.quantity - 1 || 1)">-</button>
+                <input :value="item.quantity" @input="changeQuantity(idx, parseInt($event.target.value) || 1)" type="text" placeholder="." value="1" minlength="1" maxlength="20" class="quantity">
+                <button type="button" class="plus" @click="changeQuantity(idx, item.quantity + 1)">+</button>
               </div>
               <div class="cursor-pointer remove" @click="confirmDeleteItem(idx)">×</div>
             </div>

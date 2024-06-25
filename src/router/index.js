@@ -12,6 +12,8 @@ import DesignPage from  '@/components/sections/DesignPage.vue'
 import CheckoutPage from  '@/components/sections/CheckoutPage.vue'
 import CartPage from  '@/components/sections/CartPage.vue'
 import ProfilePage from  '@/components/sections/ProfilePage.vue'
+import OrderDetailPage from  '@/components/sections/OrderDetailPage.vue'
+import TrackingPage from  '@/components/sections/TrackingPage.vue' 
 import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
@@ -51,6 +53,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
       path: '/',
       name: 'store',
       component: StoreLayout,
@@ -79,6 +86,18 @@ const router = createRouter({
           },
         },
         {
+          path: 'order/:order_id',
+          name: 'order_detail',
+          component: OrderDetailPage,
+          beforeEnter: (to, from, next) => {
+            const order_id = to.params.order_id
+            useUserStore().loadViewOrder(order_id)
+              .finally(() => {
+                next()
+              })
+          },
+        },
+        {
           path: 'checkout',
           name: 'checkout',
           component: CheckoutPage,
@@ -99,15 +118,15 @@ const router = createRouter({
           component: DesignPage,
         },
         {
-          path: 'login',
-          name: 'login',
-          component: Login
-        },
-        {
           path: 'register',
           name: 'register',
           component: Register
-        }
+        },
+        {
+          path: 'tracking',
+          name: 'tracking',
+          component: TrackingPage
+        },
       ]
     },
   ]

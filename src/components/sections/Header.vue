@@ -22,9 +22,18 @@
             <div class="cr-right-bar">
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle cr-right-bar-item" :href="me.username ? '/profile' : ''">
+                  <a class="nav-link dropdown-toggle cr-right-bar-item" v-if="!isLoggedIn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="96" r="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle><path d="M32,216c19.37-33.47,54.55-56,96-56s76.63,22.53,96,56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>
-                    <span>{{ me.username ? me.username : 'Tài khoản' }}</span>
+                    <span>Tài khoản</span>
+                  </a>
+                  <a class="nav-link dropdown-toggle cr-right-bar-item" href="/profile" v-else>
+                    <img
+                      style="width: 21px; height: 21px; border-radius: 50%"
+                      :src="me.avatar || 'https://statics.pancake.vn/web-media/91/68/aa/4d/2f5c95ba23476f5549910882e4e42530fdee6123b4a995e226e18e3e.svg'"
+                      alt=""
+                      class="mr-1"
+                    >
+                    <span>{{ getName(me) }}</span>
                   </a>
                   <ul class="dropdown-menu">
                     <template v-if="!me.username">
@@ -64,7 +73,36 @@
     <div class="cr-fix">
       <div class="container">
         <div class="cr-menu-list">
-          <div></div>
+          <div class="cr-category-icon-block">
+            <div class="cr-category-menu">
+              <div class="cr-category-toggle">
+                <i class="ri-menu-2-line"></i>
+              </div>
+            </div>
+            <div class="cr-cat-dropdown">
+              <div class="cr-cat-block">
+                <div class="cr-cat-tab">
+                  <div class="cr-tab-list nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link" :class="{'active': selectedCategoryId == cate.id}" v-for="cate in listCategories" :key="cate.id" @click="selectCategory(cate)">
+                      {{ cate.name }}
+                    </button>
+                  </div>
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade active show">
+                      <div class="tab-list row">
+                        <div class="col">
+                          <h6 class="cr-col-title cursor-pointer" @click="openCategory(selectedCategory)">{{ selectedCategory.name }}</h6>
+                          <ul class="cat-list">
+                            <li v-for="item in selectedCategory.children" :key="item.id" @click="openCategory(item)"><a>{{ item.name }}</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <nav class="navbar navbar-expand-lg">
             <div class="navbar-collapse">
               <ul class="navbar-nav">
@@ -75,20 +113,14 @@
                   <a @click="redirect('/category/all')" class="nav-link">Tất cả sản phẩm</a>
                 </li>
                 <li class="nav-item">
+                  <a @click="redirect('/tracking')" class="nav-link">Tra cứu đơn</a>
+                </li>
+                <li class="nav-item">
                   <a @click="redirect('/design')" class="nav-link">Thiết kế</a>
                 </li>
-                <!-- <li class="nav-item dropdown">
-                  <a href="/category/all" class="nav-link dropdown-toggle">Danh mục <CaretDownOutlined class="icon"/> </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="" class="dropdown-item"></a>
-                    </li>
-                  </ul>
-                </li> -->
               </ul>
             </div>
           </nav>
-          <div></div>
         </div>
       </div>
     </div>
@@ -133,6 +165,11 @@ export default {
     AdminProfileMenu,
     Cart
   },
+  data() {
+    return {
+      selectedCate: ''
+    }
+  },
   computed: {
     me() {
       return this.user.me || {}
@@ -147,6 +184,20 @@ export default {
       set(value) {
         this.cart.setState({ visibleCart: value })
       }
+    },
+    selectedCategoryId: {
+      get() {
+        return this.selectedCate || this.listCategories?.[0]?.id || ''
+      },
+      set(value) {
+        this.selectedCate = value
+      }
+    },
+    selectedCategory() {
+      return (this.listCategories || []).find(el => el.id == this.selectedCategoryId) || this.listCategories[0] || {}
+    },
+    isLoggedIn() {
+      return !!this.me.username
     }
   },
   methods: {
@@ -163,6 +214,20 @@ export default {
     },
     delete_cookie(name) {
       document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    },
+    selectCategory(cate) {
+      this.selectedCate = cate.id
+    },
+    openCategory(cate) {
+      this.handleClickCate(cate.id)
+    },
+    getName(user) {
+      let text = ''
+      if (user.first_name) text += user.first_name
+      if (user.last_name) text += ' ' + user.last_name
+      if (!text) text += user.username
+
+      return text
     }
   }
 }

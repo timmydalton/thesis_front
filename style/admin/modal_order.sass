@@ -59,25 +59,26 @@
       color: #ffffff
       &:hover
         opacity: 0.9
-  .order-content
+
+.order-content
+  display: grid
+  gap: 0.75rem
+  grid-template-columns: repeat(1,minmax(0,1fr))
+  &__left
+    grid-column: span 1 / span 1
     display: grid
     gap: 0.75rem
-    grid-template-columns: repeat(1,minmax(0,1fr))
-    &__left
-      grid-column: span 1 / span 1
-      display: grid
-      gap: 0.75rem
-    &__right
-      grid-column: span 1 / span 1
-    .ant-card
+  &__right
+    grid-column: span 1 / span 1
+    gap: 0.75rem
+  .ant-card
+    border-color: var(--border-ui-1)
+    .ant-card-head
       border-color: var(--border-ui-1)
-      .ant-card-head
-        border-color: var(--border-ui-1)
-        border: none
+      border: none
 
 @media (min-width: 1024px)
-  .modal-order
-    .order-content
-      grid-template-columns: repeat(3, minmax(0, 1fr))
-      &__left
-        grid-column: span 2 / span 2
+  .order-content
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+    &__left
+      grid-column: span 2 / span 2

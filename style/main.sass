@@ -1,3 +1,4 @@
+@import './tailwind/index.css'
 @import 'section'
 @import 'admin'
 @import 'root'
@@ -5,6 +6,90 @@
 @import 'antd'
 @import 'element'
 @import 'design'
+
+@font-face
+  font-family: "BoosterNextFY-Thin"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/a8/04/0c/9e/4b9cbdd7d6406824b3d624a88c0035b87325b00678f64be9e8cb5b11.ttf") format("TrueType")
+    
+@font-face
+  font-family: "FS-AmeliaScript-FineVersion"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/fd/64/82/8c/a0d2ab37db098afa26648dafc9cdc35fae1c770a32c5edb46827c199.ttf") format("TrueType")
+
+@font-face
+  font-family: "FS-Just-Awesome-Regular"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/e9/e6/3c/0e/9eb8cc33ea4e7137a7093db7358e866c6ab34edaf7a496d00250c416.ttf") format("TrueType")
+
+@font-face
+  font-family: "FS-Just-Awesome-Script"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/46/c3/93/85/99e0664f4f06badabb70fb7a7870f1ea18a2efd6e9415f81f2445757.ttf") format("TrueType")
+
+@font-face
+  font-family: "Geogrotesque-Light"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/97/e0/e8/36/f7d44e2498ce67acfd1347b92125b1ad63f55a813e93d9981ef452bb.ttf") format("TrueType")
+
+@font-face
+  font-family: "QX Banda regular"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/cf/f6/80/58/766c4a43d6427f67bc7d23af9c8e0df1fe323888a1bc347595175b35.ttf") format("TrueType")
+
+@font-face
+  font-family: "Saigonese"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/10/d5/6d/2b/e59184b45b6ff9f29bfd4045bd6f3d2f5d691d605ee928c2cf2f605d.ttf") format("TrueType")
+
+@font-face
+  font-family: "SignericaVi"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/11/8e/44/60/bc6695e9fcb303940f0730f7d5fe2b3b774353b1741a1a7a4f523600.ttf") format("TrueType")
+
+@font-face
+  font-family: "SVN-Astronout"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/9a/2e/e6/3b/4c72f29a0e7af55e69b5d1557b20937d053b02ccb9079fd1642034e1.ttf") format("TrueType")
+
+@font-face
+  font-family: "SVN-Sharpen"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/f6/7f/ad/b9/c5339b64256df93fd28a20b8be347081ebcef45ac26e81b5163bd480.ttf") format("TrueType")
+
+@font-face
+  font-family: "SVN-Teaters"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/b2/c0/b2/5d/98e2bd6edeeec52c978edd9da0322a076cde9ddd0a2b29cea67aba0c.ttf") format("TrueType")
+
+@font-face
+  font-family: "VL HandsomeScript-Regular"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/e9/92/77/2d/848b5989d08ae4ea6143044f3fb4dd71c5126f661cf78c0156a15211.ttf") format("TrueType")
+
+@font-face
+  font-family: "VL Lovepen-Regular"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/2c/03/a7/8e/97fb977d1e4f51888630bb92f9878232250438fba5e0182058ecbfe7.ttf") format("TrueType")
+
+@font-face
+  font-family: "VL Selfie Regular"
+  font-style: normal
+  font-weight: normal
+  src: url("https://statics.pancake.vn/web-media/06/ab/b6/32/e9b42b7f484957db9ed61690fa049f6a2855f73b6103a6bebed7af65.ttf") format("TrueType")
   
 html
   font-size: 100%
@@ -126,3 +211,53 @@ a
 @media (min-width: 1600px)
   .container
     max-width: 1500px !important
+
+.element-decor
+  z-index: -1
+
+.decor-1
+  position: relative
+  &::before
+    width: 45px
+    height: 80px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/8.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    top: 130px
+    right: 20px
+    z-index: 0
+
+.decor-2
+  position: relative
+  &::before
+    width: 110px
+    height: 110px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/10.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    -webkit-transform: scaleX(-1)
+    transform: scaleX(-1)
+    position: absolute
+    bottom: -100px
+    left: 0px
+    z-index: 0
+
+.decor-3
+  position: relative
+  &::before
+    width: 80px
+    height: 80px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/7.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    top: 0
+    left: 20px
+    z-index: 0

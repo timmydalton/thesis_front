@@ -53,7 +53,7 @@
           </div>
 
           <div class="w-full h-full textarea-dark-mode mb-4">
-            <a-textarea :rows="6" :maxlength="100" :value="editProductStore.description || ''" @change="handleChangeInputProduct('description', $event.target.value)"/>
+            <a-textarea :rows="6" :value="editProductStore.description || ''" @change="handleChangeInputProduct('description', $event.target.value)"/>
           </div>
         </div>
       </div>

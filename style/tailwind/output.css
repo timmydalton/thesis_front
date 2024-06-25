@@ -636,18 +636,18 @@ video {
   grid-column: span 1 / span 1;
 }
 
-.m-4 {
-  margin: 1rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.m-2 {
+  margin: 0.5rem;
 }
 
 .my-0 {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .mb-1 {
@@ -706,6 +706,10 @@ video {
   margin-right: 0.25rem;
 }
 
+.mr-1\.5 {
+  margin-right: 0.375rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -750,8 +754,8 @@ video {
   margin-top: 2rem;
 }
 
-.mr-1\.5 {
-  margin-right: 0.375rem;
+.block {
+  display: block;
 }
 
 .inline-block {
@@ -942,6 +946,10 @@ video {
   place-items: center;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -1054,6 +1062,11 @@ video {
   border-color: rgb(214 230 254 / var(--tw-border-opacity));
 }
 
+.border-primary {
+  --tw-border-opacity: 1;
+  border-color: rgb(26 92 255 / var(--tw-border-opacity));
+}
+
 .border-slate-200 {
   --tw-border-opacity: 1;
   border-color: rgb(226 232 240 / var(--tw-border-opacity));
@@ -1062,11 +1075,6 @@ video {
 .border-theme-border {
   --tw-border-opacity: 1;
   border-color: rgb(224 226 227 / var(--tw-border-opacity));
-}
-
-.border-primary {
-  --tw-border-opacity: 1;
-  border-color: rgb(26 92 255 / var(--tw-border-opacity));
 }
 
 .border-b-theme-border {
@@ -1079,14 +1087,14 @@ video {
   background-color: rgb(224 226 227 / var(--tw-bg-opacity));
 }
 
-.bg-theme-table-selected {
-  --tw-bg-opacity: 1;
-  background-color: rgb(232 238 255 / var(--tw-bg-opacity));
-}
-
 .bg-theme-color-hover {
   --tw-bg-opacity: 1;
   background-color: rgb(234 247 255 / var(--tw-bg-opacity));
+}
+
+.bg-theme-table-selected {
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 238 255 / var(--tw-bg-opacity));
 }
 
 .fill-white {
@@ -1137,6 +1145,11 @@ video {
   padding-right: 0.75rem;
 }
 
+.px-\[11px\] {
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
 .px-\[7px\] {
   padding-left: 7px;
   padding-right: 7px;
@@ -1155,11 +1168,6 @@ video {
 .py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px;
-}
-
-.px-\[11px\] {
-  padding-left: 11px;
-  padding-right: 11px;
 }
 
 .py-\[4px\] {

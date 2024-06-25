@@ -46,7 +46,7 @@ export default {
     ModalOrder
   },
   mounted() {
-    this.orderStore.getOrders({ limit: 30 })
+    this.orderStore.getOrders({ limit: 10 })
       .catch(error => {
         let messageCode = error?.response?.data?.reason?.message_code
         this.$message.error("Lỗi lấy thông tin đơn hàng")

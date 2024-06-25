@@ -57,13 +57,13 @@
 
     <div class="order-content">
       <div class="order-content__left">
-        <OrderItems/>
+        <OrderItems :items="orderStore.editOrder.order_items || []"/>
         <div class="grid gap-3">
-          <OrderPayment class="col-span-1"/>
+          <OrderPayment :order="orderStore.editOrder" class="col-span-1"/>
         </div>
       </div>
       <div class="order-content__right">
-        <CustomerShipping />
+        <CustomerShipping :order="order" />
         <div class="order-note">
           <a-card size="small" title="Ghi chú">
             <a-textarea :rows="6" :maxlength="100" :value="orderStore.editOrder.note || 'Không có ghi chú'" :disabled="true"/>

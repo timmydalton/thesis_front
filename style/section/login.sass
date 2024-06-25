@@ -1,0 +1,44 @@
+.section-login-2
+  background-color: #F8FAFB
+  background-image: linear-gradient(#f0f0f0 1px, transparent 1px), linear-gradient(to right, #f0f0f0 1px, #F8FAFB 1px)
+  background-size: 20px 20px
+  &::after
+    content: ""
+    width: 50%
+    height: calc(100vh - 30px)
+    display: flex
+    align-items: center
+    justify-content: center
+    position: absolute
+    top: 15px
+    left: 15px
+    bottom: 15px
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/admin-html/assets/img/bg/2.jpg)
+    background-position: center
+    background-size: cover
+    background-blend-mode: overlay
+    z-index: 5
+    clip-path: polygon(2% 0%, 98% 0%, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0% 98%, 0% 2%)
+
+.cr-login-page
+  min-height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 8
+  position: relative
+  .login-form
+    margin: auto
+    background-color: #fff
+    border: 1px solid transparent
+    border-radius: 0
+    -webkit-box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1)
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1)
+    padding: 15px 30px 30px 30px
+    width: 350px
+
+main.sb-default
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  align-items: stretch

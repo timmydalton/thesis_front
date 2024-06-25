@@ -1,7 +1,7 @@
 <template>
-  <section class="section-product appear-animate">
+  <section class="section-product">
     <div class="container">
-      <div class="row">
+      <div class="row appear-animate">
         <div class="col-xxl-4 col-xl-5 col-md-6 col-12 mb-24">
           <div class="vehicle-detail-banner banner-content clearfix">
             <div class="banner-slider">
@@ -40,7 +40,7 @@
         <div class="col-xxl-8 col-xl-7 col-md-6 col-12 mb-24">
           <div class="cr-size-and-weight-contain">
             <h2 class="heading">{{ product.name }}</h2>
-            <p>{{ product.description || '' }}</p>
+            <p>{{ product.description || 'Sản phẩm chất liệu được chọn lọc, thương hiệu trẻ tới từ nhà bán hàng hàng đầu' }}</p>
           </div>
 
           <div class="cr-size-and-weight">
@@ -96,6 +96,33 @@
                 <button type="button" class="cr-button cr-shopping-bag" @click="addToCart">Add to cart</button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row appear-animate lazyload">
+        <div class="col-12">
+          <div class="cr-paking-delivery">
+            <a-tabs>
+              <a-tab-pane key="1" tab="Mô tả sản phẩm">
+                <div class="cr-tab-content">
+                  <div class="cr-description">
+                    <p>
+                      {{ product.description || "Sản phẩm chất liệu được chọn lọc, thương hiệu trẻ tới từ nhà bán hàng hàng đầu" }}
+                    </p>
+                  </div>
+
+                  <h4 class="heading">Chính sách vận chuyển</h4>
+
+                  <div class="cr-description">
+                    <p>Nội thành Hà Nội: Free ship</p>
+                    <p>Các tỉnh khác: 20.000₫ phí cod</p>
+                  </div>
+                </div>
+              </a-tab-pane>
+              <a-tab-pane key="2" tab="Thông số">
+              </a-tab-pane>
+            </a-tabs>
           </div>
         </div>
       </div>

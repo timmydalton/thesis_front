@@ -38,22 +38,13 @@ import { UserList } from 'vue-pancake-icons'
 import { useOrderStore } from "@/stores/order.js"
 
 export default {
-  setup() {
-    const orderStore = useOrderStore()
-
-    return {
-      orderStore
-    }
-  },
+  props: ["order"],
   components: {
     UserList
   },
   computed: {
-    order() {
-      return this.orderStore.editOrder
-    },
     shippingInfo() {
-      return this.order.shipping_address
+      return this.order.shipping_address || {}
     }
   }
 }

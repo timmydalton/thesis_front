@@ -56,9 +56,6 @@ export default {
   },
   props: ["item", "index"],
   computed: {
-    editOrder() {
-      return this.orderStore.editOrder
-    },
     image() {
       if ((this?.item?.variation_info?.images || []).length) {
         return this.item.variation_info.images[0]

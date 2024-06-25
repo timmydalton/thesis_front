@@ -65,16 +65,16 @@
                 <div class="cr-checkout-summary">
                   <div>
                     <span class="text-left">Tổng tiền hàng</span>
-                    <span class="text-right">{{ totalPrice }}₫</span>
+                    <span class="text-right">{{ formatNumber(totalPrice) }}₫</span>
                   </div>
                   <div>
                     <span class="text-left">Phí ship</span>
-                    <span class="text-right">{{ shippingFee }}₫</span>
+                    <span class="text-right">{{ formatNumber(shippingFee) }}₫</span>
                   </div>
 
                   <div class="cr-checkout-summary-total">
                     <span class="text-left">Tổng thanh toán</span>
-                    <span class="text-right">{{ totalPrice + shippingFee }}₫</span>
+                    <span class="text-right">{{ formatNumber(totalPrice + shippingFee) }}₫</span>
                   </div>
                 </div>
 
@@ -95,7 +95,10 @@
                           <div class="cr-pro-rating">
                             <svg v-for="i in 5" width="16" height="16" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path fill="#FCD53F" d="m18.7 4.627l2.247 4.31a2.27 2.27 0 0 0 1.686 1.189l4.746.65c2.538.35 3.522 3.479 1.645 5.219l-3.25 2.999a2.225 2.225 0 0 0-.683 2.04l.793 4.398c.441 2.45-2.108 4.36-4.345 3.24l-4.536-2.25a2.282 2.282 0 0 0-2.006 0l-4.536 2.25c-2.238 1.11-4.786-.79-4.345-3.24l.793-4.399c.14-.75-.12-1.52-.682-2.04l-3.251-2.998c-1.877-1.73-.893-4.87 1.645-5.22l4.746-.65a2.23 2.23 0 0 0 1.686-1.189l2.248-4.309c1.144-2.17 4.264-2.17 5.398 0"/></svg>
                           </div>
-                          <p class="cr-price"><span class="new-price">{{ item.retail_price }}₫</span> <span class="old-price">{{ item.original_price }}₫</span></p>
+                          <p class="cr-price">
+                            <span class="new-price">{{ formatNumber(item.retail_price) }}₫</span>
+                            <span class="old-price">{{ formatNumber(item.original_price) }}₫</span>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -149,7 +152,7 @@
               <div class="cr-sb-block-content">
                 <div class="cr-check-pay-img-inner">
                   <div class="cr-check-pay-img">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9q0sqA5NdwQUjBroTrgKxBchTW7cB40KjUQ&s" alt="payment">
+                    <img src="https://fininme.vn/wp-content/uploads/2022/11/logo-vi-vnpay.png" alt="payment">
                   </div>
                 </div>
               </div>
@@ -162,13 +165,16 @@
 </template>
 
 <script>
-import { getAttrString } from '@/composable/common.js'
+import { getAttrString, sha256 } from '@/composable/common.js'
 import { useCartStore } from '@/stores/cart'
 import { cloneDeep } from 'lodash'
 import { useApiget, useApipost } from '@/composable/fetch'
+import { formatNumber } from '@/composable/formatNumber.js'
+import moment from 'moment'
 import city from '@/common/city.json'
 
 const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
+const VITE_FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL
 
 export default {
   setup() {
@@ -176,7 +182,8 @@ export default {
 
     return {
       cart,
-      getAttrString
+      getAttrString,
+      formatNumber
     }
   },
   data() {
@@ -265,21 +272,33 @@ export default {
           console.log(res)
           if (res.status == 200) {
             const order = res.data.data.data
-            this.$router.push(`/order/${order.id}`)
+            // this.cart.changeItems([])
+            if (this.paymentMethod == 'cod') {
+              this.$router.push(`/order/${order.id}`)
+            } else {
+              const params = {
+                order_id: order.id,
+                order_description: `Thanhtoandonhang${order.display_id}`,
+                amount: order.invoice_value
+              }
+
+              useApipost(`${VITE_FRONTEND_URL}/create_payment_url`, null, params)
+              .then(ress => {
+                if (ress.data && ress.status == 200) {
+                  const url = ress.data.url
+
+                  window.open(url, '_self')
+                }
+              })
+            }
           }
         })
         .catch(err => {
           const data = err.response?.reason?.[0]
           if (data && data.message_code == 2003 && data.message == "") {
-            this.$notification.error({
-              message: "Thất bại",
-              description: "Mẫu mã xxx trong đơn hàng vượt quá số lượng tồn kho, hiện còn 0 sản phẩm",
-            });
+            this.$message.error('Mẫu mã xxx trong đơn hàng vượt quá số lượng tồn kho, hiện còn 0 sản phẩm');
           } else {
-            this.$notification.error({
-              message: "Thất bại",
-              description: "Tạo đơn thất bại, check log lỗi",
-            });
+            this.$message.error('Tạo đơn thất bại, check log lỗi');
           }
 
           console.log(err)
