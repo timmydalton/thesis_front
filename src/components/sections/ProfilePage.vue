@@ -134,7 +134,7 @@
                         {{ order.invoice_value }}
                       </th>
                       <th>
-                        {{ order.inserted_at.slice(0, 10) }}
+                        {{ formatDateTime(7, order.inserted_at) }}
                       </th>
                       <th style="padding: 5px 0">
                         <OrderStatus :item="order" :width="'auto'"/>
@@ -160,6 +160,8 @@ import { useUserStore } from '@/stores/user'
 import { useApipost, useApiget } from "@/composable/fetch.js"
 import OrderStatus from "@/components/admin-view/order/OrderStatus.vue"
 
+import { formatDateTime } from "@/composable/common"
+
 const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
 
 export default {
@@ -167,7 +169,8 @@ export default {
     const user = useUserStore()
 
     return {
-      user
+      user,
+      formatDateTime
     }
   },
   components: {

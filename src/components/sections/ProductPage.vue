@@ -208,6 +208,8 @@ export default {
       return this.variations.reduce((acc, cur) => {
         const fields = cur.fields || []
 
+        if (!cur.remain_quantity) return acc
+
         fields.forEach(field => {
           if (!acc[field.name]) acc[field.name] = []
           if (!acc[field.name].includes(field.value)) acc[field.name].push(field.value)

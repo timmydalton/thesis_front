@@ -38,3 +38,289 @@
         padding: 8px 40px
         font-weight: 700
         font-size: 13px
+
+.section-hero
+  padding-bottom: 70px
+
+.hero-banner
+  height: 600px
+  width: 100%
+  background-image: url(/banner.jpeg)
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: center
+  overflow: hidden
+  &::before
+    width: 50px
+    height: 50px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/2.png)
+    background-size: contain
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    top: 0px
+    left: 0px
+    z-index: 0
+    opacity: 0.5
+  &::after
+    width: 100px
+    height: 100px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/5.png)
+    background-size: contain
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    bottom: 0px
+    left: 0px
+    z-index: 0
+    animation: left-right 10s linear infinite
+    opacity: 0.5
+  .container
+    &::before
+      width: 80px
+      height: 80px
+      content: ""
+      background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/4.png)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+      position: absolute
+      z-index: 0
+      top: -15px
+      left: 500px
+      animation: rotate 10s linear infinite
+      opacity: 0.5
+    &::after
+      width: 100px
+      height: 100px
+      content: ""
+      background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/3.png)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+      position: absolute
+      bottom: -30px
+      right: 500px
+      z-index: 0
+      opacity: 0.5
+
+@keyframes rotate
+  0%
+    transform: rotate(0deg)
+  50%
+    transform: rotate(30deg)
+  100%
+    transform: rotate(0deg)
+
+@keyframes left-right
+  0%
+    left: 0px
+  50%
+    left: 50px
+    transform: rotate(30deg)
+  100%
+    left: 0px
+
+@media only screen and (max-width: 767px)
+  .hero-banner
+    height: 500px
+
+.cr-left-side-contain
+  max-width: 400px
+  height: 600px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  h5
+    margin-bottom: 20px
+    font-size: 20px
+    font-weight: 700
+    animation: fadeInUp 2s both 0.5s
+  h1
+    margin-bottom: 25px
+    font-size: 40px
+    font-weight: 800
+    line-height: 46px
+    color: #000
+    position: relative
+    animation: fadeInUp 2s both 0.9s
+  p
+    font-size: 15px
+    color: #777
+    animation: fadeInUp 2s both 1.6s
+  .cr-last-buttons
+    margin-top: 30px
+    display: flex
+    animation: fadeInUp 2s both 2s
+
+@keyframes fadeInUp
+  0%
+    opacity: 0
+    transform: translate3d(0, 100%, 0)
+  100%
+    opacity: 1
+    transform: none
+
+.section-categories
+  position: relative
+  padding-bottom: 70px
+  &::before
+    width: 50px
+    height: 50px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/6.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    top: 0
+    right: 50px
+    z-index: 0
+
+.cr-categories
+  ul.nav-tabs
+    display: flex
+    flex-wrap: wrap
+    padding-left: 0
+    margin-bottom: 0
+    list-style: none
+    li.nav-item
+      width: 100%
+      display: flex
+      justify-content: center
+      background-color: #f7f7f8
+      border-radius: 5px
+      border: 1px solid #e9e9e9
+      &:not(:last-child)
+        margin-bottom: 5px
+      .nav-link
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        font-weight: 500
+        font-size: 16px
+        background-color: inherit
+        padding: 18px 0
+        border: none
+        &.active, &:hover
+          color: #64b496
+
+.cr-side-categories
+  position: relative
+  overflow: hidden
+  border-radius: 5px
+  z-index: 5
+  height: 400px
+  &:hover::after
+    width: 100%
+    height: 100%
+    background-color: rgba(0, 0, 0, 0.3)
+    border-radius: 0
+    top: 0
+    left: 0
+  &::after
+    transition: all 0.3s ease-in-out
+    width: 200px
+    height: 200px
+    content: ""
+    background-color: rgba(0, 0, 0, 0.4)
+    border-radius: 50%
+    position: absolute
+    top: -100%
+    left: -100%
+    z-index: 0
+  .categories-contain
+    width: 100%
+    padding: 30px
+    position: absolute
+    bottom: 0px
+    left: 0px
+    z-index: 5
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2), transparent)
+    .categories-text
+      display: flex
+      justify-content: center
+      align-items: center
+      h5
+        margin-bottom: 12px
+        font-size: 22px
+        font-weight: bold
+        line-height: 1.2
+        color: #fff
+    .categories-button
+      display: flex
+      justify-content: center
+      align-items: center
+
+.section-home-product
+  padding-bottom: 0px
+  position: relative
+  &::before
+    width: 80px
+    height: 110px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/3.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    position: absolute
+    top: 270px
+    right: 20px
+    z-index: 0
+  &::after
+    width: 110px
+    height: 110px
+    content: ""
+    background-image: url(https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/shape/10.png)
+    background-size: 100%
+    background-position: center
+    background-repeat: no-repeat
+    -webkit-transform: scaleX(-1)
+    transform: scaleX(-1)
+    position: absolute
+    bottom: 100px
+    left: 0px
+    z-index: 0
+
+.cr-ice-cubes
+  max-height: 500px
+  overflow: hidden
+  position: relative
+  border-radius: 5px
+  img
+    width: 100%
+    border-radius: 5px
+  .cr-ice-cubes-contain
+    padding: 80px 20px 20px 20px
+    position: absolute
+    top: 0
+    left: 0
+    display: flex
+    flex-direction: column
+    flex-wrap: wrap
+    align-items: baseline
+    h4.title
+      margin-bottom: 5px
+      font-size: 28px
+      color: #ff9924
+      font-weight: 300
+      line-height: 1.2
+    h5.sub-title
+      margin-bottom: 2px
+      text-transform: uppercase
+      font-size: 26px
+      color: #f7e8aa
+      font-weight: 900
+      line-height: 1.2
+    span
+      font-size: 14px
+      color: var(--primary-v2)
+    a
+      transition: all 0.3s ease-in-out
+      margin-top: 15px
+      padding: 5px 15px
+      color: #fff
+      border-radius: 5px

@@ -1,5 +1,6 @@
 .section-product
   padding-top: 100px
+  padding-bottom: 100px
   
 .vehicle-detail-banner
   height: 100%
@@ -92,6 +93,9 @@
           border-radius: 5px
           cursor: pointer
           transition: 0.3s ease-in-out
+          &.disabled
+            background-color: #e5e5e5
+            pointer-events: none
         .active-color
           background-color: #64b496
           color: #fff

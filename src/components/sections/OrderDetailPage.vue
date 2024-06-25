@@ -9,6 +9,7 @@
             </div>
             <div class="cr-banner-sub-title">
               <p>Đơn hàng mã số: #{{ order.display_id }} </p>
+              <p class="flex items-center justify-center mt-2">Trạng thái: <OrderStatus class="ml-2" :item="order"/> </p>
             </div>
           </div>
         </div>

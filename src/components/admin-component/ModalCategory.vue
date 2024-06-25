@@ -27,8 +27,8 @@
       <div>
         <label>Ảnh danh mục</label>
         <div class="w-full">
-          <img v-if="image" class="w-full h-full object-contain" :src="image"/>
-          <div v-else>
+          <img v-if="image" class="w-full h-full object-contain mb-4" style="max-height: 300px" :src="image"/>
+          <div>
             <a-upload-dragger
               v-model:file-list="fileList"
               name="file"
@@ -144,6 +144,12 @@ export default {
       this.uploadStatus = 2
 
       const res = await axios.post(`${VITE_BACKEND_API_URL}/api/admin/content/b64`, { base64: base64 }, {})
+        // .then(res => {
+        //   if (res.status == 200 && res.data) {
+        //     console.log(res.data.data)
+        //     this.categoryStore.setEditCategoryField('image', res.data.data)
+        //   }
+        // })
         .finally(() => {
           this.uploadStatus = 1
         })
