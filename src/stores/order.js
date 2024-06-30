@@ -89,7 +89,7 @@ export const useOrderStore = defineStore("order", {
       this.orders.filter_options = omit(this.orders.filter_options, keys)
     },
     getOrders(payload, cb) {
-      if (!cb) this.loadingOrders = true
+      this.loadingOrders = true
       let params = pick(this.orders, ["term", "page", "limit", "status", "filter_options"])
       params = { ...params, ...payload }
 

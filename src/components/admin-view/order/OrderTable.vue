@@ -9,7 +9,7 @@
       :row-selection="{ selectedRowKeys: orderStore.selectedRowKeys, onChange: onSelectChange }"
       :customRow="customRow"
       :rowClassName="rowClassName"
-      :loading="{ spinning: orderStore.loadingOrders, indicator: indicatorLoadSpin }"
+      :loading="orderStore.loadingOrders"
       :rowKey="(record) => record.id"
       @resizeColumn="handleResizeColumn"
     >
@@ -134,18 +134,11 @@ import OrderStatus from "@/components/admin-view/order/OrderStatus.vue"
 export default {
   setup() {
     const orderStore = useOrderStore()
-
-    let indicatorLoadSpin = h(LoadingOutlined, {
-      style: {
-        fontSize: '30px',
-      },
-    })
     
     return {
       orderStore,
       formatDateTime,
-      formatNumber,
-      indicatorLoadSpin
+      formatNumber
     }
   },
   components: {
