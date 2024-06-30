@@ -131,6 +131,21 @@ export const useMainStore = defineStore('main', {
           }
         })
     },
+    getAllProductByKeyword(page = this.products.page, limit = this.products.limit, term = '') {
+      const url = `${VITE_BACKEND_API_URL}/api/store/products/search_product_name?page=${page}&limit=${limit}&term=${term}`
+
+      return useApiget(url)
+        .then(res => {
+          if (res.status == 200 && res.data.success == true) {
+            this.products = {
+              data: res.data.products,
+              limit: parseInt(res.data.limit),
+              page: parseInt(res.data.page),
+              total: parseInt(res.data.total_product)
+            }
+          }
+        })
+    },
     getCategories(payload, cb) {
       this.loadingCategories = true
       let params = pick(this.categories, ["term", "page", "limit"])

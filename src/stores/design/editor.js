@@ -24,7 +24,18 @@ export const useUIStore = defineStore('ui', {
     },
     sources: {},
     editingProductView: 0,
-    loadingAddToCart: false
+    loadingAddToCart: false,
+    listColorImg: [
+      {
+        name: 'Đen',
+        src: 'https://content.pancake.vn/web_content/fc/35/88/e4/83f6a1b3da3d6a88b40f4535d7a48e44ad9f9e9dd7732d81fb3fde86.png'
+      },
+      {
+        name: 'Trắng',
+        src: 'https://content.pancake.vn/2-24/2024/4/16/1ccb63d5abd7ddbb70c06333257de466286aa56d.jpg'
+      }
+    ],
+    selectedImgIdx: 0
   }),
   getters: {
     selectedElement(state) {
@@ -222,6 +233,9 @@ export const useUIStore = defineStore('ui', {
 
       this.loadingAddToCart = false
       return true
+    },
+    setSelectedImgIdx(value) {
+      this.selectedImgIdx = value
     }
   }
 })

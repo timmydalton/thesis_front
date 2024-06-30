@@ -7,18 +7,12 @@
             <a :href="'/home'" class="cr-logo">
               <img src="/logo.png" alt="logo" class="logo">
             </a>
-            <form class="cr-search">
-              <input class="search-input" type="text" placeholder="Tìm kiếm sản phẩm...">
-              <!-- <select class="form-select" aria-label="Default select example">
-                <option selected="">All Categories</option>
-                <option value="1">Mens</option>
-                <option value="2">Womens</option>
-                <option value="3">Electronics</option>
-              </select> -->
-              <a href="" class="search-btn">
+            <div class="cr-search">
+              <a-input class="search-input" v-model:value="searchTerm" @keyup="keyupSearch" type="text" placeholder="Tìm kiếm sản phẩm..."></a-input>
+              <a class="search-btn" @click="clickSearch">
                 <SearchOutlined/>
               </a>
-            </form>
+            </div>
             <div class="cr-right-bar">
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
@@ -165,9 +159,15 @@ export default {
     AdminProfileMenu,
     Cart
   },
+  mounted() {
+    const params = new URLSearchParams(window.location.href.split('?')?.[1] || '')
+
+    this.searchTerm = params.get('term')
+  },
   data() {
     return {
-      selectedCate: ''
+      selectedCate: '',
+      searchTerm: ''
     }
   },
   computed: {
@@ -228,6 +228,16 @@ export default {
       if (!text) text += user.username
 
       return text
+    },
+    keyupSearch(e) {
+      if (e.keyCode == 13) this.clickSearch()
+    },
+    clickSearch() {
+      if (!this.searchTerm) {
+        this.$message.error('Bạn chưa nhập từ khóa tìm kiếm!')
+        return
+      }
+      window.open(`/search?term=${this.searchTerm}`, '_self')
     }
   }
 }

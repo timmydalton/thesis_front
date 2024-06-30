@@ -8,6 +8,7 @@ import AdminLayout from  '@/components/layout/AdminLayout.vue'
 import Homepage from  '@/components/sections/Homepage.vue'
 import ProductPage from  '@/components/sections/ProductPage.vue'
 import CategoryPage from  '@/components/sections/CategoryPage.vue'
+import SearchPage from  '@/components/sections/SearchPage.vue'
 import DesignPage from  '@/components/sections/DesignPage.vue'
 import CheckoutPage from  '@/components/sections/CheckoutPage.vue'
 import CartPage from  '@/components/sections/CartPage.vue'
@@ -73,6 +74,11 @@ const router = createRouter({
           path: 'category/:category_id',
           name: 'category',
           component: CategoryPage,
+        },
+        {
+          path: 'search',
+          name: 'search',
+          component: SearchPage,
         },
         {
           path: 'product/:product_id',

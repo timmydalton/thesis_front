@@ -1,6 +1,6 @@
 <template>
   <section class="design-page">
-    <div class="main">
+    <div class="main container">
       <page-wrapper />
     </div>
   </section>

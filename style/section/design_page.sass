@@ -1,10 +1,11 @@
 .design-page
   height: 60vh
-  background: #F3F3F7
+  padding: 10px 0
   .main
     height: 100%
     overflow: hidden
     transform: translate3d(0,0,0)
+    border: 1px solid #eee
   #page-wrapper
     display: flex
     height: 100%
@@ -163,3 +164,68 @@
 
 .hidden
   display: none !important
+
+.trait--variation-title
+  background: #f8f8f8
+  padding: 6px 10px
+  font-weight: 600
+  font-size: 12px
+.trait--variation-color  
+  display: flex
+  gap: 10px
+  flex-wrap: wrap
+  padding: 12px 10px
+.trait--variation-color--item
+  width: 24px
+  height: 24px
+  border-radius: 50%
+  background: #111111
+  cursor: pointer
+.trait--variation-color--item.selected
+  border: 2px solid #29ab51
+  
+.trait--variation-attr
+  padding: 6px 10px
+  padding-bottom: 0
+  font-weight: 500
+  font-size: 12px
+
+.trait
+  .ant-input
+    border-radius: 0 !important
+    padding: 4px !important
+
+  .trait--variation-color
+    .ant-input-number-input
+      width: 45px !important
+    .ant-input-number-group-addon
+      padding: 0 6px !important
+
+.trait--variation-attr
+  padding: 10px
+
+.trait--variation-name
+  font-size: 12px
+  margin-bottom: 10px
+
+.trait--variation-values
+  flex-wrap: wrap
+  row-gap: 8px
+
+.trait--variation-value
+  border: 1px solid #c4c7c8
+  margin-right: 12px
+  cursor: pointer
+  height: 34px
+  padding: 0 15px
+  font-weight: 500
+  color: #333b4a
+  font-size: 14px
+  -webkit-user-select: none
+  -moz-user-select: none
+  user-select: none
+  display: flex
+  align-items: center
+  &.active
+    border-color: #1677ff
+    color: #1677ff

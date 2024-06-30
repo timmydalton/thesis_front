@@ -47,8 +47,17 @@ export default {
     variation() {
       return []
     },
+    listImg() {
+      return this.ui.listColorImg || []
+    },
+    selectedImg() {
+      return this.listImg[this.selectedImgIdx] || {}
+    },
+    selectedImgIdx() {
+      return this.ui.selectedImgIdx || 0
+    },
     src() {
-      return 'https://content.pancake.vn/web_content/fc/35/88/e4/83f6a1b3da3d6a88b40f4535d7a48e44ad9f9e9dd7732d81fb3fde86.png'
+      return this.selectedImg.src || 'https://content.pancake.vn/web_content/fc/35/88/e4/83f6a1b3da3d6a88b40f4535d7a48e44ad9f9e9dd7732d81fb3fde86.png'
     },
     editingView() {
       return this.ui.editingProductView || 0

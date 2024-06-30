@@ -1,5 +1,5 @@
 <script>
-// import VariationTrait from './traits/VariationTrait.vue'
+import VariationTrait from './traits/VariationTrait.vue'
 import LayersTrait from './traits/LayersTrait.vue'
 
 import { useUIStore } from '@/stores/design/editor.js'
@@ -13,7 +13,7 @@ export default {
     return { ui, trait }
   },
   components: {
-    // VariationTrait,
+    VariationTrait,
     LayersTrait
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
       </div>
     </div>
 
-    <!-- <VariationTrait/> -->
+    <VariationTrait/>
     <LayersTrait />
   </div>
 </template>
