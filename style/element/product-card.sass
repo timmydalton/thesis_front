@@ -53,6 +53,15 @@
   flex: 1
   display: flex
   flex-direction: column
+  .cr-star
+    margin-bottom: 12px
+    display: flex
+    justify-content: center
+    align-items: center
+    i
+      margin: 0 1px
+      font-size: 15px
+      color: #f5885f
   .cr-brand
     a
       transition: all 0.3s ease-in-out
@@ -84,3 +93,24 @@
       font-size: 13px
       text-decoration: line-through
       color: #7a7a7a
+
+.col-50.col-size
+  .cr-product-box
+    width: 50%
+    .cr-product-card
+      flex-direction: row
+      .cr-product-image
+        max-width: 150px
+      .cr-product-details
+        padding: 12px 12px 12px 24px
+        text-align: left
+        .cr-brand
+          a, .cr-star
+            justify-content: flex-start
+        a.title
+          justify-content: flex-start
+        .text
+          -webkit-line-clamp: 2
+          -webkit-box-orient: vertical
+          display: -webkit-box
+          overflow: hidden

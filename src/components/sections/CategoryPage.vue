@@ -1,27 +1,38 @@
 <template>
-  <section class="category-page appear-animate">
-    <div class="sect-item">
-      <div class="cate-info flex">
-        <div class="text mr-2">
-          Danh mục:
-        </div>
-        <div class="name">
-          {{ categoryName }}
+  <section class="category-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="mb-30 appear-animate">
+            <div class="cr-banner">
+              <h2>{{ categoryName == 'all' ? 'Tất cả sản phẩm' : categoryName }}</h2>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="products-container">
-        <ProductCard v-for="product in products" :product="product"/>
-      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="cr-shop-bredekamp">
+                <div class="center-content">
+                  <span>Hiển thị {{ products.length }} trên {{ productData.total }} sản phẩm tìm được!</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="paginate">
-        <a-pagination
-          @change="onChangePagination"
-          :total="mainStore.products?.total || 0"
-          :current="mainStore.products?.page || 1"
-          :pageSize="mainStore.products?.limit || 20"
-          class="flex justify-center p-2.5 pagination-dark-mode"
-        />
+          <div class="row col-50 mb-minus-24 col-size">
+            <ProductCard2 v-for="product in products" :product="product" class="col-lg-3 col-6 mb-4"/>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <a-pagination :total="productData.total || 0" :current="productData.page || 1"
+            :pageSize="productData.limit" :show-size-changer="false" class="p-2 flex justify-center custom-pagination"
+            @change="onChangePagination" />
+        </div>
       </div>
     </div>
   </section>
@@ -31,7 +42,7 @@
 import { useMainStore } from '@/stores/store'
 import { traversal } from '@/composable/common'
 
-import ProductCard from '@/components/element/ProductCard.vue'
+import ProductCard2 from '@/components/element/ProductCard2.vue'
 
 export default {
   setup() {
@@ -42,7 +53,7 @@ export default {
     }
   },
   components: {
-    ProductCard
+    ProductCard2
   },
   watch: {
     '$route.params.category_id': {
@@ -56,6 +67,9 @@ export default {
     }
   },
   computed: {
+    productData() {
+      return this.mainStore.products || {}
+    },
     products() {
       return this.mainStore.renderProducts
     },

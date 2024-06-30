@@ -1,0 +1,38 @@
+.ant-pagination
+  a
+    &:hover
+      color: var(--primary-v2) !important
+  .ant-pagination-jump-next, .ant-pagination-jump-prev
+    &:hover
+      .anticon
+        color: var(--primary-v2) !important
+  &-item
+    @apply rounded
+    &:hover
+      color: var(--primary-v2) !important
+    &-link
+      @apply rounded
+    &-active
+      @apply border-primary
+      a
+        color: var(--primary-v2)
+
+.ant-pagination-prev, .ant-pagination-next
+  .ant-pagination-item-link
+    background: var(--bg-page)
+    border-color: var(--bg-page)
+    color: var(--color-text-2)
+.ant-pagination-item
+  background: var(--bg-page)
+  border-color: var(--bg-page)
+  a
+    color: var(--color-text-2)
+.ant-pagination-item-active
+  border: 1px solid var(--primary-v2) !important
+  a
+    color: var(--primary-v2) !important
+.ant-pagination-options
+  .ant-select-selector
+    background: var(--bg-page)
+    border-color: var(--border-ui-2)
+    color: var(--color-text-2)

@@ -12,14 +12,24 @@
         <span v-else>&nbsp;</span>
       </div>
       <a :href="`/product/${product.id}`" class="title">{{product.name}}</a>
-      <p class="cr-price"><span class="new-price">{{ product.retail_price }}</span> <span class="old-price">{{ product.original_price }}</span></p>
+      <p class="cr-price">
+        <span class="new-price">{{ formatNumber(product.retail_price) }}₫</span>
+        <span class="old-price">{{ formatNumber(product.original_price) }}₫</span>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
 import { get } from 'lodash'
+import { formatNumber } from '@/composable/formatNumber.js'
+
 export default {
+  setup() {
+    return {
+      formatNumber
+    }
+  },
   props: {
     product: {
       type: Object,

@@ -2,6 +2,19 @@
   <section class="checkout-section appear-animate">
     <div class="container">
       <div class="row">
+        <div class="col-lg-12">
+          <div class="mb-6">
+            <div class="cr-banner">
+                <h2>Xác nhận đơn hàng</h2>
+            </div>
+            <div class="cr-banner-sub-title">
+              <p>Vui lòng hoàn thành một số thông tin để chúng tôi có thể gửi đơn hàng cho bạn. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="cr-checkout-leftside col-lg-8 col-md-12 m-t-991">
           <div class="cr-checkout-content">
             <div class="cr-checkout-inner">
@@ -263,6 +276,16 @@ export default {
       this.$router.push(path)
     },
     async submitOrder() {
+      if (['address', 'first_name', 'last_name', 'phone_number'].some(e => !this.orderData[e]) || !this.selectedCity) {
+        this.$message.error("Vui lòng điền đầy đủ thông tin nhé!")
+        return
+      }
+
+      if (!this.order_items.length && !this.custom_items.length) {
+        this.$message.error("Bạn chưa có sản phẩm nào trong giỏ hàng cả!")
+        return
+      }
+
       const order_items = this.items.map(item => {
         const variation_info = {
           id: item.id,

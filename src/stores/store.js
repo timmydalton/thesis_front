@@ -70,8 +70,9 @@ export const useMainStore = defineStore('main', {
           image: el.image ? el.image : getInfoVariations(el.variations, "image"),
           id: el.id,
           variations: el.variations,
-          // categories: (el.categories || []).map(el => el.name).join(', '),
+          categories: (el.categories || []).map(el => el.name).join(', '),
           quantity_variation: el.variations.length,
+          description: el.description,
           is_hidden: el.is_hidden
         }
       })
