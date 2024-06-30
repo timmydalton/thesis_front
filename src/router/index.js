@@ -138,9 +138,11 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
   const user = useUserStore()
-  user.fetchAccount()
+  await user.fetchAccount()
+
+  if (user.me?.role != 0 && to.matched.some(r => r.name == 'admin')) return '/'
 
   const mainStore = useMainStore()
   mainStore.getCategories()
