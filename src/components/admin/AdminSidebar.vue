@@ -8,9 +8,7 @@
         <div class="icon-wrapper w-full items-center justify-center mr-8">
           <!-- <LogoSmall v-if="general.minimizedSidebar"/>
           <LogoLight v-else/> -->
-          <span style="color: #000; font-size: 20px; font-weight: 700">
-            Admin
-          </span>
+          <img src="/logo.png" alt="logo" class="logo">
         </div>
         <div class="toggle-sidebar-btn flex items-center justify-center cursor-pointer" @click="toggleSidebar">
           <svg class="svg-theme-stroke" width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
