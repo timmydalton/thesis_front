@@ -9,7 +9,7 @@
                 <div class="main-info">
                   <div class="hero-container login-form">
                     <div class="form-logo">
-                      <img src="https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/logo/logo.png" alt="logo">
+                      <img src="/logo.png" alt="logo">
                     </div>
                     <form class="cr-content-form">
                       <div class="form-group">
@@ -61,7 +61,7 @@
         <div class="col-12">
           <div class="cr-login aos-init appear-animate">
             <div class="form-logo">
-              <img src="https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/logo/logo.png" alt="logo">
+              <img src="/logo.png" alt="logo">
             </div>
             <form class="cr-content-form">
               <div class="form-group">

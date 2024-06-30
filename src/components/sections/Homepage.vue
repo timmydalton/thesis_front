@@ -56,7 +56,7 @@
                       <a href="" @click="goSelectedCategory" class="cr-button">Mua ngay</a>
                     </div>
                   </div>
-                  <img :src="selectedCategory.image" alt="">
+                  <img class="w-full absolute" style="top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0)" :src="selectedCategory.image" alt="">
                 </div>
               </div>
             </div>

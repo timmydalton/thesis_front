@@ -14,6 +14,7 @@ import CartPage from  '@/components/sections/CartPage.vue'
 import ProfilePage from  '@/components/sections/ProfilePage.vue'
 import OrderDetailPage from  '@/components/sections/OrderDetailPage.vue'
 import TrackingPage from  '@/components/sections/TrackingPage.vue' 
+import PaymentResultPage from '@/components/sections/PaymentResultPage.vue'
 import Login from  '@/components/sections/Login.vue'
 import Register from  '@/components/sections/Register.vue'
 
@@ -126,6 +127,11 @@ const router = createRouter({
           path: 'tracking',
           name: 'tracking',
           component: TrackingPage
+        },
+        {
+          path: 'payment-result/:order_id',
+          name: 'payment_result',
+          component: PaymentResultPage
         },
       ]
     },

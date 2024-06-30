@@ -18,7 +18,7 @@
 
           <div class="ml-3">
             <div class="modal-order__title__status">
-              <div class="modal-order__title__status__label">
+              <div class="modal-order__title__status__label mr-2">
                 Trạng thái:
               </div>
               <OrderStatus :item="orderStore.editOrder" :width="'auto'"/>
@@ -64,9 +64,22 @@
       </div>
       <div class="order-content__right">
         <CustomerShipping :order="orderStore.editOrder" />
-        <div class="order-note">
+        <div class="order-note mt-2">
           <a-card size="small" title="Ghi chú">
             <a-textarea :rows="6" :maxlength="100" :value="orderStore.editOrder.note || 'Không có ghi chú'" :disabled="true"/>
+          </a-card>
+        </div>
+
+        <div class="order-action mt-2">
+          <a-card size="small" title="Cập nhật">
+            <div class="flex items-center">
+              <div class="title flex-1">
+                Trạng thái đơn:
+              </div>
+              <a-select :value="order.status" class="flex-1" @change="updateOrderStatus($event)">
+                <a-select-option v-for="item in getOrderStatus().slice(1)" :value="item.id">{{ item.text }}</a-select-option>
+              </a-select>
+            </div>
           </a-card>
         </div>
       </div>
@@ -134,6 +147,19 @@ export default {
     closeModal() {
       this.orderStore.setStateField("visibleModalOrder", false)
     },
+    updateOrderStatus(value) {
+      this.orderStore.updateOrder(this.order, { status: value })
+      .then(res => {
+        if (res.status == 200 && res.data.success) {
+          const order = res.data.order
+          this.orderStore.setEditOrder(order)
+
+          this.$message.success("Cập nhật trạng thái đơn thành công!")
+        } else {
+          this.$message.success("Cập nhật trạng thái đơn thất bại!")
+        }
+      })
+    }
   }
 }
 </script>

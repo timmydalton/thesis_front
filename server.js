@@ -50,7 +50,7 @@ async function createServer() {
         'paymentv2/vpcpay.html',
       ),
     )
-    var returnUrl = `http://localhost:5174/order/${req.body.order_id}`;
+    var returnUrl = `http://localhost:5174/payment-result/${req.body.order_id}`;
 
     var createDate = moment().format('yyyyMMDDHHmmss');
     var expireDate = moment().add(5, 'minutes').format('yyyyMMDDHHmmss')

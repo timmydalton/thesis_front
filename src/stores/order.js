@@ -160,6 +160,15 @@ export const useOrderStore = defineStore("order", {
           }, []);
           this.data_product_hot.sort((a, b) => b.quantity - a.quantity);
         })
+    },
+    updateOrder(order, attrs) {
+      const params = {
+        attrs,
+        order_id: order.id
+      }
+
+      const url = `${VITE_BACKEND_API_URL}/api/admin/orders/update_order`
+      return useApipost(url, null, params)
     }
   }
 })

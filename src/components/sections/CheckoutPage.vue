@@ -192,6 +192,7 @@ import { getAttrString, sha256 } from '@/composable/common.js'
 import { useCartStore } from '@/stores/cart'
 import { cloneDeep } from 'lodash'
 import { useApiget, useApipost } from '@/composable/fetch'
+import { useMainStore } from '@/stores/store'
 import { formatNumber } from '@/composable/formatNumber.js'
 import moment from 'moment'
 import city from '@/common/city.json'
@@ -202,11 +203,13 @@ const VITE_FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL
 export default {
   setup() {
     const cart = useCartStore()
+    const mainStore = useMainStore()
 
     return {
       cart,
       getAttrString,
-      formatNumber
+      formatNumber,
+      mainStore
     }
   },
   data() {
@@ -303,20 +306,14 @@ export default {
             if (this.paymentMethod == 'cod') {
               this.$router.push(`/order/${order.id}`)
             } else {
-              const params = {
-                order_id: order.id,
-                order_description: `Thanhtoandonhang${order.display_id}`,
-                amount: order.invoice_value
-              }
+              this.mainStore.getPaymentLink(order)
+                .then(ress => {
+                  if (ress.data && ress.status == 200) {
+                    const url = ress.data.url
 
-              useApipost(`${VITE_FRONTEND_URL}/create_payment_url`, null, params)
-              .then(ress => {
-                if (ress.data && ress.status == 200) {
-                  const url = ress.data.url
-
-                  window.open(url, '_self')
-                }
-              })
+                    window.open(url, '_self')
+                  }
+                })
             }
           }
         })

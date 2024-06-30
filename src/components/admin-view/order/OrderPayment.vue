@@ -18,7 +18,7 @@
         <div class="order-payment__item my-0 flex justify-between px-[11px] py-[4px]">
           <div class="flex items-center">
             <CarOutlined />
-            <div class="order-payment__item__title ml-2">Phí vận chuyển</div>
+            <div class="order-payment__item__title ml-2">Phí vận chuyển:</div>
           </div>
           <div class="flex items-center">
             {{formatNumber(order.shipping_fee)}}₫
@@ -28,7 +28,7 @@
         <div class="order-payment__item my-0 flex justify-between px-[11px] py-[4px]">
           <div class="flex items-center">
             <SwapOutlined />
-            <div class="order-payment__item__title ml-2">Chuyển khoản</div>
+            <div class="order-payment__item__title ml-2">Chuyển khoản:</div>
           </div>
           <div class="flex items-center">
             {{formatNumber(order.transfer_money)}}₫
@@ -38,18 +38,29 @@
 
       <div class="order-payment__item my-2 flex justify-between px-[11px] py-[4px]">
         <div class="flex items-center">
-          <div class="invoice__item__title font-medium">Tiền hàng</div>
+          <div class="invoice__item__title font-medium">Tiền hàng:</div>
         </div>
         <div class="flex items-center">
           {{formatNumber(order.invoice_value)}}₫
         </div>
       </div>
+
       <div class="order-payment__item my-2 flex justify-between px-[11px] py-[4px]">
         <div class="flex items-center">
-          <div class="invoice__item__title font-medium">Phương thức thanh toán</div>
+          <div class="invoice__item__title font-medium">Phương thức thanh toán:</div>
         </div>
         <div class="flex items-center">
           {{ order.payment_method ? 'VNPay' : 'Thanh toán khi nhận (COD)' }}
+        </div>
+      </div>
+
+      <div class="order-payment__item my-2 flex justify-between px-[11px] py-[4px]" v-if="order.payment_method == 1">
+        <div class="flex items-center">
+          <div class="invoice__item__title font-medium">Trạng thái thanh toán:</div>
+        </div>
+        <div class="flex items-center">
+          <span v-if="order.transfer_money" class="text-green">Đã thanh toán</span>
+          <span v-else class="text-danger">Chưa thanh toán</span>
         </div>
       </div>
 

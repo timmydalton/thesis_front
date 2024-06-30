@@ -21,10 +21,14 @@
           <div class="grid gap-3">
             <OrderPayment :order="order" class="col-span-1"/>
           </div>
+
+          <span class="cr-check-order-btn flex" style="margin-left: auto;" v-if="order.payment_method == 1 && !order.transfer_money">
+            <a class="cr-button mt-2" @click="paymentOrder">Tiếp tục thanh toán</a>
+          </span>
         </div>
         <div class="order-content__right">
           <CustomerShipping :order="order" />
-          <div class="order-note">
+          <div class="order-note mt-2">
             <a-card size="small" title="Ghi chú">
               <a-textarea :rows="6" :maxlength="100" :value="order.note || 'Không có ghi chú'" :disabled="true"/>
             </a-card>

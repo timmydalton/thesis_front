@@ -5,7 +5,7 @@
         <div class="col-lg-12">
           <div class="top-header">
             <a :href="'/home'" class="cr-logo">
-              <img src="https://maraviyainfotech.com/projects/carrot/carrot-v2/carrot-html/assets/img/logo/logo.png" alt="logo" class="logo">
+              <img src="/logo.png" alt="logo" class="logo">
             </a>
             <form class="cr-search">
               <input class="search-input" type="text" placeholder="Tìm kiếm sản phẩm...">

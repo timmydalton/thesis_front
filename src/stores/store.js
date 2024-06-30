@@ -147,5 +147,23 @@ export const useMainStore = defineStore('main', {
           this.loadingCategories = false
         })
     },
+    getPaymentLink(order) {
+      const params = {
+        order_id: order.id,
+        order_description: `Thanh toan don hang ${order.display_id}`,
+        amount: order.invoice_value
+      }
+      
+      return useApipost(`${VITE_FRONTEND_URL}/create_payment_url`, null, params)
+    },
+    orderPaymentSuccess(order_id) {
+      const params = {
+        order_id
+      }
+      
+      let url = `${VITE_BACKEND_API_URL}/api/store/order/payment_success`
+
+      return useApipost(url, null, params)
+    }
   }
 })
