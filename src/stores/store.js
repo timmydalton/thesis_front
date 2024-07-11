@@ -3,6 +3,7 @@ import { useApipost, useApiget } from "@/composable/fetch.js"
 import { pick } from 'lodash'
 
 const VITE_BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL
+const VITE_FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL
 
 export const useMainStore = defineStore('main', {
   state: () => ({

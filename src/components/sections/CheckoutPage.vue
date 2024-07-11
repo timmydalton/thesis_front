@@ -206,6 +206,7 @@ import { useCartStore } from '@/stores/cart'
 import { cloneDeep } from 'lodash'
 import { useApiget, useApipost } from '@/composable/fetch'
 import { useMainStore } from '@/stores/store'
+import { useUserStore } from '@/stores/user'
 import { formatNumber } from '@/composable/formatNumber.js'
 import moment from 'moment'
 import city from '@/common/city.json'
@@ -217,12 +218,14 @@ export default {
   setup() {
     const cart = useCartStore()
     const mainStore = useMainStore()
+    const user = useUserStore()
 
     return {
       cart,
       getAttrString,
       formatNumber,
-      mainStore
+      mainStore,
+      user
     }
   },
   data() {
@@ -232,6 +235,9 @@ export default {
     }
   },
   computed: {
+    me() {
+      return this.user.me || {}
+    },
     custom_items() {
       return this.cart.listCustomItems || []
     },
@@ -271,6 +277,14 @@ export default {
       return this.orderData.note || ''
     }
   },
+  mounted() {
+    if (this.me.username) {
+      this.setOrderData('first_name', this.me?.first_name || '')
+      this.setOrderData('last_name', this.me?.last_name || '')
+      this.setOrderData('address', this.me?.address || '')
+      this.setOrderData('phone_number', this.me?.phone_number || '')
+    }
+  },
   methods: {
     redirect(path) {
       this.$router.push(path)
@@ -281,7 +295,7 @@ export default {
         return
       }
 
-      if (!this.order_items.length && !this.custom_items.length) {
+      if (!this.items?.length && !this.custom_items?.length) {
         this.$message.error("Bạn chưa có sản phẩm nào trong giỏ hàng cả!")
         return
       }
