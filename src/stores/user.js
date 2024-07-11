@@ -21,12 +21,7 @@ export const useUserStore = defineStore('user', {
         this.setMe(account)
       })
     },
-    createAccount(username, password) {
-      const params = {
-        username,
-        password
-      }
-      
+    createAccount(params) {
       return useApipost(`${VITE_BACKEND_API_URL}/auth/signup`, null, params)
     },
     handleLogin(username, password) {

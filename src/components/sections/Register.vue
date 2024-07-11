@@ -179,7 +179,17 @@ export default {
 
       this.loading = true
 
-      this.user.createAccount(this.username, this.password)
+      const params = {
+        username: this.username,
+        password: this.password,
+        first_name: this.first_name,
+        last_name: this.last_name,
+        email: this.email,
+        phone_number: this.phone_number,
+        address: this.address
+      }
+
+      this.user.createAccount(params)
         .then(res => {
           if (res.status == 200) {
             this.handleLogin()
