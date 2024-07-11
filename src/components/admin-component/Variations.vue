@@ -161,14 +161,14 @@
               </template>
             </a-table-column>
 
-            <a-table-column title="Ẩn hiện" data-index="is_hidden" class="w-16 whitespace-nowrap">
+            <!-- <a-table-column title="Ẩn hiện" data-index="is_hidden" class="w-16 whitespace-nowrap">
               <template #default="{text, record, index, column}">
                 <a-switch
                   :checked="!record.is_hidden"
                   @change="checked => handleChangeIsHiddenVariation(index, !checked)"
                 />
               </template>
-            </a-table-column>
+            </a-table-column> -->
 
             <a-table-column title="" data-index="action" class="w-14">
               <template #default="{text, record, index}">

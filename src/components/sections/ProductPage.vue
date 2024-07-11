@@ -205,8 +205,16 @@ export default {
       return [FreeMode, Navigation, Thumbs]
     },
     availableAttr() {
+      const selected = Object.entries(this.selectedAttrs)
       return this.variations.reduce((acc, cur) => {
         const fields = cur.fields || []
+
+        if (
+          selected
+          && selected.some(([k, v]) =>
+            !!fields.find(f => f.name == k && f.value != v)
+          )
+        ) return acc
 
         if (!cur.remain_quantity) return acc
 
