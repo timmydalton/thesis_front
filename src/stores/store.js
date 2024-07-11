@@ -168,7 +168,7 @@ export const useMainStore = defineStore('main', {
       const params = {
         order_id: order.id,
         order_description: `Thanh toan don hang ${order.display_id}`,
-        amount: order.invoice_value
+        amount: order.invoice_value + order.shipping_fee
       }
       
       return useApipost(`${VITE_FRONTEND_URL}/create_payment_url`, null, params)
